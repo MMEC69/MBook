@@ -8,3 +8,14 @@ export const dateConverter =  (date : string) => {
     })
     return newFormat;
 }
+
+export const JSONFetch = async (type : string, path : string, body : object ) => {
+    const response = await fetch(path, {
+        method : type,
+        headers : {
+            "content-type" : "application/json"
+        },
+        body: JSON.stringify(body)
+    });
+    return response;
+}

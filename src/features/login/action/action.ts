@@ -43,7 +43,7 @@ export const login = async (prevState: any, formData: FormData) => {
 
     await createSession(testUser.id);
 
-    redirect("/home");
+    redirect("/home/111");
 }
 
 

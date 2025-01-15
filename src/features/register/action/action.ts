@@ -1,14 +1,30 @@
-"use server"
-import { redirect } from "next/navigation";
+"use server";
+
 import { z } from "zod";
 import { atLeastOneCapitalLetter, atLeastOneNumber, atLeastOneSimpleLetter, atLeastOneSpecialCharacter, passwordFullRegex } from "../meta/meta";
+import { dbConnection } from "@/lib/db_connections";
+import User from "@/lib/schema";
 
 const regSchema = z.object({
-    firstName : z.string({ message : "Invalid name" }).trim(),
-    lastName : z.string({ message : "Invalid name" }).trim(),
-    email :z.string().email({ message : "Invalid email" }).trim(),
-    birthday : z.string().date().trim(), //date validation message issue, refer it !!
-    gender : z.string({ message : "Invalid Gender" }).trim(),
+    firstName : z
+        .string()
+        .min(3, { message : "Invalid name" })
+        .trim(),
+    lastName : z
+        .string()
+        .min(3, { message : "Invalid name" })
+        .trim(),
+    email :z
+        .string()
+        .email({ message : "Invalid email" })
+        .trim(),
+    birthday : z
+        .string()
+        .date()
+        .trim(), //date validation message issue, refer it !!
+    gender : z
+        .string({ message : "Invalid Gender" })
+        .trim(),
     password: z
         .string()
         .min(8, { message : "Password must be at least 8 Characters" })
@@ -22,17 +38,14 @@ const regSchema = z.object({
 });
 
 export const register = async (prevState: any, formData: FormData) => {
+    
     console.log(formData);
     const result = regSchema.safeParse(Object.fromEntries(formData));
 
     //if validate failure
     if(!result.success){
         console.log(result.error.flatten().fieldErrors);
-        return {
-            errors: {
-                errors: result.error.flatten().fieldErrors,
-            }
-        }
+        return { errors: result.error.flatten().fieldErrors }
     }
 
     // otherwise
@@ -45,10 +58,10 @@ export const register = async (prevState: any, formData: FormData) => {
         password
     } = result.data;
 
-    //password encryption 
-
-    //send data to the mongo db
-
-    redirect("/login");
+    //send data to API for DB
+    await dbConnection();
+    const newUser = new User(result.data);
+    await newUser.save();
+    
 }
 
