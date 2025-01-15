@@ -27,7 +27,7 @@ export default function MobileMenu() {
         />
       </div>
       {isOpen && (
-        <div className="absolute left-0 top-12 w-full h-[calc(100vh-48px)] bg-white flex flex-col items-center justify-center gap-8 font-medium text-xl z-10">
+        <div className="absolute left-0 top-16 w-full h-[calc(100vh-64px)] bg-white flex flex-col items-center justify-center gap-8 font-medium text-xl z-10">
           <Link href="/">Sample</Link>
           <Link href="/">Sample</Link>
           <Link href="/">Sample</Link>
