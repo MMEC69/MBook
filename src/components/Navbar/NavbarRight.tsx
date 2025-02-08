@@ -5,7 +5,7 @@ import MobileMenu from "./MobileMenu";
 export default function NavbarRight() {
   return (
     <div className="flex flex-row items-center justify-end pr-3">
-      <div className="sm:hidden md:hidden lg:flex xl:flex flex-row items-center justify-end gap-3">
+      <div className="hidden lg:flex items-center justify-end gap-3">
         <Image
           src="/temp_placeholder.png"
           alt="place_holder"

@@ -6,7 +6,7 @@ import NavbarMiddle from "./NavbarMiddle";
 export default function Navbar() {
   return (
     <div>
-      <div className="h-16 flex flex-row justify-between bg-pink-500">
+      <div className="h-16 flex flex-row justify-between bg-pink-500 w-full">
         <NavbarLeft />
         <NavbarMiddle />
         <NavbarRight />

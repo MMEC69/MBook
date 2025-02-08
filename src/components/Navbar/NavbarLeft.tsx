@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import { CiSearch } from "react-icons/ci";
 
 export default function NavbarLeft() {
   return (
@@ -22,12 +23,7 @@ export default function NavbarLeft() {
           placeholder="Search..."
           className="outline-none p-0.5 rounded"
         />
-        <Image
-          src="/temp_placeholder.png"
-          alt="place_holder"
-          width={32}
-          height={32}
-        />
+        <CiSearch size={32} color="pink" />
       </div>
     </div>
   );

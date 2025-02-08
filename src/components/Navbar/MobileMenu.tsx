@@ -7,7 +7,7 @@ export default function MobileMenu() {
   return (
     <div>
       <div
-        className="sm:flex md:flex lg:hidden xl:hidden flex-col gap-[4.5px] cursor-pointer"
+        className="flex flex-col lg:hidden gap-[4.5px] cursor-pointer"
         onClick={() => setIsOpen((prev) => !prev)}
       >
         <div
