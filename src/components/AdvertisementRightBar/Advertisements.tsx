@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React from "react";
 import { BsThreeDots } from "react-icons/bs";
 import Advertisement from "./Advertisement";

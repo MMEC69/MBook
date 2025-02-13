@@ -1,11 +1,9 @@
 import React from "react";
-import ProfileCard from "./ProfileCard";
 import Option from "@/components/OptionsLeftBar/Option";
 
 export default function LeftBar() {
   return (
     <div className="flex flex-col gap-6">
-      <ProfileCard />
       <div className=" p-4 bg-white rounded-lg shadow-md text-sm text-gray-500 flex flex-col gap-2">
         <Option link="/" image="/posts2.png" alt="My posts" name="My posts" />
         <Option link="/" image="/chat.png" alt="Chat" name="Chat" />
