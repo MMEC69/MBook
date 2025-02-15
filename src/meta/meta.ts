@@ -1,9 +1,9 @@
 export const protectedRoutes = [
-    "/home",
+    "/home/111",
     "/chat",
     "/events",
     "/groups",
-    "/profile",
+    "/profile/111",
     "/reels",
     "/shop",
     "/settings",

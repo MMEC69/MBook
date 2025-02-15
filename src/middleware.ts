@@ -16,8 +16,12 @@ export default async function middelware (req: NextRequest){
     }
 
     if(isPublcRoutes && session?.userId){
-        return NextResponse.redirect(new URL("/home", req.nextUrl));
+        return NextResponse.redirect(new URL("/home/111", req.nextUrl));
     }
 
     return NextResponse.next();
 } 
+
+// export const config = {
+//     matcher: ["/home", "/profile"]
+// }

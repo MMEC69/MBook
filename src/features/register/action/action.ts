@@ -2,8 +2,8 @@
 
 import { z } from "zod";
 import { atLeastOneCapitalLetter, atLeastOneNumber, atLeastOneSimpleLetter, atLeastOneSpecialCharacter, passwordFullRegex } from "../meta/meta";
-import { dbConnection } from "@/lib/db_connections";
-import User from "@/lib/schema";
+import { postUser } from "@/lib/mongo/dbFunctions";
+import { redirect } from "next/navigation";
 
 const regSchema = z.object({
     firstName : z
@@ -39,7 +39,7 @@ const regSchema = z.object({
 
 export const register = async (prevState: any, formData: FormData) => {
     
-    console.log(formData);
+    // console.log(formData);
     const result = regSchema.safeParse(Object.fromEntries(formData));
 
     //if validate failure
@@ -49,19 +49,17 @@ export const register = async (prevState: any, formData: FormData) => {
     }
 
     // otherwise
-    const {
-        firstName,
-        lastName,
-        email,
-        birthday,
-        gender,
-        password
-    } = result.data;
+    // const {
+    //     firstName,
+    //     lastName,
+    //     email,
+    //     birthday,
+    //     gender,
+    //     password
+    // } = result.data;
 
     //send data to API for DB
-    await dbConnection();
-    const newUser = new User(result.data);
-    await newUser.save();
-    
+    await postUser(result.data);
+    redirect("/login");
 }
 
