@@ -2,7 +2,7 @@
 
 import { z } from "zod";
 import { atLeastOneCapitalLetter, atLeastOneNumber, atLeastOneSimpleLetter, atLeastOneSpecialCharacter, passwordFullRegex } from "../meta/meta";
-import { postUser } from "@/lib/mongo/dbFunctions";
+import { postUser } from "@/lib/mongo/functions/user";
 import { redirect } from "next/navigation";
 
 const regSchema = z.object({
@@ -59,7 +59,12 @@ export const register = async (prevState: any, formData: FormData) => {
     // } = result.data;
 
     //send data to API for DB
-    await postUser(result.data);
-    redirect("/login");
+    let res : any = await postUser(result.data, result.data.email);
+    if (res.updated === false) {
+        console.log(res.msg);
+    }else{
+        console.log(res.msg);
+        redirect("/login");
+    }
 }
 

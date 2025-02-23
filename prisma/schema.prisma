@@ -1,0 +1,223 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+//Testing
+model Test {
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  desc        String?
+  number      Int
+  isPublished Boolean
+}
+
+//General Application 
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  firstName String
+  lastName  String
+  userName  String?
+  email     String   @unique
+  birthday  String
+  gender    String
+  password  String
+  avatar    String?
+  cover     String?
+  desc      String?
+  lives     String?
+  education String[]
+  works     String[]
+  love      String?
+  links     String[]
+  friends   String[]
+  blocks    String[]
+  groups    String[]
+  privacy   String?
+  phone     String?
+}
+
+model Post {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  desc       String?
+  createdAt  DateTime @default(now())
+  modifiedAt DateTime @updatedAt
+  tag        String[]
+  location   String?
+  privacy    String?
+  user       String
+  type       String?
+  img        String[]
+  video      String[]
+}
+
+model Comment {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  desc       String
+  createdAt  DateTime @default(now())
+  modifiedAt DateTime @updatedAt
+  tag        String[]
+  privacy    String?
+  post       String?
+  story      String?
+  user       String
+  comment    String?
+}
+
+model React {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt DateTime @default(now())
+  post      String?
+  user      String
+  comment   String?
+  story     String?
+}
+
+model Shared {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  post       String
+  createdAt  DateTime @default(now())
+  privacy    String?
+  tag        String[]
+  modifiedAt DateTime @updatedAt
+  desc       String?
+  user       String
+}
+
+model FriendRequests {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  requestor String
+  receiver  String
+  createdAt DateTime @default(now())
+}
+
+model Story {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  desc      String?
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+  tag       String[]
+  privacy   String?
+  location  String?
+  user      String
+  img       String?
+  video     String?
+}
+
+//Suggestions 
+model PostSuggest {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  user       String   @unique
+  posts      String[]
+  createdAt  DateTime @default(now())
+  modifiedAt DateTime @updatedAt
+}
+
+model FriendSuggest {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  user       String   @unique
+  friends    String[]
+  createdAt  DateTime @default(now())
+  modifiedAt DateTime @updatedAt
+}
+
+//Algorithm
+model FriendSuggestionAlgorithmDataDoc {
+  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
+  user               String   @unique
+  friends            String[]
+  mutualFriends      String[]
+  commonRelatedUsers String[]
+  groupMembers       String[]
+  interestedUsers    String[]
+}
+
+model PostSuggestionAlgorithmDataDoc {
+  id                 String   @id @default(auto()) @map("_id") @db.ObjectId
+  user               String   @unique
+  interestedUsers    String[]
+  friends            String[]
+  mututalFriends     String[]
+  commonRelatedUsers String[]
+  groupMembers       String[]
+  groups             String[]
+  interestedTypes    String[]
+}
+
+model ProfileClicksRec {
+  id                         String                    @id @default(auto()) @map("_id") @db.ObjectId
+  user                       String
+  target                     String
+  createdAt                  DateTime                  @default(now())
+  interestAlgorithmDataDoc   interestAlgorithmDataDoc? @relation(fields: [interestAlgorithmDataDocId], references: [id])
+  interestAlgorithmDataDocId String?                   @db.ObjectId
+}
+
+model CommentRec {
+  id                         String                    @id @default(auto()) @map("_id") @db.ObjectId
+  user                       String
+  target                     String
+  post                       String?
+  comment                    String?
+  createdAt                  DateTime                  @default(now())
+  interestAlgorithmDataDoc   interestAlgorithmDataDoc? @relation(fields: [interestAlgorithmDataDocId], references: [id])
+  interestAlgorithmDataDocId String?                   @db.ObjectId
+}
+
+model ReactRec {
+  id                         String                    @id @default(auto()) @map("_id") @db.ObjectId
+  user                       String
+  target                     String
+  post                       String?
+  comment                    String?
+  createdAt                  DateTime                  @default(now())
+  interestAlgorithmDataDoc   interestAlgorithmDataDoc? @relation(fields: [interestAlgorithmDataDocId], references: [id])
+  interestAlgorithmDataDocId String?                   @db.ObjectId
+}
+
+model DownloadRec {
+  id                         String                    @id @default(auto()) @map("_id") @db.ObjectId
+  user                       String
+  target                     String
+  post                       String?
+  createdAt                  DateTime                  @default(now())
+  interestAlgorithmDataDoc   interestAlgorithmDataDoc? @relation(fields: [interestAlgorithmDataDocId], references: [id])
+  interestAlgorithmDataDocId String?                   @db.ObjectId
+}
+
+model TimeSpentRec {
+  id                         String                    @id @default(auto()) @map("_id") @db.ObjectId
+  user                       String
+  isProfile                  Boolean
+  isPost                     Boolean
+  isChat                     Boolean
+  post                       String?
+  createdAt                  DateTime                  @default(now())
+  interestAlgorithmDataDoc   interestAlgorithmDataDoc? @relation(fields: [interestAlgorithmDataDocId], references: [id])
+  interestAlgorithmDataDocId String?                   @db.ObjectId
+}
+
+model interestAlgorithmDataDoc {
+  id               String             @id @default(auto()) @map("_id") @db.ObjectId
+  user             String             @unique
+  target           String
+  isFriend         Boolean
+  isMutual         Boolean
+  isStranger       Boolean
+  isOtherRelated   Boolean
+  profileClicksRec ProfileClicksRec[]
+  reactsRec        ReactRec[]
+  commentRec       CommentRec[]
+  timeSpentRec     TimeSpentRec[]
+  downloadRec      DownloadRec[]
+}

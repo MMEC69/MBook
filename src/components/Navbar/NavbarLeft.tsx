@@ -11,17 +11,12 @@ export default function NavbarLeft() {
         width={16}
         height={16}
       /> */}
-      <Image
-        src="/temp_placeholder.png"
-        alt="place_holder"
-        width={32}
-        height={32}
-      />
+      <Image src="/logo.png" alt="place_holder" width={32} height={32} />
       <div className="flex flex-row justify-between items-center gap-1 bg-white h-8 rounded p-1">
         <input
           type="text"
           placeholder="Search..."
-          className="outline-none p-0.5 rounded"
+          className="outline-none p-0.5 rounded cursor-pointer"
         />
         <CiSearch size={32} color="pink" />
       </div>

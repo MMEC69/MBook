@@ -1,8 +1,9 @@
 "use server"
 
-import { z } from "zod";
+import { object, z } from "zod";
 import { createSession, deleteSession } from "../lib/session";
 import { redirect } from "next/navigation";
+import { getUser } from "@/lib/mongo/functions/user";
 
 // take items from database and aplly to here 
 const testUser = {
@@ -31,19 +32,25 @@ export const login = async (prevState: any, formData: FormData) => {
 
     
     const {email, password} = result.data;
-    
-    // Simulate checking from a db
-    if (email !== testUser.email || password !== testUser.password){
+
+    // find whether the user is in db
+    const res = await getUser(email);
+    if (!res) {
         return {
             errors: {
                 email: ["Invalid email or password"],
             },
         };
     }
-
-    await createSession(testUser.id);
-
-    redirect("/home/111");
+    if (email !== res.email || password !== res.password){
+        return {
+            errors: {
+                email: ["Invalid email or password"],
+            },
+        };
+    }
+    await createSession(res._id);
+    redirect(`/home/${res._id}`);
 }
 
 
