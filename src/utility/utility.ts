@@ -1,3 +1,6 @@
+import { cookies } from "next/headers";
+import { decrypt } from "@/features/login/lib/session";
+
 export const sleep = async (seconds : number) => {
     return new Promise((resolve) => setTimeout(resolve, seconds*1000));
 }
@@ -18,4 +21,11 @@ export const JSONFetch = async (type : string, path : string, body : object ) =>
         body: JSON.stringify(body)
     });
     return response;
+}
+
+export const fetchSession = async () => {
+    const cookie = (await cookies()).get("session")?.value;
+    const session = await decrypt(cookie);
+    let user = session?.userId;
+    return user;
 }

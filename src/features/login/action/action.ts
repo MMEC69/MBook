@@ -4,6 +4,8 @@ import { object, z } from "zod";
 import { createSession, deleteSession } from "../lib/session";
 import { redirect } from "next/navigation";
 import { getUser } from "@/lib/mongo/functions/user";
+import { DiAws } from "react-icons/di";
+import prisma from "@/lib/prisma/client";
 
 // take items from database and aplly to here 
 const testUser = {
@@ -34,7 +36,13 @@ export const login = async (prevState: any, formData: FormData) => {
     const {email, password} = result.data;
 
     // find whether the user is in db
-    const res = await getUser(email);
+    // const res = await getUser(email);
+
+    const res = await prisma.user.findUnique({
+        where : {
+            email: email
+        }
+    })
     if (!res) {
         return {
             errors: {
@@ -49,8 +57,8 @@ export const login = async (prevState: any, formData: FormData) => {
             },
         };
     }
-    await createSession(res._id);
-    redirect(`/home/${res._id}`);
+    await createSession(res.id);
+    redirect(`/home/${res.id}`);
 }
 
 

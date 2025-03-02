@@ -2,8 +2,8 @@
 
 import { z } from "zod";
 import { atLeastOneCapitalLetter, atLeastOneNumber, atLeastOneSimpleLetter, atLeastOneSpecialCharacter, passwordFullRegex } from "../meta/meta";
-import { postUser } from "@/lib/mongo/functions/user";
 import { redirect } from "next/navigation";
+import prisma from "@/lib/prisma/client";
 
 const regSchema = z.object({
     firstName : z
@@ -58,13 +58,25 @@ export const register = async (prevState: any, formData: FormData) => {
     //     password
     // } = result.data;
 
-    //send data to API for DB
-    let res : any = await postUser(result.data, result.data.email);
-    if (res.updated === false) {
-        console.log(res.msg);
-    }else{
-        console.log(res.msg);
-        redirect("/login");
+    //send data to API for DB - pure mongodb
+    // let res : any = await postUser(result.data, result.data.email);
+    // if (res.updated === false) {
+    //     console.log(res.msg);
+    // }else{
+    //     console.log(res.msg);
+    //     redirect("/login");
+    // }
+
+    // send data to DB via prisma
+    try {
+        const res = await prisma.user.create({
+            data: result.data
+        }); 
+        console.log(res);
+    } catch (error) {
+        console.log("Error: Unable to create a user");
+        return;
     }
+    redirect("/login"); 
 }
 

@@ -10,16 +10,14 @@ generator client {
 
 datasource db {
   provider = "mongodb"
-  url      = env("DATABASE_URL")
+  url      = env("DATABASE_URL_ATLAS")
 }
 
 //Testing
-model Test {
-  id          String  @id @default(auto()) @map("_id") @db.ObjectId
-  name        String
-  desc        String?
-  number      Int
-  isPublished Boolean
+model Temp {
+  id   String @id @default(auto()) @map("_id") @db.ObjectId
+  user String
+  desc String
 }
 
 //General Application 
@@ -45,6 +43,7 @@ model User {
   groups    String[]
   privacy   String?
   phone     String?
+  createdAt DateTime @default(now())
 }
 
 model Post {
@@ -53,10 +52,10 @@ model Post {
   createdAt  DateTime @default(now())
   modifiedAt DateTime @updatedAt
   tag        String[]
-  location   String?
+  location   String[]
   privacy    String?
   user       String
-  type       String?
+  type       String[]
   img        String[]
   video      String[]
 }
@@ -112,6 +111,19 @@ model Story {
   user      String
   img       String?
   video     String?
+}
+
+model Reports {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  desc      String?
+  type      String
+  createdAt DateTime @default(now())
+  reporter  String
+  suspect   String
+  comment   String?
+  post      String?
+  user      String?
+  story     String?
 }
 
 //Suggestions 

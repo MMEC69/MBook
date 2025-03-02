@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import Options from "./Options";
+import { testAction } from "./action/action";
 
 export default function AddPost() {
   return (
@@ -17,11 +18,13 @@ export default function AddPost() {
       {/* Post */}
       <div className="flex-1">
         {/* Text input */}
-        <div className="flex gap-4">
+        <form action={testAction} className="flex gap-4">
           <textarea
             placeholder="What's on your mind ?"
             className="bg-slate-100 rounded-lg flex-1 p-2 outline-[0.5px] outline-pink-400"
+            name="desc"
           ></textarea>
+
           <Image
             src={"/emojiSelector.png"}
             alt="Profile Image Placeholder"
@@ -29,7 +32,8 @@ export default function AddPost() {
             width={20}
             height={20}
           />
-        </div>
+          <button>Send</button>
+        </form>
 
         {/* Post options */}
         <div className="flex items-center gap-4 mt-4 text-gray-400 flex-wrap">
