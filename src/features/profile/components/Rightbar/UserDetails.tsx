@@ -6,8 +6,12 @@ import { IoIosSchool } from "react-icons/io";
 import { RiHeartsFill } from "react-icons/ri";
 import { IoMdLink } from "react-icons/io";
 import { FaCalendarAlt } from "react-icons/fa";
+import { fetchUserDetails } from "./action/action";
 
-export default function UserDetails({ userId }: { userId: string }) {
+export default async function UserDetails({ userId }: { userId: string }) {
+  // const userId = (await fetchSession()) as string;
+  const posts: any = await fetchUserDetails(userId);
+  if (!posts) return null;
   return (
     <div className="p-4 bg-white rounded-lg shadow-md text-sm gap-4 flex flex-col">
       {/* Top */}

@@ -1,8 +1,12 @@
 import React from "react";
 import Link from "next/link";
 import Contact from "./Contact";
+import { fetchSession } from "@/utility/utility";
+import { fetchContacts } from "./action/action";
 
-export default function Contacts() {
+export default async function Contacts() {
+  const userId = (await fetchSession()) as string;
+  const contacts: any = await fetchContacts(userId);
   return (
     <div className="p-4 bg-white rounded-lg shadow-md text-sm gap-4 flex flex-col">
       {/* Top */}

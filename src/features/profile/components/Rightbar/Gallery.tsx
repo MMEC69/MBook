@@ -1,8 +1,13 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { fetchSession } from "@/utility/utility";
+import { fetchPhotos } from "./action/action";
 
-export default function Gallery({ userId }: { userId: string }) {
+export default async function Gallery({ userId }: { userId: string }) {
+  // const userId_ = (await fetchSession()) as string;
+  const photos: any = await fetchPhotos(userId);
+  if (!photos) return null;
   return (
     <div className="p-4 bg-white rounded-lg shadow-md text-sm gap-4 flex flex-col">
       {/* Top */}

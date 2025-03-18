@@ -3,7 +3,7 @@ import React from "react";
 import { BsThreeDots } from "react-icons/bs";
 import Interactions from "./Interactions";
 import Comments from "./Comments";
-export default function Post() {
+export default function Post(props: any) {
   return (
     <div className="flex flex-col gap-4">
       {/* User */}

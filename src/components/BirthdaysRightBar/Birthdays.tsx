@@ -2,8 +2,12 @@ import Link from "next/link";
 import React from "react";
 import Birthday from "./Birthday";
 import Image from "next/image";
+import { fetchSession } from "@/utility/utility";
+import { fetchBirthdays } from "./action/action";
 
-export default function Birthdays() {
+export default async function Birthdays() {
+  const userId = (await fetchSession()) as string;
+  const posts: any = await fetchBirthdays(userId);
   return (
     <div className="p-4 bg-white rounded-lg shadow-md text-sm gap-4 flex flex-col">
       {/* Top */}
