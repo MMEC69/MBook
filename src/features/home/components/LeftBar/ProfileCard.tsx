@@ -2,6 +2,8 @@ import { fetchSession } from "@/utility/utility";
 import Image from "next/image";
 import React from "react";
 import { fetchUserInfo } from "./action/action";
+import { redirect } from "next/navigation";
+import MyProfileButton from "./Buttons";
 
 export default async function ProfileCard() {
   const userId = (await fetchSession()) as string;
@@ -56,9 +58,7 @@ export default async function ProfileCard() {
             {user.friends.length} Friends
           </span>
         </div>
-        <button className="bg-pink-300 text-white text-xs rounded-md p-2">
-          My Profile
-        </button>
+        <MyProfileButton userId={userId} />
       </div>
     </div>
   );

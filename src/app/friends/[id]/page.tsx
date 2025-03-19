@@ -1,5 +1,10 @@
+import Friends from "@/features/friends/page_components/Friends";
 import React from "react";
 
-export default function Friends() {
-  return <div>Friends</div>;
+export default function page() {
+  return (
+    <div>
+      <Friends />
+    </div>
+  );
 }
