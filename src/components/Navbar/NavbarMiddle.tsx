@@ -16,9 +16,24 @@ export default function NavbarMiddle({ userId }: any) {
         className=" cursor-pointer"
         onClick={() => redirect(`/home/${userId}`)}
       />
-      <FaVideo size={32} color="#fff" className=" cursor-pointer" />
-      <TiGroup size={32} color="#fff" className=" cursor-pointer" />
-      <FaStore size={32} color="#fff" className=" cursor-pointer" />
+      <FaVideo
+        size={32}
+        color="#fff"
+        className=" cursor-pointer"
+        onClick={() => redirect(`/videos/${userId}`)}
+      />
+      <TiGroup
+        size={32}
+        color="#fff"
+        className=" cursor-pointer"
+        onClick={() => redirect(`/groups/${userId}`)}
+      />
+      <FaStore
+        size={32}
+        color="#fff"
+        className=" cursor-pointer"
+        onClick={() => redirect(`/store/${userId}`)}
+      />
     </div>
   );
 }
