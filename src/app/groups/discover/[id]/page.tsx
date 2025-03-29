@@ -1,10 +1,10 @@
-import GroupsDiscover from "@/features/groups/page_components/GroupsDiscover";
+import Groups from "@/features/groups/page_components/Groups";
 import React from "react";
 
 export default function page() {
   return (
     <div>
-      <GroupsDiscover />
+      <Groups type="groupsDiscover" />
     </div>
   );
 }

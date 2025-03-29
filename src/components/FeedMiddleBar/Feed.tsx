@@ -12,15 +12,15 @@ export default async function Feed() {
       {/* {posts.map((post: any) => {
         return <Post props />;
       })} */}
-      <Post props />;
-      <Post props />;
-      <Post props />;
-      <Post props />;
-      <Post props />;
-      <Post props />;
-      <Post props />;
-      <Post props />;
-      <Post props />;
+      <Post props />
+      <Post props />
+      <Post props />
+      <Post props />
+      <Post props />
+      <Post props />
+      <Post props />
+      <Post props />
+      <Post props />
     </div>
   );
 }

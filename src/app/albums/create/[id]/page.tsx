@@ -1,10 +1,10 @@
-import AlbumsCreate from "@/features/albums/page_components/AlbumsCreate";
+import Albums from "@/features/albums/page_components/Albums";
 import React from "react";
 
 export default function page() {
   return (
     <div>
-      <AlbumsCreate />
+      <Albums type="albumsCreate" />
     </div>
   );
 }

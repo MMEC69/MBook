@@ -1,10 +1,10 @@
-import AlbumsSearch from "@/features/albums/page_components/AlbumsSearch";
+import Albums from "@/features/albums/page_components/Albums";
 import React from "react";
 
 export default function page() {
   return (
     <div>
-      <AlbumsSearch />
+      <Albums type="albumsSearch" />
     </div>
   );
 }

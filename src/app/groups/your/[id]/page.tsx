@@ -1,10 +1,10 @@
-import GroupsYour from "@/features/groups/page_components/GroupsYour";
+import Groups from "@/features/groups/page_components/Groups";
 import React from "react";
 
 export default function page() {
   return (
     <div>
-      <GroupsYour />
+      <Groups type="groupsYour" />
     </div>
   );
 }

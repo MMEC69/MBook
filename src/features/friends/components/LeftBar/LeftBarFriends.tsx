@@ -9,37 +9,37 @@ export default async function LeftBarFriends() {
       <div className=" p-4 bg-white rounded-lg shadow-md text-sm text-gray-500 flex flex-col gap-2">
         <Option
           link={`/friends/lists/${userId}`}
-          image="/posts2.png"
+          image="/friends.png"
           alt="Friend Lists"
           name="Friend Lists"
         />
         <Option
           link={`/friends/requests/received/${userId}`}
-          image="/posts2.png"
+          image="/person.png"
           alt="Received Requests"
           name="Received Requests"
         />
         <Option
           link={`/friends/requests/sent/${userId}`}
-          image="/posts2.png"
+          image="/impatient.png"
           alt="Sent Requests"
           name="Sent Requests"
         />
         <Option
           link={`/friends/suggestions/${userId}`}
-          image="/posts2.png"
+          image="/social-interaction.png"
           alt="Suggestions"
           name="Suggestions"
         />
         <Option
           link={`/friends/all/${userId}`}
-          image="/posts2.png"
+          image="/friends.png"
           alt="All Friends"
           name="All Friends"
         />
         <Option
           link={`/friends/birthdays/${userId}`}
-          image="/posts2.png"
+          image="/cake2.png"
           alt="Birthdays"
           name="Birthdays"
         />

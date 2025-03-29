@@ -46,6 +46,24 @@ model User {
   createdAt DateTime @default(now())
 }
 
+model Group {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  groupname String
+  owner     String
+  admin     String[]
+  avatar    String?
+  cover     String?
+  desc      String?
+  lives     String?
+  links     String[]
+  memebers  String[]
+  blocks    String[]
+  privacy   String?
+  phone     String?
+  email     String?
+  createdAt DateTime @default(now())
+}
+
 model Post {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
   desc       String?

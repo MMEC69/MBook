@@ -1,10 +1,10 @@
-import FriendsLists from "@/features/friends/page_components/FriendsLists";
+import Friends from "@/features/friends/page_components/Friends";
 import React from "react";
 
 export default function page() {
   return (
     <div>
-      <FriendsLists />
+      <Friends type="friendLists" />
     </div>
   );
 }

@@ -1,10 +1,10 @@
-import AlbumsGallery from "@/features/albums/page_components/AlbumsGallery";
+import Albums from "@/features/albums/page_components/Albums";
 import React from "react";
 
 export default function page() {
   return (
     <div>
-      <AlbumsGallery />
+      <Albums type="albumsGallery" />
     </div>
   );
 }

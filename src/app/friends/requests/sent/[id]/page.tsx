@@ -1,10 +1,10 @@
-import FriendRequestsSent from "@/features/friends/page_components/FriendRequestsSent";
+import Friends from "@/features/friends/page_components/Friends";
 import React from "react";
 
 export default function page() {
   return (
     <div>
-      <FriendRequestsSent />
+      <Friends type="firendRequestsSent" />
     </div>
   );
 }

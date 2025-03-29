@@ -1,10 +1,10 @@
-import FriendsAll from "@/features/friends/page_components/FriendsAll";
+import Friends from "@/features/friends/page_components/Friends";
 import React from "react";
 
 export default function page() {
   return (
     <div>
-      <FriendsAll />
+      <Friends type="all" />
     </div>
   );
 }
