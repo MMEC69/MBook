@@ -4,7 +4,7 @@ import React from "react";
 export default function page() {
   return (
     <div>
-      <Settings type="settings" />
+      <Settings type="settingsBlock" />
     </div>
   );
 }

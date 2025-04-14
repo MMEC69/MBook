@@ -6,7 +6,7 @@ export default function Comments() {
   return (
     <div>
       {/* Write */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center">
         <Image
           src={"/pexels-jonathanborba-2917373.jpg"}
           width={32}
@@ -14,11 +14,11 @@ export default function Comments() {
           alt="Profile Image"
           className="w-8 h-8 rounded-full"
         />
-        <div className="flex-1 flex items-center justify-between bg-slate-100 rounded-xl text-sm px-6 py-2 w-full">
+        <div className="flex-1 flex items-center justify-between bg-slate-100 rounded-xl text-sm px-6 py-2 w-full gap-2">
           <input
             type="text"
             placeholder="Write a comment..."
-            className="bg-transparent outline-none flex-1"
+            className="bg-white p-2 rounded-lg outline-none flex-1"
           />
           <Image
             src={"/emojiSelector.png"}

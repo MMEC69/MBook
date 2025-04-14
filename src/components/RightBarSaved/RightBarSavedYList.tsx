@@ -1,7 +1,6 @@
 import React from "react";
 import Post from "../FeedMiddleBar/Post";
 import Collection from "./Collection";
-import RightBarCreateForm from "./RightBarCreateForm";
 
 export default function RightBarSavedYList({
   type,
