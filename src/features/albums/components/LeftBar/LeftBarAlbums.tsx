@@ -9,25 +9,25 @@ export default async function LeftBarAlbums() {
       <div className=" p-4 bg-white rounded-lg shadow-md text-sm text-gray-500 flex flex-col gap-2">
         <Option
           link={`/albums/gallery/${userId}`}
-          image="/posts2.png"
+          image="/album.png"
           alt="Gallery"
           name="Gallery"
         />
         <Option
           link={`/albums/your/${userId}`}
-          image="/posts2.png"
+          image="/photo-gallery.png"
           alt="Your Albums"
           name="Your Albums"
         />
         <Option
           link={`/albums/your/photos/${userId}`}
-          image="/posts2.png"
+          image="/gallery.png"
           alt="Your Photos"
           name="Your Photos"
         />
         <Option
           link={`/albums/your/videos/${userId}`}
-          image="/posts2.png"
+          image="/addVideo.png"
           alt="Your Videos"
           name="Your Videos"
         />
@@ -39,7 +39,7 @@ export default async function LeftBarAlbums() {
         />
         <Option
           link={`/albums/create/${userId}`}
-          image="/posts2.png"
+          image="/gallery (2).png"
           alt="Create Album"
           name="Create Album"
         />

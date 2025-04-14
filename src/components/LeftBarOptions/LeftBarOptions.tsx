@@ -30,24 +30,24 @@ export default async function LeftBarOptions() {
         alt="Groups"
         name="Groups"
       />
-      <Option
+      {/* <Option
         link={`/store/${userId}`}
         image="/store.png"
         alt="Store"
         name="Store"
-      />
-      <Option
+      /> */}
+      {/* <Option
         link={`/events/${userId}`}
         image="/events.png"
         alt="Events"
         name="Events"
-      />
-      <Option
+      /> */}
+      {/* <Option
         link={`/activity/${userId}`}
         image="/activity.png"
         alt="Activity"
         name="Activity"
-      />
+      /> */}
       <Option
         link={`/albums/${userId}`}
         image="/album.png"
@@ -66,12 +66,12 @@ export default async function LeftBarOptions() {
         alt="Reels"
         name="Reels"
       />
-      <Option
+      {/* <Option
         link={`/news/${userId}`}
         image="/news.png"
         alt="News"
         name="News"
-      />
+      /> */}
       <Option
         link={`/saved/${userId}`}
         image="/save.png"

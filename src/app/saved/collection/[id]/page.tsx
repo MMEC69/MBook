@@ -1,10 +1,10 @@
-import SavedCollectionList from "@/features/saved/page_components/SavedCollectionList";
+import Saved from "@/features/saved/page_components/Saved";
 import React from "react";
 
 export default function page() {
   return (
     <div>
-      <SavedCollectionList />
+      <Saved type="savedCollection" />
     </div>
   );
 }

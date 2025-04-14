@@ -4,7 +4,7 @@ import React from "react";
 export default function page() {
   return (
     <div>
-      <Saved type="savedCollectionSearch" />
+      <Saved type="savedCreate" />
     </div>
   );
 }

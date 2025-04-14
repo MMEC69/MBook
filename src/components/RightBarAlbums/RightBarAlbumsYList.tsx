@@ -40,18 +40,24 @@ export default function RightBarAlbumsYList({
             </>
           )}
           {type === "albumsYourPhotos" && (
-            <>
+            <div className="flex flex-wrap gap-7">
               <Photo />
               <Photo />
               <Photo />
-            </>
+              <Photo />
+              <Photo />
+              <Photo />
+              <Photo />
+              <Photo />
+              <Photo />
+            </div>
           )}
           {type === "albumsYourVideos" && (
-            <>
+            <div className="flex flex-wrap gap-7 justify-center">
               <Video />
               <Video />
               <Video />
-            </>
+            </div>
           )}
           {type === "albumsYourPosts" && (
             <>

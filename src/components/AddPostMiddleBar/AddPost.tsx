@@ -2,18 +2,23 @@ import Image from "next/image";
 import React from "react";
 import Options from "./Options";
 import { testAction } from "./action/action";
+import Link from "next/link";
+import { fetchSession } from "@/utility/utility";
 
-export default function AddPost() {
+export default async function AddPost() {
+  const userId = (await fetchSession()) as string;
   return (
     <div className="p-4 bg-white rounded-lg flex gap-4 justify-between text-sm shadow-md">
       {/* Avatar */}
-      <Image
-        src={"/pexels-jonathanborba-2917373.jpg"}
-        alt="Profile Image Placeholder"
-        className="size-12 object-cover rounded-full"
-        width={48}
-        height={48}
-      />
+      <Link href={`/profile/${userId}`}>
+        <Image
+          src={"/pexels-jonathanborba-2917373.jpg"}
+          alt="Profile Image Placeholder"
+          className="size-12 object-cover rounded-full hover:opacity-90"
+          width={48}
+          height={48}
+        />
+      </Link>
 
       {/* Post */}
       <div className="flex-1">
@@ -32,7 +37,9 @@ export default function AddPost() {
             width={20}
             height={20}
           />
-          <button>Send</button>
+          <button className=" p-2 bg-slate-300 rounded-lg text-slate-500 hover:text-slate-100">
+            Send
+          </button>
         </form>
 
         {/* Post options */}

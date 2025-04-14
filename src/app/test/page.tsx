@@ -11,7 +11,7 @@ export default function page() {
       <Navbar />
       {/* <ProfileDropDownMenu /> */}
       {/* <NotificationDropDown /> */}
-      <GroupDropDown />
+      {/* <GroupDropDown /> */}
     </div>
   );
 }

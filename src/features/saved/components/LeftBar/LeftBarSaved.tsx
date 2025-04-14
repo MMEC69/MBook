@@ -9,15 +9,21 @@ export default async function LeftBarSaved() {
       <div className=" p-4 bg-white rounded-lg shadow-md text-sm text-gray-500 flex flex-col gap-2">
         <Option
           link={`/saved/all/${userId}`}
-          image="/posts2.png"
+          image="/save.png"
           alt="All"
           name="All"
         />
         <Option
           link={`/saved/collection/${userId}`}
-          image="/posts2.png"
+          image="/list.png"
           alt="Collection List"
           name="Collection List"
+        />
+        <Option
+          link={`/saved/create/${userId}`}
+          image="/save (1).png"
+          alt="Create Collection"
+          name="Create Collection"
         />
       </div>
     </div>

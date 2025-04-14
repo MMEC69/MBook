@@ -28,12 +28,12 @@ export default function NavbarMiddle({ userId }: any) {
         className=" cursor-pointer"
         onClick={() => redirect(`/groups/${userId}`)}
       />
-      <FaStore
+      {/* <FaStore
         size={32}
         color="#fff"
         className=" cursor-pointer"
         onClick={() => redirect(`/store/${userId}`)}
-      />
+      /> */}
     </div>
   );
 }
