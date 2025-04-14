@@ -13,19 +13,19 @@ export default function NavbarMiddle({ userId }: any) {
       <FaHome
         size={32}
         color="#fff"
-        className=" cursor-pointer"
+        className=" cursor-pointer hover:bg-pink-300 rounded-lg"
         onClick={() => redirect(`/home/${userId}`)}
       />
       <FaVideo
         size={32}
         color="#fff"
-        className=" cursor-pointer"
+        className=" cursor-pointer hover:bg-pink-300 rounded-lg"
         onClick={() => redirect(`/videos/${userId}`)}
       />
       <TiGroup
         size={32}
         color="#fff"
-        className=" cursor-pointer"
+        className=" cursor-pointer hover:bg-pink-300 rounded-lg"
         onClick={() => redirect(`/groups/${userId}`)}
       />
       {/* <FaStore

@@ -1,5 +1,6 @@
 import React from "react";
 import RightBarSettingsBlockWindow from "./RightBarSettingsBlockWindow";
+import RightBarSettingsPostWindow from "./RightBarSettingsPostWindow";
 
 export default function RightBarSettingsYList({
   type,
@@ -17,25 +18,25 @@ export default function RightBarSettingsYList({
 
       <div className="p-4 bg-white rounded-lg shadow-md overflow-x-scroll text-xs overflow-y-hidden scrollbar-hide">
         <div className="flex flex-col gap-10 ">
-          <RightBarSettingsBlockWindow
+          <RightBarSettingsPostWindow
             image=""
             alt="Profile Image"
             name="Eronne Cooray"
             button1={btn1}
           />
-          <RightBarSettingsBlockWindow
+          <RightBarSettingsPostWindow
             image=""
             alt="Profile Image"
             name="Eronne Cooray"
             button1={btn1}
           />
-          <RightBarSettingsBlockWindow
+          <RightBarSettingsPostWindow
             image=""
             alt="Profile Image"
             name="Eronne Cooray"
             button1={btn1}
           />
-          <RightBarSettingsBlockWindow
+          <RightBarSettingsPostWindow
             image=""
             alt="Profile Image"
             name="Eronne Cooray"

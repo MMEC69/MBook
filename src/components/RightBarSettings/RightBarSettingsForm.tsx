@@ -51,10 +51,10 @@ export default function RightBarSettingForm({ fType }: { fType: string }) {
         </div>
 
         <div className="flex flex-row gap-3 justify-end">
-          <button className="bg-red-400 p-3 pl-5 pr-5 rounded-lg hover:cursor-pointer hover:bg-red-300">
+          <button className="bg-red-400 p-2 pl-3 pr-3 rounded-lg hover:cursor-pointer hover:bg-red-300">
             Cancel
           </button>
-          <button className="bg-green-400 p-3 pl-5 pr-5 rounded-lg hover:cursor-pointer hover:bg-green-300">
+          <button className="bg-green-400 p-1 pl-3 pr-3 rounded-lg hover:cursor-pointer hover:bg-green-300">
             Confirm
           </button>
         </div>
