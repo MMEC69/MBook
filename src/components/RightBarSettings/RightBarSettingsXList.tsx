@@ -1,6 +1,6 @@
 import React from "react";
 import RightBarSettingsBlockWindow from "./RightBarSettingsBlockWindow";
-import Link from "next/link";
+import { RightBarEmptyBlockList } from "./RightBarEmpty";
 
 export default function RightBarSettingsXList({
   topic,
@@ -19,7 +19,8 @@ export default function RightBarSettingsXList({
 
       <div className="p-4 bg-white rounded-lg shadow-md overflow-x-scroll text-xs overflow-y-hidden scrollbar-hide">
         <div className="flex flex-row gap-3 w-max ">
-          <RightBarSettingsBlockWindow
+          <RightBarEmptyBlockList />
+          {/* <RightBarSettingsBlockWindow
             image=""
             alt="Profile Image"
             name="Eronne Cooray"
@@ -42,7 +43,7 @@ export default function RightBarSettingsXList({
             alt="Profile Image"
             name="Eronne Cooray"
             button1={btn1}
-          />
+          /> */}
         </div>
       </div>
     </div>
