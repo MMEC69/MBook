@@ -1,12 +1,21 @@
 import Navbar from "@/components/Navbar/Navbar";
 import React from "react";
 import Content from "../components/Content/Content";
+import { User } from "@prisma/client";
 
-export default function Settings({ type }: { type: string }) {
+export default function Settings({
+  type,
+  userId,
+  user,
+}: {
+  type: string;
+  userId: string;
+  user: User;
+}) {
   return (
     <div>
       <Navbar />
-      <Content type={type} />
+      <Content type={type} userId={userId} user={user} />
     </div>
   );
 }

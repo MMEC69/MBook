@@ -5,8 +5,13 @@ import MiddleBar from "@/features/profile/components/MiddleBar/MiddleBar";
 import { fetchSession } from "@/utility/utility";
 import React from "react";
 
-export default async function RightBar({ type }: { type: string }) {
-  const userId = (await fetchSession()) as string;
+export default async function RightBar({
+  type,
+  userId,
+}: {
+  type: string;
+  userId: string;
+}) {
   return (
     <div className="flex flex-col gap-6 pl-2 pr-2">
       {type === "settings" && (
@@ -25,12 +30,20 @@ export default async function RightBar({ type }: { type: string }) {
       )}
       {type === "settingsBlock" && (
         <>
-          <RightBarSettingsXList topic="Block List" type={type} />
-          <MiddleBar />
+          <RightBarSettingsXList
+            topic="Block List"
+            type={type}
+            userId={userId}
+          />
+          {/* <MiddleBar /> */}
         </>
       )}
       {type === "settingsPosts" && (
-        <RightBarSettingsYList type={type} topic="Posts Privacy" />
+        <RightBarSettingsYList
+          type={type}
+          topic="Posts Privacy"
+          userId={userId}
+        />
       )}
     </div>
   );

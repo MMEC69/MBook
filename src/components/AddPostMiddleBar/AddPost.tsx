@@ -3,16 +3,20 @@ import React from "react";
 import Options from "./Options";
 import { testAction } from "./action/action";
 import Link from "next/link";
-import { fetchSession } from "@/utility/utility";
+import { fetchSession, getDefaultAvatar } from "@/utility/utility";
+import { fetchUserInfo } from "@/features/home/components/LeftBar/action/action";
 
 export default async function AddPost() {
   const userId = (await fetchSession()) as string;
+  const user = await fetchUserInfo(userId);
+  let defaultUserAvatar: string = getDefaultAvatar(user?.gender);
+  if (!user) return null;
   return (
     <div className="p-4 bg-white rounded-lg flex gap-4 justify-between text-sm shadow-md">
       {/* Avatar */}
       <Link href={`/profile/${userId}`}>
         <Image
-          src={"/pexels-jonathanborba-2917373.jpg"}
+          src={user.avatar || defaultUserAvatar}
           alt="Profile Image Placeholder"
           className="size-12 object-cover rounded-full hover:opacity-90"
           width={48}

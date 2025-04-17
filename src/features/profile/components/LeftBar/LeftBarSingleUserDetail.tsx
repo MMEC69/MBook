@@ -12,7 +12,7 @@ export default function LeftBarSingleUserDetail({
     <div className="flex items-center gap-4 p-2 rounded-lg ">
       {type === "desc" && (
         <div className="flex justify-start  w-full">
-          <span className=" text-sm ">"This is a simple description"</span>
+          <span className=" text-sm ">{detail}</span>
         </div>
       )}
       {type === "email" && (
@@ -24,7 +24,7 @@ export default function LeftBarSingleUserDetail({
             height={20}
             className=""
           />
-          <span>sample@gmail.com</span>
+          <span>{detail}</span>
         </>
       )}
       {type === "phone" && (
@@ -36,7 +36,7 @@ export default function LeftBarSingleUserDetail({
             height={20}
             className=""
           />
-          <span>73 456 8999</span>
+          <span>{detail}</span>
         </>
       )}
       {type === "lives" && (
@@ -48,7 +48,7 @@ export default function LeftBarSingleUserDetail({
             height={20}
             className=""
           />
-          <span>No 09, Phill road, Colombo.</span>
+          <span>{detail}</span>
         </>
       )}
       {type === "birthday" && (
@@ -60,7 +60,7 @@ export default function LeftBarSingleUserDetail({
             height={20}
             className=""
           />
-          <span>23 12 2000</span>
+          <span>{detail}</span>
         </>
       )}
       {type === "education" && (
@@ -73,7 +73,7 @@ export default function LeftBarSingleUserDetail({
             height={20}
             className=""
           />
-          <span>23 12 2000</span>
+          <span>{detail}</span>
         </>
       )}
       {type === "gender" && (
@@ -85,7 +85,7 @@ export default function LeftBarSingleUserDetail({
             height={20}
             className=""
           />
-          <span>Female</span>
+          <span>{detail}</span>
         </>
       )}
       {type === "love" && (
@@ -97,7 +97,7 @@ export default function LeftBarSingleUserDetail({
             height={20}
             className=""
           />
-          <span>in love with username</span>
+          <span>in love with {detail}</span>
         </>
       )}
 
@@ -111,7 +111,20 @@ export default function LeftBarSingleUserDetail({
             height={20}
             className=""
           />
-          <span>www.sample.com</span>
+          <span>{detail}</span>
+        </>
+      )}
+      {type === "createdAt" && (
+        // add an array here
+        <>
+          <Image
+            src={`/joined.png`}
+            alt="sample"
+            width={20}
+            height={20}
+            className=""
+          />
+          <span className="">Joined {detail}</span>
         </>
       )}
     </div>

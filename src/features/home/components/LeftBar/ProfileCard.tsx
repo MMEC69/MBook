@@ -1,13 +1,13 @@
-import { fetchSession } from "@/utility/utility";
+import { fetchSession, getDefaultAvatar } from "@/utility/utility";
 import Image from "next/image";
 import React from "react";
 import { fetchUserInfo } from "./action/action";
-import { redirect } from "next/navigation";
 import MyProfileButton from "./Buttons";
 
 export default async function ProfileCard() {
   const userId = (await fetchSession()) as string;
   const user = await fetchUserInfo(userId);
+  let defaultUserAvatar: string = getDefaultAvatar(user?.gender);
   if (!user) return null;
   return (
     <div className=" p-4 bg-white rounded-lg shadow-md text-sm flex flex-col gap-6">
@@ -19,7 +19,7 @@ export default async function ProfileCard() {
           className=" rounded-md object-cover"
         />
         <Image
-          src={user.avatar || "/love-9347917_1280.jpg"}
+          src={user.avatar || defaultUserAvatar}
           alt="Profile Photo"
           width={48}
           height={48}

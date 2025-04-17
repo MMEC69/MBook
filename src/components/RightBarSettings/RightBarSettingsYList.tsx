@@ -5,9 +5,11 @@ import RightBarSettingsPostWindow from "./RightBarSettingsPostWindow";
 export default function RightBarSettingsYList({
   type,
   topic,
+  userId,
 }: {
   type: string;
   topic: string;
+  userId: string;
 }) {
   let btn1 = "function";
   return (

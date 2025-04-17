@@ -46,6 +46,13 @@ model User {
   createdAt DateTime @default(now())
 }
 
+model Block {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  user      String
+  blocker   String
+  createdAt DateTime @default(now())
+}
+
 model Group {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   groupname String

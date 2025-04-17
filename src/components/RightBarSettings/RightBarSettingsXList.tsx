@@ -1,13 +1,15 @@
 import React from "react";
 import RightBarSettingsBlockWindow from "./RightBarSettingsBlockWindow";
-import { RightBarEmptyBlockList } from "./RightBarEmpty";
+import RightBarEmpty from "../RightBar/RightBarEmpty";
 
 export default function RightBarSettingsXList({
   topic,
   type,
+  userId,
 }: {
   topic: string;
   type: string;
+  userId: string;
 }) {
   let btn1 = "Unblock";
 
@@ -19,7 +21,10 @@ export default function RightBarSettingsXList({
 
       <div className="p-4 bg-white rounded-lg shadow-md overflow-x-scroll text-xs overflow-y-hidden scrollbar-hide">
         <div className="flex flex-row gap-3 w-max ">
-          <RightBarEmptyBlockList />
+          <RightBarEmpty
+            msg="No one is Blocked yet, want to discover new friends"
+            link={`/friends/${userId}`}
+          />
           {/* <RightBarSettingsBlockWindow
             image=""
             alt="Profile Image"

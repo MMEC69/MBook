@@ -1,15 +1,17 @@
-import { fetchSession } from "@/utility/utility";
+import { getDefaultAvatar } from "@/utility/utility";
 import Image from "next/image";
 import React from "react";
-import { fetchProfileIntroInfo } from "./action/action";
 
-export default async function ProfileIntro() {
-  //change userID depending on the profile
-  const userId = (await fetchSession()) as string;
-
-  const profileIntroInfo: any = await fetchProfileIntroInfo(userId);
-
-  if (!profileIntroInfo) return null;
+export default function ProfileIntro({
+  user,
+  numberOfPosts,
+}: {
+  user: any;
+  numberOfPosts: number;
+}) {
+  let defaultUserAvatar: string = getDefaultAvatar(user?.gender);
+  console.log(user.gender);
+  if (!user) return null;
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -21,7 +23,7 @@ export default async function ProfileIntro() {
           className=" object-cover rounded-md"
         />
         <Image
-          src={"/cat-4558651_1280.jpg"}
+          src={user.avatar || defaultUserAvatar}
           alt="Profile photo"
           width={128}
           height={128}
@@ -31,15 +33,19 @@ export default async function ProfileIntro() {
 
       <div className=" flex items-center gap-12 w-full h-16 justify-between px-2">
         <h1 className=" text-2xl font-medium ml-40">
-          {profileIntroInfo.firstName + " " + profileIntroInfo.lastName}
+          {user.firstName + " " + user.lastName}
         </h1>
         <div className=" flex gap-4 justify-between">
           <div className=" flex items-center gap-1">
-            <span className=" font-bold">{profileIntroInfo.posts}</span>
-            <span className="text-sm">Posts</span>
+            <span className=" font-bold">
+              {numberOfPosts === 0 ? "no" : numberOfPosts}
+            </span>
+            <span className="text-sm">
+              {numberOfPosts === 1 ? "Post" : "Posts"}
+            </span>
           </div>
           <div className=" flex items-center gap-1">
-            <span className="font-bold">{profileIntroInfo.friends}</span>
+            <span className="font-bold">{user.friends.length}</span>
             <span className="text-sm">Friends</span>
           </div>
         </div>

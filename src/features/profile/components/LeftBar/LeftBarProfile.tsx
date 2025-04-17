@@ -1,26 +1,21 @@
-import { fetchSession } from "@/utility/utility";
 import React from "react";
 import LeftBarSingleUserDetail from "./LeftBarSingleUserDetail";
 import Link from "next/link";
+import { fullDateConverter } from "@/utility/utility";
 
-export default async function LeftBarProfile() {
-  const userId = (await fetchSession()) as string;
-  let user = {
-    desc: "This is a sample description",
-    email: "sample@gmail.com",
-    phone: "71 456 2000",
-    lives: "No 09, sample road, Ratmalana",
-    birthday: "This is a sample description",
-    education: "This is a sample description",
-    gender: "This is a sample description",
-    love: "This is a sample description",
-    links: "This is a sample description",
-  };
+export default async function LeftBarProfile({ user }: { user: any }) {
+  user.desc = "This is a sample description";
+  user.email = "sample@gmail.com";
+  user.phone = "71 456 2000";
+  user.lives = "No 09, sample road, Ratmalana";
+  user.birthday = "This is a sample description";
+  user.education = "This is a sample description";
+  user.links = "This is a sample description";
 
   return (
     <div className=" p-4 bg-white rounded-lg shadow-md text-sm text-gray-500 flex flex-col gap-2">
       <div className="flex justify-between">
-        <span className="text-xl">Eronne's Info</span>
+        <span className="text-xl">{user.firstName}'s Info</span>
         <Link href="/" className="text-pink-600 text-xs">
           See all
         </Link>
@@ -48,6 +43,12 @@ export default async function LeftBarProfile() {
       {user?.love && <LeftBarSingleUserDetail detail={user.love} type="love" />}
       {user?.links && (
         <LeftBarSingleUserDetail detail={user.links} type="links" />
+      )}
+      {user?.createdAt && (
+        <LeftBarSingleUserDetail
+          detail={fullDateConverter(user.createdAt)}
+          type="createdAt"
+        />
       )}
     </div>
   );
