@@ -1,6 +1,12 @@
 import RightBarFriendRequestsXList from "@/components/RightBarFriends/RightBarFriendRequestsXList";
 import MiddleBar from "@/features/profile/components/MiddleBar/MiddleBar";
-import { fetchSuggestedUsers } from "@/utility/utility";
+import {
+  fetchFriends,
+  fetchPeopleYouMayKnow,
+  fetchReceivedRequests,
+  fetchSentRequests,
+  fetchSuggestedUsers,
+} from "@/utility/utility";
 import React from "react";
 
 export default async function RightBar({
@@ -11,6 +17,11 @@ export default async function RightBar({
   userId: string;
 }) {
   const suggestedUsers = await fetchSuggestedUsers();
+  const peopleYouMayKnow = await fetchPeopleYouMayKnow();
+  const allFriends = await fetchFriends(userId);
+  const sentRequests = await fetchSentRequests(userId);
+  const receivedRequests = await fetchReceivedRequests(userId);
+
   return (
     <div className="flex flex-col gap-6 pl-2 pr-2">
       {option === "home" && (
@@ -20,12 +31,14 @@ export default async function RightBar({
             type="accepting"
             seeAll={`/friends/requests/received/${userId}`}
             userId={userId}
+            list={receivedRequests}
           />
           <RightBarFriendRequestsXList
             topic="You may know these people"
             type="requesting"
             seeAll={`/friends/suggestions/${userId}`}
             userId={userId}
+            list={peopleYouMayKnow}
           />
           <RightBarFriendRequestsXList
             topic="Suggestions"
@@ -43,11 +56,13 @@ export default async function RightBar({
             type="accepting"
             seeAll={`/friends/requests/received/${userId}`}
             userId={userId}
+            list={receivedRequests}
           />
           <RightBarFriendRequestsXList
             topic="You may know these people"
             type="requesting"
             seeAll={`/friends/suggestions/${userId}`}
+            list={peopleYouMayKnow}
             userId={userId}
           />
           <RightBarFriendRequestsXList
@@ -65,6 +80,7 @@ export default async function RightBar({
             topic="Received Requests"
             type="accepting"
             userId={userId}
+            list={receivedRequests}
           />
           {/* <MiddleBar /> */}
         </>
@@ -75,6 +91,7 @@ export default async function RightBar({
             topic="Sent Requests"
             type="refreshing"
             userId={userId}
+            list={sentRequests}
           />
           {/* <MiddleBar /> */}
         </>
@@ -85,6 +102,7 @@ export default async function RightBar({
             topic="All Friends"
             type="accepting"
             userId={userId}
+            list={allFriends}
           />
           {/* <MiddleBar /> */}
         </>
@@ -105,6 +123,7 @@ export default async function RightBar({
             topic="Suggestions"
             type="requesting"
             userId={userId}
+            list={suggestedUsers}
           />
           {/* <MiddleBar /> */}
         </>

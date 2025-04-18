@@ -7,12 +7,18 @@ export default function FriendWindow({
   name,
   button1,
   button2,
+  userId,
+  otherUser,
+  type,
 }: {
   image: string;
   alt: string;
   name: string;
   button1: string;
   button2: string;
+  userId: string;
+  otherUser: string;
+  type: string;
 }) {
   return (
     <div className="flex flex-col gap-1 bg-slate-100 rounded-lg p-3">

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { User } from "@prisma/client";
 import RightBarEmpty from "../RightBar/RightBarEmpty";
 import { getDefaultAvatar } from "@/utility/utility";
+import FriendWindowClient from "./client/FriendWindowClient";
 
 export default function RightBarFriendRequestsXList({
   topic,
@@ -33,7 +34,9 @@ export default function RightBarFriendRequestsXList({
     btn1 = "Wish";
     btn2 = "Remove";
   }
+
   if (!list) list = [];
+
   return (
     <div>
       <div className="flex flex-row justify-between">
@@ -56,13 +59,16 @@ export default function RightBarFriendRequestsXList({
                   singleRow?.gender
                 );
                 return (
-                  <FriendWindow
+                  <FriendWindowClient
                     key={singleRow.id}
                     image={singleRow.avatar || defaultUserAvatar}
                     alt="Profile Image"
                     name={`${singleRow.firstName} ${singleRow.lastName}`}
                     button1={btn1}
                     button2={btn2}
+                    userId={userId}
+                    otherUser={singleRow.id}
+                    type={type}
                   />
                 );
               })}

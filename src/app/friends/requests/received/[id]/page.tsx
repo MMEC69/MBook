@@ -1,10 +1,12 @@
 import Friends from "@/features/friends/page_components/Friends";
+import { fetchSession } from "@/utility/utility";
 import React from "react";
 
-export default function page() {
+export default async function page() {
+  const userId = (await fetchSession()) as string;
   return (
     <div>
-      <Friends type="firendRequestsReceived" />
+      <Friends type="firendRequestsReceived" userId={userId} />
     </div>
   );
 }
