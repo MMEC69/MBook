@@ -98,33 +98,55 @@ export const checkBlockedUser = async (requestUser : string, requestedUser : str
 }
 
 //This function need to be changed after implementing algorithm
-export const fetchSuggestedUsers = async () => {
+export const fetchSuggestedUsers = async (userId : string) => {
     console.log("> fetchSuggestedUsers inititated");
     let userList = [{}];
+    let sentRequestList : any= [{}];
+    let freshUserList = [{}];
+
     try {
         userList = await prisma.user.findMany();
+        sentRequestList = await prisma.friendRequests.findMany();
+
+        freshUserList = userList.filter((user: any) => {
+            for (let index = 0; index < sentRequestList.length; index++) {
+                return user.id !== sentRequestList[index].receiver && user.id !== userId;
+            }
+        });
+
         
     } catch (error) {
         console.log("Error");
     }
     
     console.log("> fetchSuggestedUsers ended");
-    return userList;
+    return freshUserList;
 }
 
 //This function need to be changed after implementing algorithm
-export const fetchPeopleYouMayKnow = async () => {
+export const fetchPeopleYouMayKnow = async (userId : string) => {
     console.log("> fetchPeopleYouMayKnow inititated");
     let userList = [{}];
+    let sentRequestList : any= [{}];
+    let freshUserList = [{}];
+
     try {
         userList = await prisma.user.findMany();
+        sentRequestList = await prisma.friendRequests.findMany();
+
+        freshUserList = userList.filter((user: any) => {
+            for (let index = 0; index < sentRequestList.length; index++) {
+                return user.id !== sentRequestList[index].receiver && user.id !== userId;
+            }
+        });
+
         
     } catch (error) {
         console.log("Error");
     }
     
     console.log("> fetchPeopleYouMayKnow ended");
-    return userList;
+    return freshUserList;
 }
 
 export const fetchFriends = async (userId : string) => {

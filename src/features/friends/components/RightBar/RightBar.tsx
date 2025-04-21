@@ -16,8 +16,8 @@ export default async function RightBar({
   option: string;
   userId: string;
 }) {
-  const suggestedUsers = await fetchSuggestedUsers();
-  const peopleYouMayKnow = await fetchPeopleYouMayKnow();
+  const suggestedUsers = await fetchSuggestedUsers(userId);
+  const peopleYouMayKnow = await fetchPeopleYouMayKnow(userId);
   const allFriends = await fetchFriends(userId);
   const sentRequests = await fetchSentRequests(userId);
   const receivedRequests = await fetchReceivedRequests(userId);
