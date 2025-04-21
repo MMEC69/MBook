@@ -1,7 +1,8 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { sendRequest } from "./action/action";
+import FriendWindowClientCancelButton from "./FriendWindowClientCancelButton";
 
 export default function FriendWindowClient({
   image,
@@ -22,6 +23,9 @@ export default function FriendWindowClient({
   otherUser: string;
   type?: string;
 }) {
+  const [cancel, setCancel] = useState<boolean>(false);
+  const [reqId, setReqId] = useState<string>("");
+
   return (
     <div className="flex flex-col gap-1 bg-slate-100 rounded-lg p-3">
       <Image src={image} alt={alt} width={192} height={192} />
@@ -37,14 +41,21 @@ export default function FriendWindowClient({
           {button1}
         </button>
       )}
-      {type === "requesting" && (
-        <button
-          className="bg-green-400 p-1 rounded-lg hover:cursor-pointer hover:bg-green-300"
-          onClick={() => sendRequest(userId, otherUser)}
-        >
-          {button1}
-        </button>
-      )}
+      {type === "requesting" &&
+        (!cancel ? (
+          <button
+            className="bg-green-400 p-1 rounded-lg hover:cursor-pointer hover:bg-green-300"
+            onClick={async () => {
+              const res: any = await sendRequest(userId, otherUser);
+              setReqId(res);
+              setCancel(true);
+            }}
+          >
+            {button1}
+          </button>
+        ) : (
+          <FriendWindowClientCancelButton reqId={reqId} setCancel={setCancel} />
+        ))}
       {type === "refreshing" && (
         <button
           className="bg-green-400 p-1 rounded-lg hover:cursor-pointer hover:bg-green-300"
