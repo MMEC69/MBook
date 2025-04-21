@@ -105,14 +105,21 @@ export const fetchSuggestedUsers = async (userId : string) => {
     let freshUserList = [{}];
 
     try {
-        userList = await prisma.user.findMany();
+        userList = await prisma.user.findMany({
+            where : {
+                NOT : {
+                    id: userId
+                }
+            }
+        });
         sentRequestList = await prisma.friendRequests.findMany();
 
         freshUserList = userList.filter((user: any) => {
             for (let index = 0; index < sentRequestList.length; index++) {
-                return user.id !== sentRequestList[index].receiver && user.id !== userId;
+                return user.id !== sentRequestList[index].receiver;
             }
         });
+        if (freshUserList.length < 1)  freshUserList = userList   
 
         
     } catch (error) {
@@ -131,14 +138,21 @@ export const fetchPeopleYouMayKnow = async (userId : string) => {
     let freshUserList = [{}];
 
     try {
-        userList = await prisma.user.findMany();
+        userList = await prisma.user.findMany({
+            where : {
+                NOT : {
+                    id: userId
+                }
+            }
+        });
         sentRequestList = await prisma.friendRequests.findMany();
 
         freshUserList = userList.filter((user: any) => {
             for (let index = 0; index < sentRequestList.length; index++) {
-                return user.id !== sentRequestList[index].receiver && user.id !== userId;
+                return user.id !== sentRequestList[index].receiver;
             }
         });
+        if (freshUserList.length < 1)  freshUserList = userList   
 
         
     } catch (error) {

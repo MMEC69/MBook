@@ -30,7 +30,9 @@ export default function FriendWindowClient({
       {type === "accepting" && (
         <button
           className="bg-green-400 p-1 rounded-lg hover:cursor-pointer hover:bg-green-300"
-          onClick={() => sendRequest(userId, otherUser)}
+          onClick={async () => {
+            await sendRequest(userId, otherUser);
+          }}
         >
           {button1}
         </button>
