@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { acceptRequest, deleteRequest, sendRequest } from "./action/action";
 import FriendWindowClientCancelButton from "./FriendWindowClientCancelButton";
+import Link from "next/link";
 
 export default function FriendWindowClient({
   image,
@@ -31,8 +32,13 @@ export default function FriendWindowClient({
     <>
       {!remove ? (
         <div className="flex flex-col gap-1 bg-slate-100 rounded-lg p-3">
-          <Image src={image} alt={alt} width={192} height={192} />
-          <span className=" text-sm font-normal">{name}</span>
+          <Link href={`/profile/${otherUser}`}>
+            <Image src={image} alt={alt} width={192} height={192} />
+          </Link>
+
+          <Link href={`/profile/${otherUser}`}>
+            <span className=" text-sm font-normal hover:underline">{name}</span>
+          </Link>
 
           {type === "accepting" && (
             <>
