@@ -100,9 +100,9 @@ export const checkBlockedUser = async (requestUser : string, requestedUser : str
 //This function need to be changed after implementing algorithm
 export const fetchSuggestedUsers = async (userId : string) => {
     console.log("> fetchSuggestedUsers inititated");
-    let userList = [{}];
-    let sentRequestList : any= [{}];
-    let freshUserList = [{}];
+    let userList: any;
+    let reqList : any;
+    let userListF : any;
 
     try {
         userList = await prisma.user.findMany({
@@ -112,14 +112,15 @@ export const fetchSuggestedUsers = async (userId : string) => {
                 }
             }
         });
-        sentRequestList = await prisma.friendRequests.findMany();
+        reqList = await prisma.friendRequests.findMany();
 
-        freshUserList = userList.filter((user: any) => {
-            for (let index = 0; index < sentRequestList.length; index++) {
-                return user.id !== sentRequestList[index].receiver;
+        userListF = userList.filter((user: any) => {
+            for (let index = 0; index < reqList.length; index++) {
+                return user.id !== reqList[index].receiver && user.id !== reqList[index].requestor;
             }
         });
-        if (freshUserList.length < 1)  freshUserList = userList   
+        if (userListF.length < 1)  userListF = userList  
+         
 
         
     } catch (error) {
@@ -127,15 +128,15 @@ export const fetchSuggestedUsers = async (userId : string) => {
     }
     
     console.log("> fetchSuggestedUsers ended");
-    return freshUserList;
+    return userListF;
 }
 
 //This function need to be changed after implementing algorithm
 export const fetchPeopleYouMayKnow = async (userId : string) => {
     console.log("> fetchPeopleYouMayKnow inititated");
-    let userList = [{}];
-    let sentRequestList : any= [{}];
-    let freshUserList = [{}];
+    let userList: any;
+    let reqList : any;
+    let userListF : any;
 
     try {
         userList = await prisma.user.findMany({
@@ -145,14 +146,15 @@ export const fetchPeopleYouMayKnow = async (userId : string) => {
                 }
             }
         });
-        sentRequestList = await prisma.friendRequests.findMany();
+        reqList = await prisma.friendRequests.findMany();
 
-        freshUserList = userList.filter((user: any) => {
-            for (let index = 0; index < sentRequestList.length; index++) {
-                return user.id !== sentRequestList[index].receiver;
+        userListF = userList.filter((user: any) => {
+            for (let index = 0; index < reqList.length; index++) {
+                return user.id !== reqList[index].receiver && user.id !== reqList[index].requestor;
             }
         });
-        if (freshUserList.length < 1)  freshUserList = userList   
+        if (userListF.length < 1)  userListF = userList  
+         
 
         
     } catch (error) {
@@ -160,40 +162,52 @@ export const fetchPeopleYouMayKnow = async (userId : string) => {
     }
     
     console.log("> fetchPeopleYouMayKnow ended");
-    return freshUserList;
+    return userListF;
 }
 
 export const fetchFriends = async (userId : string) => {
     console.log("> fetchFriends inititated");
-    let userList = [{}];
+    let userList : any;
     let user;
     try {
         user = await prisma.user.findFirst({
             where: {id: userId}
         });
-        if(user) userList = user.friends;
+        userList = convertUserIdToUserList(user?.friends);
     } catch (error) {
         console.log("Error");
     }
-
+    
     console.log("> fetchFriends ended");
     return userList;
 }  
 
-export const fetchSentRequests = async (requestor : string) => {
-    console.log("> fetchSentRequests inititated");
-    let sentRequestList = [{}];
-    let sentList = [{}];
-    let userList = [];
+export const fetchRequests = async (user : string, requestor : boolean) => {
+    console.log("> fetchRequests inititated");
+    let reqList: any;
+    let list: any;
+    let userList: any;
     try {
-        sentRequestList = await prisma.friendRequests.findMany({
-            where: {requestor: requestor}
-        });
+        if(requestor) {
+            reqList = await prisma.friendRequests.findMany({
+                where: {requestor: user}
+            })
+            list = reqList.map((singleSentRequest : any) => {
+                return singleSentRequest.receiver;
+            });
+            userList = await convertUserIdToUserList(list);
+        } 
+        else {
+                reqList = await prisma.friendRequests.findMany({
+                where: {receiver: user}
+            });
+            list = reqList.map((singleSentRequest : any) => {
+                return singleSentRequest.requestor;
+            });
+            userList = await convertUserIdToUserList(list);
+        };
+
         
-        sentList = sentRequestList.map((singleSentRequest : any) => {
-            return singleSentRequest.receiver;
-        });
-        userList = await convertRequestsToUserList(sentList);
        
     } catch (error) {
         console.log("Error: Unable to fetch reqests");
@@ -202,32 +216,13 @@ export const fetchSentRequests = async (requestor : string) => {
     return userList;
 }  
 
-export const fetchReceivedRequests = async (receiver : string) => {
-    console.log("> fetchReceivedRequests inititated");
-    let receivedRequestList = [{}];
-    let userList = [{}];
-    try {
-        receivedRequestList = await prisma.friendRequests.findMany({
-            where: {receiver: receiver}
-        });
-        userList = receivedRequestList.filter((singleSentRequest : any) => {
-            return {id : singleSentRequest.id, request : singleSentRequest.requestor};
-        })
-    } catch (error) {
-        console.log("Error");
-    }
-
-    console.log("> fetchReceivedRequests ended");
-    return userList;
-}  
-
-const convertRequestsToUserList = async (sentList : any) => {
+const convertUserIdToUserList = async (list : any) => {
     let userList = [];
     let user : any;
-    for (let index = 0; index < sentList.length; index++) {
+    for (let index = 0; index < list.length; index++) {
         try {
             user = await prisma.user.findFirst({
-                where: {id: sentList[index]}
+                where: {id: list[index]}
             });
         } catch (error) {
             userList.push({});

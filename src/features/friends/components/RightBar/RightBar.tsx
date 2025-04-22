@@ -3,8 +3,7 @@ import MiddleBar from "@/features/profile/components/MiddleBar/MiddleBar";
 import {
   fetchFriends,
   fetchPeopleYouMayKnow,
-  fetchReceivedRequests,
-  fetchSentRequests,
+  fetchRequests,
   fetchSuggestedUsers,
 } from "@/utility/utility";
 import React from "react";
@@ -19,8 +18,8 @@ export default async function RightBar({
   const suggestedUsers = await fetchSuggestedUsers(userId);
   const peopleYouMayKnow = await fetchPeopleYouMayKnow(userId);
   const allFriends = await fetchFriends(userId);
-  const sentRequests = await fetchSentRequests(userId);
-  const receivedRequests = await fetchReceivedRequests(userId);
+  const sentRequests = await fetchRequests(userId, true);
+  const receivedRequests = await fetchRequests(userId, false);
 
   return (
     <div className="flex flex-col gap-6 pl-2 pr-2">

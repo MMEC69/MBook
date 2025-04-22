@@ -37,3 +37,61 @@ export const cancelRequest = async (reqId : string) => {
    }
    console.log("> cancelRequest ended");
 }
+
+export const deleteRequest = async (requestor : string, receiver : string) => {
+    console.log("> deleteRequest initiated");
+   let res : any;
+   try {
+    res = await prisma.friendRequests.findFirst({
+        where : {
+            requestor : requestor,
+            receiver : receiver
+        }
+    }) 
+    res = await prisma.friendRequests.delete({
+        where : {
+            id: res.id
+        }
+    }) 
+   } catch (error) {
+        console.log(error)
+        console.log("Error: Unable to delete a request");
+   }
+   console.log("> deleteRequest ended");
+}
+
+
+export const acceptRequest = async (requestor : string, receiver : string) => {
+    console.log("> acceptRequest initiated");
+   let res : any;
+   let del : any;
+
+   try {
+    res = await prisma.friendRequests.findFirst({
+        where : {
+            requestor : requestor,
+            receiver : receiver
+        }
+    });
+    await prisma.user.update({
+        where : {
+            id : receiver
+        },
+        data : {
+            friends : {
+                push : requestor
+            }
+        }
+    });
+   
+    del = await prisma.friendRequests.delete({
+        where : {
+            id: res.id
+        }
+    }) 
+   } catch (error) {
+        console.log(error)
+        console.log("Error: Unable to delete a request");
+   }
+   console.log("> acceptRequest ended");
+}
