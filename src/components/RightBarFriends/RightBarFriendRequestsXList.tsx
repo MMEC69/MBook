@@ -1,5 +1,4 @@
 import React from "react";
-import FriendWindow from "./FriendWindow";
 import Link from "next/link";
 import { User } from "@prisma/client";
 import RightBarEmpty from "../RightBar/RightBarEmpty";
@@ -82,6 +81,9 @@ export default function RightBarFriendRequestsXList({
           )}
           {list?.length === 0 && type === "refreshing" && (
             <RightBarEmpty msg="You haven't send any requests" link="" />
+          )}
+          {list?.length === 0 && type === "wish" && (
+            <RightBarEmpty msg="There is no one to wish" link="" />
           )}
           {list?.length === 0 && !type && (
             <RightBarEmpty msg="Emplty List" link="" />

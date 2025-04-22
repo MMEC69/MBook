@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { acceptRequest, deleteRequest, sendRequest } from "./action/action";
 import FriendWindowClientCancelButton from "./FriendWindowClientCancelButton";
-import RightBarEmpty from "@/components/RightBar/RightBarEmpty";
 
 export default function FriendWindowClient({
   image,
@@ -45,7 +44,13 @@ export default function FriendWindowClient({
               >
                 {button1}
               </button>
-              <button className="bg-red-400 p-1 rounded-lg hover:cursor-pointer hover:bg-red-300">
+              <button
+                className="bg-red-400 p-1 rounded-lg hover:cursor-pointer hover:bg-red-300"
+                onClick={async () => {
+                  await deleteRequest(otherUser, userId);
+                  setRemove(true);
+                }}
+              >
                 {button2}
               </button>
             </>
@@ -65,7 +70,9 @@ export default function FriendWindowClient({
                 </button>
                 <button
                   className="bg-red-400 p-1 rounded-lg hover:cursor-pointer hover:bg-red-300"
-                  onClick={() => setRemove(true)}
+                  onClick={() => {
+                    setRemove(true);
+                  }}
                 >
                   {button2}
                 </button>
@@ -78,7 +85,9 @@ export default function FriendWindowClient({
                 />
                 <button
                   className="bg-red-400 p-1 rounded-lg hover:cursor-pointer hover:bg-red-300"
-                  onClick={() => setRemove(true)}
+                  onClick={() => {
+                    setRemove(true);
+                  }}
                 >
                   {button2}
                 </button>
@@ -106,6 +115,22 @@ export default function FriendWindowClient({
               </button>
             </>
           )}
+          {type === "wish" && (
+            <>
+              <button
+                className="bg-green-400 p-1 rounded-lg hover:cursor-pointer hover:bg-green-300"
+                onClick={async () => {}}
+              >
+                {button1}
+              </button>
+              <button
+                className="bg-red-400 p-1 rounded-lg hover:cursor-pointer hover:bg-red-300"
+                onClick={() => {}}
+              >
+                {button2}
+              </button>
+            </>
+          )}
           {!type && (
             <>
               <button
@@ -121,18 +146,7 @@ export default function FriendWindowClient({
           )}
         </div>
       ) : (
-        <>
-          {type === "accepting" && (
-            <RightBarEmpty msg="No Requests for you today," link="" />
-          )}
-          {type === "requesting" && (
-            <RightBarEmpty msg="There is nothing to see here," link="" />
-          )}
-          {type === "refreshing" && (
-            <RightBarEmpty msg="You haven't send any requests" link="" />
-          )}
-          {!type && <RightBarEmpty msg="Emplty List" link="" />}
-        </>
+        <></>
       )}
     </>
   );

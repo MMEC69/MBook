@@ -112,6 +112,7 @@ export default async function RightBar({
             topic="Birthdays"
             type="wish"
             userId={userId}
+            list={suggestedUsers}
           />
           {/* <MiddleBar /> */}
         </>
