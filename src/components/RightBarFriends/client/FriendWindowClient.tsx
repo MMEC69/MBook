@@ -124,7 +124,7 @@ export default function FriendWindowClient({
           {type === "wish" && (
             <>
               <button
-                className="bg-green-400 p-1 rounded-lg hover:cursor-pointer hover:bg-green-300"
+                className="bg-pink-200 p-1 rounded-lg hover:cursor-pointer hover:bg-green-300"
                 onClick={async () => {}}
               >
                 {button1}

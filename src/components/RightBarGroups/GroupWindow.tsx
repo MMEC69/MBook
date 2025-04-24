@@ -18,7 +18,7 @@ export default function GroupWindow({
   }
   return (
     <div className="flex flex-col gap-1 bg-slate-100 rounded-lg p-3">
-      <Image src={"/cat-4558651_1280.jpg"} alt={alt} width={256} height={192} />
+      <Image src={"/cat-4558651_1280.jpg"} alt={alt} width={210} height={192} />
       <span className=" text-sm font-normal">{name}</span>
       {switchType && (
         <>

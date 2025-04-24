@@ -38,7 +38,7 @@ export default function RightBarFriendRequestsXList({
 
   return (
     <div>
-      <div className="flex flex-wrap justify-between">
+      <div className="flex flex-row justify-between">
         <span>{topic}</span>
         {seeAll !== undefined && (
           <>
@@ -88,35 +88,6 @@ export default function RightBarFriendRequestsXList({
           {list?.length === 0 && !type && (
             <RightBarEmpty msg="Emplty List" link="" />
           )}
-
-          {/* <FriendWindow
-            image=""
-            alt="Profile Image"
-            name="Eronne Cooray"
-            button1={btn1}
-            button2={btn2}
-          />
-          <FriendWindow
-            image=""
-            alt="Profile Image"
-            name="Eronne Cooray"
-            button1={btn1}
-            button2={btn2}
-          />
-          <FriendWindow
-            image=""
-            alt="Profile Image"
-            name="Eronne Cooray"
-            button1={btn1}
-            button2={btn2}
-          />
-          <FriendWindow
-            image=""
-            alt="Profile Image"
-            name="Eronne Cooray"
-            button1={btn1}
-            button2={btn2}
-          /> */}
         </div>
       </div>
     </div>
