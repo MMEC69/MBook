@@ -38,7 +38,7 @@ export default function RightBarFriendRequestsXList({
 
   return (
     <div>
-      <div className="flex flex-row justify-between">
+      <div className="flex flex-wrap justify-between">
         <span>{topic}</span>
         {seeAll !== undefined && (
           <>
