@@ -6,13 +6,13 @@ import Birthdays from "@/components/BirthdaysRightBar/Birthdays";
 import Advertisements from "@/components/AdvertisementRightBar/Advertisements";
 import Contacts from "@/components/ContactRightBar/Contacts";
 
-export default function RightBar({ userId }: { userId?: string }) {
+export default function RightBar({ profile }: { profile: any }) {
   return (
     <div className="flex flex-col gap-6">
-      {userId ? (
+      {profile.id ? (
         <>
-          <UserDetails userId={userId} />
-          <Gallery userId={userId} />
+          <UserDetails userId={profile.id} />
+          <Gallery userId={profile.id} />
         </>
       ) : null}
       <FriendRequests />

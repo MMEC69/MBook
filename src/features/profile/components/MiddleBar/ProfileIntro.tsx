@@ -1,28 +1,26 @@
 import { getDefaultAvatar } from "@/utility/utility";
 import Image from "next/image";
 import React from "react";
-import { checkRecivedReq, checkSentReq } from "./action/action";
-import FriendRequestSubmitButton from "./client/buttons";
+import { checkFriend, checkRecivedReq, checkSentReq } from "./action/action";
+import FriendReqLayout from "./client/FriendReqLayout";
 
 export default async function ProfileIntro({
   user,
   numberOfPosts,
-  requestUser
+  requestUser,
 }: {
   user: any;
   numberOfPosts: number;
-  requestUser : string
+  requestUser: string;
 }) {
   let defaultUserAvatar: string = getDefaultAvatar(user?.gender);
   console.log(user.gender);
   if (!user) return null;
 
-  let isRecived : boolean = await checkRecivedReq(user.id, requestUser);
-  let isSent : boolean =  await checkSentReq(user.id, requestUser);
-  if (isRecived && isSent) {
-    isRecived = false;
-    isSent = false;
-  }
+  //can use selections to optimize the code
+  let isRecived: boolean = await checkRecivedReq(user.id, requestUser);
+  let isSent: boolean = await checkSentReq(user.id, requestUser);
+  let isFriend: boolean = await checkFriend(user.id, requestUser);
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -43,14 +41,25 @@ export default async function ProfileIntro({
       </div>
 
       <div className=" flex items-center gap-12 w-full h-16 justify-between px-2">
-        <h1 className=" text-2xl font-medium ml-40 align-middle">
-          {user.firstName + " " + user.lastName} { isSent && <FriendRequestSubmitButton/>}
+        <h1 className="flex flex-row justify-center text-2xl font-medium ml-40">
+          {user.firstName + " " + user.lastName}
+          {requestUser !== user.id ? (
+            <FriendReqLayout
+              isRecived={isRecived}
+              isSent={isSent}
+              isFriend={isFriend}
+              profile={user}
+              user={requestUser}
+            />
+          ) : (
+            <></>
+          )}
         </h1>
-        
+
         <div className=" flex gap-4 justify-between">
           <div className=" flex items-center gap-1">
             <span className=" font-bold">
-              {numberOfPosts === 0 ? "no" : numberOfPosts}
+              {numberOfPosts === 0 ? 0 : numberOfPosts}
             </span>
             <span className="text-sm">
               {numberOfPosts === 1 ? "Post" : "Posts"}
