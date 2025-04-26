@@ -1,17 +1,28 @@
 import { getDefaultAvatar } from "@/utility/utility";
 import Image from "next/image";
 import React from "react";
+import { checkRecivedReq, checkSentReq } from "./action/action";
+import FriendRequestSubmitButton from "./client/buttons";
 
-export default function ProfileIntro({
+export default async function ProfileIntro({
   user,
   numberOfPosts,
+  requestUser
 }: {
   user: any;
   numberOfPosts: number;
+  requestUser : string
 }) {
   let defaultUserAvatar: string = getDefaultAvatar(user?.gender);
   console.log(user.gender);
   if (!user) return null;
+
+  let isRecived : boolean = await checkRecivedReq(user.id, requestUser);
+  let isSent : boolean =  await checkSentReq(user.id, requestUser);
+  if (isRecived && isSent) {
+    isRecived = false;
+    isSent = false;
+  }
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -32,9 +43,10 @@ export default function ProfileIntro({
       </div>
 
       <div className=" flex items-center gap-12 w-full h-16 justify-between px-2">
-        <h1 className=" text-2xl font-medium ml-40">
-          {user.firstName + " " + user.lastName}
+        <h1 className=" text-2xl font-medium ml-40 align-middle">
+          {user.firstName + " " + user.lastName} { isSent && <FriendRequestSubmitButton/>}
         </h1>
+        
         <div className=" flex gap-4 justify-between">
           <div className=" flex items-center gap-1">
             <span className=" font-bold">

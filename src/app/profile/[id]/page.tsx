@@ -9,8 +9,9 @@ import { notFound } from "next/navigation";
 import React from "react";
 
 export default async function page({ params }: { params: { id: string } }) {
+  const resolvedParams = await Promise.resolve(params);
   const requestUser = (await fetchSession()) as string;
-  const requestedUser = params.id;
+  const requestedUser = resolvedParams.id;
   const isBlocked = await checkBlockedUser(requestUser, requestedUser);
   if (isBlocked) return notFound();
 
@@ -20,7 +21,7 @@ export default async function page({ params }: { params: { id: string } }) {
 
   return (
     <div>
-      <Profile user={user} posts={posts} />
+      <Profile user={user} posts={posts} requestUser = {requestUser}/>
     </div>
   );
 }
