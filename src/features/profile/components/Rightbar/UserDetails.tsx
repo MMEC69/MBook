@@ -2,14 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { IoHome } from "react-icons/io5";
 import { MdHomeRepairService } from "react-icons/md";
-import {
-  IoIosFemale,
-  IoIosMail,
-  IoIosMale,
-  IoIosSchool,
-  IoMdFemale,
-  IoMdMale,
-} from "react-icons/io";
+import { IoIosMail, IoIosSchool, IoMdFemale, IoMdMale } from "react-icons/io";
 import { RiHeartsFill } from "react-icons/ri";
 import { IoMdLink } from "react-icons/io";
 import { FaBirthdayCake, FaCalendarAlt, FaPhoneAlt } from "react-icons/fa";

@@ -3,7 +3,7 @@ import LeftBar from "../LeftBar/LeftBar";
 import RightBar from "../RightBar/RightBar";
 import MiddleBar from "../MiddleBar/MiddleBar";
 
-export default function Content() {
+export default function Content({ user }: { user: any }) {
   return (
     <div className="flex flex-row gap-6 p-6">
       <div className="hidden xl:block w-[20%]">
@@ -13,7 +13,7 @@ export default function Content() {
         <MiddleBar />
       </div>
       <div className="hidden lg:block w-[30%]">
-        <RightBar />
+        <RightBar user={user} />
       </div>
     </div>
   );

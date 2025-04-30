@@ -5,22 +5,22 @@ import { checkFriend, checkRecivedReq, checkSentReq } from "./action/action";
 import FriendReqLayout from "./client/FriendReqLayout";
 
 export default async function ProfileIntro({
-  user,
+  profile,
   numberOfPosts,
   requestUser,
 }: {
-  user: any;
+  profile: any;
   numberOfPosts: number;
   requestUser: string;
 }) {
-  let defaultUserAvatar: string = getDefaultAvatar(user?.gender);
-  console.log(user.gender);
-  if (!user) return null;
+  let defaultUserAvatar: string = getDefaultAvatar(profile?.gender);
+  console.log(profile.gender);
+  if (!profile) return null;
 
   //can use selections to optimize the code
-  let isRecived: boolean = await checkRecivedReq(user.id, requestUser);
-  let isSent: boolean = await checkSentReq(user.id, requestUser);
-  let isFriend: boolean = await checkFriend(user.id, requestUser);
+  let isRecived: boolean = await checkRecivedReq(profile.id, requestUser);
+  let isSent: boolean = await checkSentReq(profile.id, requestUser);
+  let isFriend: boolean = await checkFriend(profile.id, requestUser);
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -32,7 +32,7 @@ export default async function ProfileIntro({
           className=" object-cover rounded-md"
         />
         <Image
-          src={user.avatar || defaultUserAvatar}
+          src={profile.avatar || defaultUserAvatar}
           alt="Profile photo"
           width={128}
           height={128}
@@ -42,13 +42,13 @@ export default async function ProfileIntro({
 
       <div className=" flex items-center gap-12 w-full h-16 justify-between px-2">
         <h1 className="flex flex-row justify-center text-2xl font-medium ml-40">
-          {user.firstName + " " + user.lastName}
-          {requestUser !== user.id ? (
+          {profile.firstName + " " + profile.lastName}
+          {requestUser !== profile.id ? (
             <FriendReqLayout
               isRecived={isRecived}
               isSent={isSent}
               isFriend={isFriend}
-              profile={user}
+              profile={profile}
               user={requestUser}
             />
           ) : (
@@ -66,7 +66,7 @@ export default async function ProfileIntro({
             </span>
           </div>
           <div className=" flex items-center gap-1">
-            <span className="font-bold">{user.friends.length}</span>
+            <span className="font-bold">{profile.friends.length}</span>
             <span className="text-sm">Friends</span>
           </div>
         </div>

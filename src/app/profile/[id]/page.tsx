@@ -15,13 +15,19 @@ export default async function page({ params }: { params: { id: string } }) {
   const isBlocked = await checkBlockedUser(requestUser, requestedUser);
   if (isBlocked) return notFound();
 
-  const user = await fetchUser(requestedUser);
-  if (!user) return notFound();
+  const user = await fetchUser(requestUser);
+  const profile = await fetchUser(requestedUser);
+  if (!profile) return notFound();
   const posts = await fetchPosts(requestedUser);
 
   return (
     <div>
-      <Profile user={user} posts={posts} requestUser = {requestUser}/>
+      <Profile
+        profile={profile}
+        posts={posts}
+        requestUser={requestUser}
+        user={user}
+      />
     </div>
   );
 }

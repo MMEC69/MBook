@@ -5,24 +5,26 @@ import MiddleBar from "../MiddleBar/MiddleBar";
 import { Post, User } from "@prisma/client";
 
 export default function Content({
-  user,
+  profile,
   posts,
   requestUser,
+  user,
 }: {
-  user: User;
+  profile: User;
   posts: any;
   requestUser: string;
+  user: any;
 }) {
   return (
     <div className="flex flex-row gap-6 p-6">
       <div className="hidden xl:block w-[20%]">
-        <LeftBar user={user} />
+        <LeftBar profile={profile} />
       </div>
       <div className="w-full lg:w-[70%] xl:w-[50%]">
-        <MiddleBar user={user} posts={posts} requestUser={requestUser} />
+        <MiddleBar profile={profile} posts={posts} requestUser={requestUser} />
       </div>
       <div className="hidden lg:block w-[30%]">
-        <RightBar profile={user} />
+        <RightBar profile={profile} user={user} />
       </div>
     </div>
   );
