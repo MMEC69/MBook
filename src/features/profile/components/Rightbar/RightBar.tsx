@@ -11,7 +11,7 @@ export default function RightBar({ profile }: { profile: any }) {
     <div className="flex flex-col gap-6">
       {profile.id ? (
         <>
-          <UserDetails userId={profile.id} />
+          <UserDetails profile={profile} />
           <Gallery userId={profile.id} />
         </>
       ) : null}

@@ -6,7 +6,7 @@ import { User } from "@prisma/client";
 export default function LeftBar({ user }: { user: User }) {
   return (
     <div className="flex flex-col gap-6">
-      <LeftBarProfile user={user} />
+      {/* <LeftBarProfile user={user} /> */}
       <LeftBarOptions />
     </div>
   );
