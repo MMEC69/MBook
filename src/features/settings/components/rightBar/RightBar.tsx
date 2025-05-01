@@ -1,9 +1,8 @@
 import RightBarSettingsForm from "@/components/RightBarSettings/RightBarSettingsForm";
 import RightBarSettingsXList from "@/components/RightBarSettings/RightBarSettingsXList";
 import RightBarSettingsYList from "@/components/RightBarSettings/RightBarSettingsYList";
-import MiddleBar from "@/features/profile/components/MiddleBar/MiddleBar";
-import { fetchSession } from "@/utility/utility";
 import React from "react";
+import SimpleUserDetailForm from "./SimpleUserDetailForm";
 
 export default async function RightBar({
   type,
@@ -14,25 +13,70 @@ export default async function RightBar({
 }) {
   return (
     <div className="flex flex-col gap-6 pl-2 pr-2">
-      {type === "settings" && (
+      {(type === "settings" || type === "settingsProfile") && (
         <>
           <RightBarSettingsForm fType="name" userId={userId} />
           <RightBarSettingsForm fType="email" userId={userId} />
           <RightBarSettingsForm fType="password" userId={userId} />
         </>
       )}
-      {type === "settingsProfile" && (
-        <>
-          <RightBarSettingsForm fType="name" userId={userId} />
-          <RightBarSettingsForm fType="email" userId={userId} />
-          <RightBarSettingsForm fType="password" userId={userId} />
-        </>
-      )}
+      {/* Incomeplete part here, fix the forms */}
       {type === "settingsUserDetails" && (
         <>
-          <RightBarSettingsForm fType="name" userId={userId} />
-          <RightBarSettingsForm fType="email" userId={userId} />
-          <RightBarSettingsForm fType="password" userId={userId} />
+          <SimpleUserDetailForm
+            userId={userId}
+            labelName="Description"
+            icon="sample"
+            field="desc"
+          />
+          <SimpleUserDetailForm
+            userId={userId}
+            labelName="Phone"
+            icon="sample"
+            field="desc"
+          />
+          <SimpleUserDetailForm
+            userId={userId}
+            labelName="Birthday"
+            icon="sample"
+            field="birthday"
+          />
+          <SimpleUserDetailForm
+            userId={userId}
+            labelName="Gender"
+            icon="sample"
+            field="gender"
+          />
+          <SimpleUserDetailForm
+            userId={userId}
+            labelName="Lives in"
+            icon="sample"
+            field="lives"
+          />
+          <SimpleUserDetailForm
+            userId={userId}
+            labelName="Education"
+            icon="sample"
+            field="education"
+          />
+          <SimpleUserDetailForm
+            userId={userId}
+            labelName="Works in"
+            icon="sample"
+            field="works"
+          />
+          <SimpleUserDetailForm
+            userId={userId}
+            labelName="Loved with"
+            icon="sample"
+            field="love"
+          />
+          <SimpleUserDetailForm
+            userId={userId}
+            labelName="Links"
+            icon="sample"
+            field="links"
+          />
         </>
       )}
       {type === "settingsBlock" && (
