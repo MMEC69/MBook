@@ -28,6 +28,13 @@ export default async function RightBar({
           <RightBarSettingsForm fType="password" userId={userId} />
         </>
       )}
+      {type === "settingsUserDetails" && (
+        <>
+          <RightBarSettingsForm fType="name" userId={userId} />
+          <RightBarSettingsForm fType="email" userId={userId} />
+          <RightBarSettingsForm fType="password" userId={userId} />
+        </>
+      )}
       {type === "settingsBlock" && (
         <>
           <RightBarSettingsXList

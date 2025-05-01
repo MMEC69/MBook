@@ -18,6 +18,12 @@ export default async function LeftBarSettings({
           name="Profile Settings"
         />
         <Option
+          link={`/settings/user/${userId}`}
+          image="/user details.png"
+          alt="User Details"
+          name="User Details"
+        />
+        <Option
           link={`/settings/block/${userId}`}
           image="/group.png"
           alt="Block List"

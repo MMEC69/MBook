@@ -1,8 +1,9 @@
 import React from "react";
 import Link from "next/link";
-import FriendRequest from "./FriendRequest";
-import { fetchSession } from "@/utility/utility";
 import { fetchFriendRequests } from "./action/action";
+import { fetchUser, getDefaultAvatar } from "@/utility/utility";
+import FriendRequestClient from "./client/FriendRequestClient";
+import { User } from "@prisma/client";
 
 export default async function FriendRequests({ user }: { user: any }) {
   const friendRequests: any = await fetchFriendRequests(user.id);
@@ -22,11 +23,19 @@ export default async function FriendRequests({ user }: { user: any }) {
           </div>
 
           {/* User */}
-          {friendRequests.map((friendRequest: any) => {
+          {friendRequests.map(async (friendRequest: any) => {
+            const requestor = (await fetchUser(
+              friendRequest.requestor
+            )) as User;
+            const defaultUserAvatar: string = getDefaultAvatar(
+              requestor?.gender
+            );
             return (
-              <FriendRequest
+              <FriendRequestClient
                 key={friendRequest.id}
                 friendRequest={friendRequest}
+                requestor={requestor}
+                defaultUserAvatar={defaultUserAvatar}
               />
             );
           })}
