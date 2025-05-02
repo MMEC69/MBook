@@ -3,7 +3,7 @@
 import prisma from "@/lib/prisma/client";
 
 export const fetchProfileIntroInfo = async (userId: string) => {
-  console.log("> ProfileIntroInfo fetch initiation");
+  // console.log("> ProfileIntroInfo fetch initiation");
 
   if (!userId) return;
 
@@ -29,15 +29,16 @@ export const fetchProfileIntroInfo = async (userId: string) => {
       posts: postsRes.length,
     };
 
-    console.log("> ProfileIntroInfo fetch succesfully");
+    // console.log("> ProfileIntroInfo fetch succesfully");
     return profileIntroInfo;
   } catch (error) {
-    console.log("> ProfileIntroInfo fetch failure");
+    console.log(error);
+    // console.log("> ProfileIntroInfo fetch failure");
   }
 };
 
 export const checkRecivedReq = async (user: string, receiver: string) => {
-  console.log("> checkRecivedReq initiation");
+  // console.log("> checkRecivedReq initiation");
   let req: any;
   let isReq: boolean = false;
   try {
@@ -49,14 +50,15 @@ export const checkRecivedReq = async (user: string, receiver: string) => {
     });
     if (req) isReq = true;
   } catch (error) {
-    console.log("> Error : Didn't fetch req");
+    console.log(error);
+    // console.log("> Error : Didn't fetch req");
   }
-  console.log("> checkRecivedReq ended");
+  // console.log("> checkRecivedReq ended");
   return isReq;
 };
 
 export const checkSentReq = async (user: string, requestor: string) => {
-  console.log("> checkSentReq initiation");
+  // console.log("> checkSentReq initiation");
   let req: any;
   let isReq: boolean = false;
   try {
@@ -68,14 +70,15 @@ export const checkSentReq = async (user: string, requestor: string) => {
     });
     if (req) isReq = true;
   } catch (error) {
-    console.log("> Error : Didn't fetch req");
+    console.log(error);
+    // console.log("> Error : Didn't fetch req");
   }
-  console.log("> checkSentReq initiation");
+  // console.log("> checkSentReq initiation");
   return isReq;
 };
 
 export const checkFriend = async (profile: string, user: string) => {
-  console.log("> checkFriend initiation");
+  // console.log("> checkFriend initiation");
   let friends: any = [];
   let isFriend: boolean = false;
   if (profile === user) return false;
@@ -88,14 +91,15 @@ export const checkFriend = async (profile: string, user: string) => {
     friends = res?.friends;
     isFriend = friends.includes(profile);
   } catch (error) {
-    console.log("> Error : Didn't fetch friends");
+    console.log(error);
+    // console.log("> Error : Didn't fetch friends");
   }
-  console.log("> checkFriend initiation");
+  // console.log("> checkFriend initiation");
   return isFriend;
 };
 
 export const unFriend = async (user: string, friend: string) => {
-  console.log("> unFriend initiation");
+  // console.log("> unFriend initiation");
 
   try {
     // try to use different type of efficient method here
@@ -114,7 +118,8 @@ export const unFriend = async (user: string, friend: string) => {
       },
     });
   } catch (error) {
-    console.log("> Error : Didn't fetch friends");
+    console.log(error);
+    // console.log("> Error : Didn't fetch friends");
   }
   try {
     // try to use different type of efficient method here
@@ -133,7 +138,8 @@ export const unFriend = async (user: string, friend: string) => {
       },
     });
   } catch (error) {
-    console.log("> Error : Didn't fetch friends");
+    console.log(error);
+    // console.log("> Error : Didn't fetch friends");
   }
-  console.log("> unFriend ended");
+  // console.log("> unFriend ended");
 };

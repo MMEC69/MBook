@@ -66,7 +66,7 @@ const educationFieldSchema = z.object({
 
 // array field are not working properly, they can only push
 export const updateDetail = async (prevState: any, formData: FormData) => {
-  console.log("> updateDetail Initiated");
+  // console.log("> updateDetail Initiated");
 
   const result = fieldSchema.safeParse(Object.fromEntries(formData));
   // Validation Failure
@@ -103,7 +103,8 @@ export const updateDetail = async (prevState: any, formData: FormData) => {
           },
         });
       } catch (error) {
-        console.log("Error: Unable to update desc");
+        console.log(error);
+        // console.log("Error: Unable to update desc");
         return;
       }
       break;
@@ -116,7 +117,8 @@ export const updateDetail = async (prevState: any, formData: FormData) => {
           },
         });
       } catch (error) {
-        console.log("Error: Unable to update desc");
+        console.log(error);
+        // console.log("Error: Unable to update desc");
         return;
       }
       break;
@@ -129,7 +131,8 @@ export const updateDetail = async (prevState: any, formData: FormData) => {
           },
         });
       } catch (error) {
-        console.log("Error: Unable to update desc");
+        console.log(error);
+        // console.log("Error: Unable to update desc");
         return;
       }
       break;
@@ -142,7 +145,8 @@ export const updateDetail = async (prevState: any, formData: FormData) => {
           },
         });
       } catch (error) {
-        console.log("Error: Unable to update desc");
+        console.log(error);
+        // console.log("Error: Unable to update desc");
         return;
       }
       break;
@@ -155,7 +159,8 @@ export const updateDetail = async (prevState: any, formData: FormData) => {
           },
         });
       } catch (error) {
-        console.log("Error: Unable to update desc");
+        console.log(error);
+        // console.log("Error: Unable to update desc");
         return;
       }
       break;
@@ -170,7 +175,8 @@ export const updateDetail = async (prevState: any, formData: FormData) => {
           },
         });
       } catch (error) {
-        console.log("Error: Unable to update desc");
+        console.log(error);
+        // console.log("Error: Unable to update desc");
         return;
       }
       break;
@@ -178,5 +184,5 @@ export const updateDetail = async (prevState: any, formData: FormData) => {
     default:
       break;
   }
-  console.log("> updateDetail ended");
+  // console.log("> updateDetail ended");
 };

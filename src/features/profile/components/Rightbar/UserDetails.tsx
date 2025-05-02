@@ -1,14 +1,21 @@
 import React from "react";
 import Link from "next/link";
 import { IoHome } from "react-icons/io5";
-import { MdHomeRepairService } from "react-icons/md";
+import { MdBlock, MdHomeRepairService } from "react-icons/md";
 import { IoIosMail, IoIosSchool, IoMdFemale, IoMdMale } from "react-icons/io";
 import { RiHeartsFill } from "react-icons/ri";
 import { IoMdLink } from "react-icons/io";
 import { FaBirthdayCake, FaCalendarAlt, FaPhoneAlt } from "react-icons/fa";
 import { fullDateConverter } from "@/utility/utility";
+import BlockBtn from "./client/BlockBtn";
 
-export default async function UserDetails({ profile }: { profile: any }) {
+export default async function UserDetails({
+  profile,
+  user,
+}: {
+  profile: any;
+  user: any;
+}) {
   if (!profile) return null;
   return (
     <div className="p-4 bg-white rounded-lg shadow-md text-sm gap-4 flex flex-col">
@@ -129,6 +136,7 @@ export default async function UserDetails({ profile }: { profile: any }) {
             <span>Joined {fullDateConverter(profile.createdAt)}</span>
           </div>
         </div>
+        <BlockBtn userId={user.id} profileId={profile.id} />
         {/* <button className="bg-pink-300 text-white text-sm rounded-md p-2">
           Add Friend
         </button> */}

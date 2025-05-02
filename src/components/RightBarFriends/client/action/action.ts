@@ -4,7 +4,7 @@ import prisma from "@/lib/prisma/client";
 import { FriendRequests } from "@prisma/client";
 
 export const sendRequest = async (userId: string, otherUser: string) => {
-  console.log("> sendRequest initiated");
+  // console.log("> sendRequest initiated");
   let res: FriendRequests;
   let data = {
     requestor: userId,
@@ -17,13 +17,13 @@ export const sendRequest = async (userId: string, otherUser: string) => {
     return res?.id;
   } catch (error) {
     console.log(error);
-    console.log("Error: Unable to send a request");
+    // console.log("Error: Unable to send a request");
   }
-  console.log("> sendRequest ended");
+  // console.log("> sendRequest ended");
 };
 
 export const cancelRequest = async (reqId: string) => {
-  console.log("> cancelRequest initiated");
+  // console.log("> cancelRequest initiated");
   let res: any;
   try {
     res = await prisma.friendRequests.delete({
@@ -32,14 +32,14 @@ export const cancelRequest = async (reqId: string) => {
       },
     });
   } catch (error) {
-    // console.log(error);
-    console.log("Error: Unable to send a request");
+    console.log(error);
+    // console.log("Error: Unable to send a request");
   }
-  console.log("> cancelRequest ended");
+  // console.log("> cancelRequest ended");
 };
 
 export const deleteRequest = async (requestor: string, receiver: string) => {
-  console.log("> deleteRequest initiated");
+  // console.log("> deleteRequest initiated");
   let res: any;
   try {
     res = await prisma.friendRequests.findFirst({
@@ -54,14 +54,14 @@ export const deleteRequest = async (requestor: string, receiver: string) => {
       },
     });
   } catch (error) {
-    // console.log(error)
-    console.log("Error: Unable to delete a request");
+    console.log(error);
+    // console.log("Error: Unable to delete a request");
   }
-  console.log("> deleteRequest ended");
+  // console.log("> deleteRequest ended");
 };
 
 export const acceptRequest = async (requestor: string, receiver: string) => {
-  console.log("> acceptRequest initiated");
+  // console.log("> acceptRequest initiated");
   let res: any;
   let del: any;
 
@@ -72,6 +72,11 @@ export const acceptRequest = async (requestor: string, receiver: string) => {
         receiver: receiver,
       },
     });
+  } catch (error) {
+    console.log(error);
+  }
+
+  try {
     await prisma.user.update({
       where: {
         id: receiver,
@@ -82,15 +87,82 @@ export const acceptRequest = async (requestor: string, receiver: string) => {
         },
       },
     });
+  } catch (error) {
+    console.log(error);
+    // console.log("Error: Unable to delete a request");
+  }
 
+  try {
+    await prisma.user.update({
+      where: {
+        id: requestor,
+      },
+      data: {
+        friends: {
+          push: receiver,
+        },
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    // console.log("Error: Unable to delete a request");
+  }
+
+  try {
     del = await prisma.friendRequests.delete({
       where: {
         id: res.id,
       },
     });
   } catch (error) {
-    // console.log(error)
-    console.log("Error: Unable to delete a request");
+    console.log(error);
   }
-  console.log("> acceptRequest ended");
+  // console.log("> acceptRequest ended");
+  return;
+};
+
+export const unfriend = async (userId: string, profileId: string) => {
+  let res: any;
+  let friends: any;
+  try {
+    res = await prisma.user.findFirst({
+      where: {
+        id: userId,
+      },
+    });
+    friends = res.friends.filter((friend: string) => {
+      return friend !== profileId;
+    });
+    res = await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        friends: friends,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+  try {
+    res = await prisma.user.findFirst({
+      where: {
+        id: profileId,
+      },
+    });
+    friends = res.friends.filter((friend: string) => {
+      return friend !== userId;
+    });
+    res = await prisma.user.update({
+      where: {
+        id: profileId,
+      },
+      data: {
+        friends: friends,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+  return;
 };

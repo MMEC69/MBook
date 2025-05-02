@@ -1,7 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { acceptRequest, deleteRequest, sendRequest } from "./action/action";
+import {
+  acceptRequest,
+  deleteRequest,
+  sendRequest,
+  unfriend,
+} from "./action/action";
 import FriendWindowClientCancelButton from "./FriendWindowClientCancelButton";
 import Link from "next/link";
 
@@ -14,6 +19,7 @@ export default function FriendWindowClient({
   userId,
   otherUser,
   type,
+  isAllFriends,
 }: {
   image: string;
   alt: string;
@@ -23,6 +29,7 @@ export default function FriendWindowClient({
   userId: string;
   otherUser: string;
   type?: string;
+  isAllFriends?: boolean;
 }) {
   const [cancel, setCancel] = useState<boolean>(false);
   const [reqId, setReqId] = useState<string>("");
@@ -42,22 +49,24 @@ export default function FriendWindowClient({
 
           {type === "accepting" && (
             <>
-              <button
-                className="bg-green-400 p-1 rounded-lg hover:cursor-pointer hover:bg-green-300"
-                onClick={async () => {
-                  await acceptRequest(otherUser, userId);
-                }}
-              >
-                {button1}
-              </button>
+              {!isAllFriends && (
+                <button
+                  className="bg-green-400 p-1 rounded-lg hover:cursor-pointer hover:bg-green-300"
+                  onClick={async () => {
+                    await acceptRequest(otherUser, userId);
+                  }}
+                >
+                  {button1}
+                </button>
+              )}
               <button
                 className="bg-red-400 p-1 rounded-lg hover:cursor-pointer hover:bg-red-300"
                 onClick={async () => {
-                  await deleteRequest(otherUser, userId);
+                  await unfriend(userId, otherUser);
                   setRemove(true);
                 }}
               >
-                {button2}
+                {isAllFriends ? "Unfriend" : button2}
               </button>
             </>
           )}

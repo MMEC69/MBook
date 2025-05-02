@@ -75,6 +75,7 @@ export default async function RightBar({
             type="accepting"
             userId={userId}
             list={allFriends}
+            isAllFriends={true}
           />
         </>
       )}

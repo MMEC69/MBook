@@ -17,7 +17,7 @@ const modifyPasswordSchema = z.object({});
 const modifyEmailSchema = z.object({});
 
 export const modify = async (prevState: any, formData: FormData) => {
-  console.log("> Modify Profile Settings Initiated");
+  // console.log("> Modify Profile Settings Initiated");
   // console.log(formData)
 
   // Validation of Values
@@ -45,7 +45,8 @@ export const modify = async (prevState: any, formData: FormData) => {
         });
         // console.log(res);
       } catch (error) {
-        console.log("Error: Unable to update name");
+        console.log(error);
+        // console.log("Error: Unable to update name");
         return;
       }
       break;
@@ -60,7 +61,8 @@ export const modify = async (prevState: any, formData: FormData) => {
         });
         console.log(res);
       } catch (error) {
-        console.log("Error: Unable to update email");
+        console.log(error);
+        // console.log("Error: Unable to update email");
         return;
       }
       break;
@@ -74,7 +76,8 @@ export const modify = async (prevState: any, formData: FormData) => {
         });
         console.log(res);
       } catch (error) {
-        console.log("Error: Unable to update password");
+        console.log(error);
+        // console.log("Error: Unable to update password");
         return;
       }
       break;
@@ -83,5 +86,5 @@ export const modify = async (prevState: any, formData: FormData) => {
       break;
   }
 
-  console.log("> Modify Profile Settings Ended");
+  // console.log("> Modify Profile Settings Ended");
 };
