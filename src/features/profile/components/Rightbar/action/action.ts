@@ -4,6 +4,8 @@ import prisma from "@/lib/prisma/client";
 import { User } from "@prisma/client";
 import { unFriend } from "../../MiddleBar/action/action";
 import { unfriend } from "@/components/RightBarFriends/client/action/action";
+import { getBlocks } from "@/lib/mongo/prismaFunctions/user/get/user";
+import { setBlocks } from "@/lib/mongo/prismaFunctions/user/set/user";
 
 export const fetchPhotos = async (userId: string) => {
   // console.log("> Photos fetch initiation");
@@ -99,4 +101,21 @@ export const block = async (userId: string, profileId: string) => {
     console.log(error);
   }
   return;
+};
+
+export const unBlock = async (userId: string, profileId: string) => {
+  let res: any;
+  res = await getBlocks(userId);
+  const blocks = res.filter((block: any) => {
+    return block !== profileId;
+  });
+  res = await setBlocks(userId, blocks);
+};
+
+export const isBlocked = async (blocks: any, profile: string) => {
+  if (blocks.includes(profile)) {
+    return true;
+  } else {
+    return false;
+  }
 };

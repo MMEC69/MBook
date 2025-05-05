@@ -8,10 +8,12 @@ export default function MiddleBar({
   profile,
   posts,
   requestUser,
+  blocked,
 }: {
   profile: User;
   posts: any;
   requestUser: string;
+  blocked: any;
 }) {
   let numberOfPosts = posts.length;
 
@@ -21,6 +23,7 @@ export default function MiddleBar({
         profile={profile}
         numberOfPosts={numberOfPosts}
         requestUser={requestUser}
+        blocked={blocked}
       />
       <AddPost />
       <Feed />

@@ -9,11 +9,13 @@ export default function Content({
   posts,
   requestUser,
   user,
+  blocked,
 }: {
   profile: User;
   posts: any;
   requestUser: string;
   user: any;
+  blocked: any;
 }) {
   return (
     <div className="flex flex-row gap-6 p-6">
@@ -21,10 +23,15 @@ export default function Content({
         <LeftBar profile={profile} />
       </div>
       <div className="w-full lg:w-[70%] xl:w-[50%]">
-        <MiddleBar profile={profile} posts={posts} requestUser={requestUser} />
+        <MiddleBar
+          profile={profile}
+          posts={posts}
+          requestUser={requestUser}
+          blocked={blocked}
+        />
       </div>
       <div className="hidden lg:block w-[30%]">
-        <RightBar profile={profile} user={user} />
+        <RightBar profile={profile} user={user} blocked={blocked} />
       </div>
     </div>
   );

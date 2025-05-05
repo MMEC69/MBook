@@ -3,18 +3,21 @@ import Image from "next/image";
 import React from "react";
 import { checkFriend, checkRecivedReq, checkSentReq } from "./action/action";
 import FriendReqLayout from "./client/FriendReqLayout";
+import { getUser } from "@/lib/mongo/prismaFunctions/user/get/user";
 
 export default async function ProfileIntro({
   profile,
   numberOfPosts,
   requestUser,
+  blocked,
 }: {
   profile: any;
   numberOfPosts: number;
   requestUser: string;
+  blocked: any;
 }) {
   let defaultUserAvatar: string = getDefaultAvatar(profile?.gender);
-  console.log(profile.gender);
+  const user: any = await getUser(requestUser);
   if (!profile) return null;
 
   //can use selections to optimize the code
@@ -50,6 +53,7 @@ export default async function ProfileIntro({
               isFriend={isFriend}
               profile={profile}
               user={requestUser}
+              blocked={blocked}
             />
           ) : (
             <></>

@@ -1,6 +1,7 @@
 "use server";
 
 import prisma from "@/lib/prisma/client";
+import { convertUserIdToUserList } from "@/utility/utility";
 import { z } from "zod";
 
 // use this for testing
@@ -185,4 +186,9 @@ export const updateDetail = async (prevState: any, formData: FormData) => {
       break;
   }
   // console.log("> updateDetail ended");
+};
+
+export const getBlockUsersDetails = async (blocks: any) => {
+  const blockUserDetails = convertUserIdToUserList(blocks);
+  return blockUserDetails;
 };

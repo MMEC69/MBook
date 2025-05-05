@@ -8,13 +8,16 @@ import { IoMdLink } from "react-icons/io";
 import { FaBirthdayCake, FaCalendarAlt, FaPhoneAlt } from "react-icons/fa";
 import { fullDateConverter } from "@/utility/utility";
 import BlockBtn from "./client/BlockBtn";
+import { isBlocked } from "./action/action";
 
 export default async function UserDetails({
   profile,
   user,
+  blocked,
 }: {
   profile: any;
   user: any;
+  blocked: any;
 }) {
   if (!profile) return null;
   return (
@@ -136,7 +139,7 @@ export default async function UserDetails({
             <span>Joined {fullDateConverter(profile.createdAt)}</span>
           </div>
         </div>
-        <BlockBtn userId={user.id} profileId={profile.id} />
+        <BlockBtn userId={user.id} profileId={profile.id} blocked={blocked} />
         {/* <button className="bg-pink-300 text-white text-sm rounded-md p-2">
           Add Friend
         </button> */}

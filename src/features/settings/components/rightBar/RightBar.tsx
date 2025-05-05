@@ -3,14 +3,18 @@ import RightBarSettingsXList from "@/components/RightBarSettings/RightBarSetting
 import RightBarSettingsYList from "@/components/RightBarSettings/RightBarSettingsYList";
 import React from "react";
 import SimpleUserDetailForm from "./SimpleUserDetailForm";
+import { getBlockUsersDetails } from "./action/action";
 
 export default async function RightBar({
   type,
   userId,
+  user,
 }: {
   type: string;
   userId: string;
+  user: any;
 }) {
+  const blocks = await getBlockUsersDetails(user.blocks);
   return (
     <div className="flex flex-col gap-6 pl-2 pr-2">
       {(type === "settings" || type === "settingsProfile") && (
@@ -85,6 +89,7 @@ export default async function RightBar({
             topic="Block List"
             type={type}
             userId={userId}
+            blocks={blocks}
           />
           {/* <MiddleBar /> */}
         </>

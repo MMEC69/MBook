@@ -21,7 +21,7 @@ export default function Content({
         <LeftBar userId={userId} avatar={defaultUserAvatar} />
       </div>
       <div className="w-full lg:w-[80%]">
-        <RightBar type={type} userId={userId} />
+        <RightBar type={type} userId={userId} user={user} />
       </div>
     </div>
   );

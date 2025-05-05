@@ -179,7 +179,7 @@ export const fetchFriends = async (userId: string) => {
     user = await prisma.user.findFirst({
       where: { id: userId },
     });
-    userList = convertUserIdToUserList(user?.friends);
+    userList = await convertUserIdToUserList(user?.friends);
   } catch (error) {
     // console.log("Error");
     console.log(error);
@@ -220,7 +220,7 @@ export const fetchRequests = async (user: string, requestor: boolean) => {
   return userList;
 };
 
-const convertUserIdToUserList = async (list: any) => {
+export const convertUserIdToUserList = async (list: any) => {
   let userList = [];
   let user: any;
   for (let index = 0; index < list.length; index++) {

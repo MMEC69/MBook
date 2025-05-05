@@ -9,15 +9,17 @@ import Contacts from "@/components/ContactRightBar/Contacts";
 export default function RightBar({
   profile,
   user,
+  blocked,
 }: {
   profile: any;
   user: any;
+  blocked: any;
 }) {
   return (
     <div className="flex flex-col gap-6">
       {profile.id ? (
         <>
-          <UserDetails profile={profile} user={user} />
+          <UserDetails profile={profile} user={user} blocked={blocked} />
           <Gallery userId={profile.id} />
         </>
       ) : null}
