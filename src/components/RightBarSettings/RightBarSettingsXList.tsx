@@ -35,6 +35,8 @@ export default function RightBarSettingsXList({
                     alt="Profile Image"
                     name={`${block.firstName} ${block.lastName}`}
                     button1={btn1}
+                    userId={userId}
+                    profileId={block.id}
                   />
                 );
               })}
