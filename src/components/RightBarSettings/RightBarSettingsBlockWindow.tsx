@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useOptimistic, useState } from "react";
 import Image from "next/image";
 import { unBlock } from "@/features/profile/components/Rightbar/action/action";
 
@@ -19,6 +19,7 @@ export default function RightBarSettingsBlockWindow({
   profileId: string;
 }) {
   const [remove, setRemove] = useState(false);
+
   return (
     <>
       {!remove && (
