@@ -12,10 +12,10 @@ export default function page() {
     <div>
       <Navbar />
       {/* <ProfileDropDownMenu /> */}
-      {/* <NotificationDropDown /> */}
+      <NotificationDropDown />
       {/* <GroupDropDown /> */}
       {/* <ShareDropDownMenu /> */}
-      <RightBarSettingsCustomPrivacyPopUp />
+      {/* <RightBarSettingsCustomPrivacyPopUp /> */}
     </div>
   );
 }

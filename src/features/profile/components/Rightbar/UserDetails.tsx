@@ -25,7 +25,7 @@ export default async function UserDetails({
       {/* Top */}
       <div className="flex justify-between items-center font-medium">
         <span className="text-gray-500">User details</span>
-        <Link href="/" className="text-pink-600 text-xs">
+        <Link href="/" className="text-pink-600 text-xs hover:underline">
           See all
         </Link>
       </div>
