@@ -20,7 +20,7 @@ export default function RightBar({
       {profile.id ? (
         <>
           <UserDetails profile={profile} user={user} blocked={blocked} />
-          <Gallery userId={profile.id} />
+          <Gallery profileId={profile.id} userId={user.id} />
         </>
       ) : null}
       <FriendRequests user={user} />

@@ -21,7 +21,7 @@ export default async function page({ params }: { params: { id: string } }) {
   const posts = await fetchPosts(requestedUser);
 
   return (
-    <div>
+    <div className="overflow-auto h-screen">
       <Profile
         profile={profile}
         posts={posts}

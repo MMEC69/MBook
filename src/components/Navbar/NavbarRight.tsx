@@ -1,14 +1,15 @@
 import React from "react";
 import Image from "next/image";
 import MobileMenu from "./MobileMenu";
-import { fetchSession, getDefaultAvatar } from "@/utility/utility";
-import { fetchUserInfo } from "@/features/home/components/LeftBar/action/action";
+import { User } from "@prisma/client";
 
-export default async function NavbarRight() {
-  const userId = (await fetchSession()) as string;
-  const user = await fetchUserInfo(userId);
-  let defaultUserAvatar: string = getDefaultAvatar(user?.gender);
-  if (!user) return null;
+export default async function NavbarRight({
+  user,
+  defaultUserAvatar,
+}: {
+  user: User;
+  defaultUserAvatar: string;
+}) {
   return (
     <div className="flex flex-row items-center justify-end pr-3">
       <div className="hidden lg:flex items-center justify-end gap-3">

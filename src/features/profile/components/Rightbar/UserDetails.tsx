@@ -25,9 +25,14 @@ export default async function UserDetails({
       {/* Top */}
       <div className="flex justify-between items-center font-medium">
         <span className="text-gray-500">User details</span>
-        <Link href="/" className="text-pink-600 text-xs hover:underline">
-          See all
-        </Link>
+        {user.id === profile.id && (
+          <Link
+            href="/settings/profile"
+            className="text-pink-600 text-xs hover:underline"
+          >
+            See all
+          </Link>
+        )}
       </div>
 
       {/* Bottom */}
@@ -139,7 +144,10 @@ export default async function UserDetails({
             <span>Joined {fullDateConverter(profile.createdAt)}</span>
           </div>
         </div>
-        <BlockBtn userId={user.id} profileId={profile.id} blocked={blocked} />
+        {user.id != profile.id && (
+          <BlockBtn userId={user.id} profileId={profile.id} blocked={blocked} />
+        )}
+
         {/* <button className="bg-pink-300 text-white text-sm rounded-md p-2">
           Add Friend
         </button> */}

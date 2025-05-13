@@ -5,7 +5,7 @@ import { fetchUser, getDefaultAvatar } from "@/utility/utility";
 import FriendRequestClient from "./client/FriendRequestClient";
 import { User } from "@prisma/client";
 
-export default async function FriendRequests({ user }: { user: any }) {
+export default async function FriendRequests({ user }: { user: User }) {
   const friendRequests: any = await fetchFriendRequests(user.id);
   return (
     <>

@@ -3,8 +3,6 @@
 import prisma from "@/lib/prisma/client";
 
 export const fetchPosts = async (userId: string) => {
-  console.log("> Posts fetch initiation");
-
   if (!userId) return;
 
   try {
@@ -13,9 +11,8 @@ export const fetchPosts = async (userId: string) => {
         user: userId,
       },
     });
-    console.log("> Posts fetch succesfully");
     return res;
   } catch (error) {
-    console.log("> Posts fetch failure");
+    console.log(error);
   }
 };

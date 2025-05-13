@@ -3,8 +3,6 @@
 import prisma from "@/lib/prisma/client";
 
 export const fetchContacts = async (userId: string) => {
-  console.log("> Contacts fetch initiation");
-
   if (!userId) return;
 
   try {
@@ -13,9 +11,8 @@ export const fetchContacts = async (userId: string) => {
         id: userId,
       },
     });
-    console.log("> Contacts fetch succesfully");
     return res?.friends;
   } catch (error) {
-    console.log("> Contacts fetch failure");
+    console.log(error);
   }
 };

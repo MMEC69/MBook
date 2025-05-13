@@ -17,7 +17,7 @@ export default async function Profile({
 }) {
   const blocked = await isBlocked(user.blocks, profile.id);
   return (
-    <div>
+    <div className="">
       <Navbar />
       <Content
         profile={profile}
