@@ -1,11 +1,10 @@
-import Link from "next/link";
 import React from "react";
-import Birthday from "./Birthday";
+import Link from "next/link";
+import BirthdayClient from "./BirthdayClient";
 import Image from "next/image";
-import { fetchSession } from "@/utility/utility";
-import { fetchBirthdays } from "./action/action";
+import { User } from "@prisma/client";
 
-export default async function Birthdays({
+export default function BirthdaysClient({
   birthdays,
   userId,
 }: {
@@ -26,10 +25,16 @@ export default async function Birthdays({
       </div>
 
       {/* Birthday */}
-      <Birthday />
-      <Birthday />
-      <Birthday />
-      <Birthday />
+      {birthdays.map((birthday: User) => {
+        const defaultUserAvatar =
+          birthday.gender === "Male" ? "/man.png" : "woman.png";
+        return (
+          <BirthdayClient
+            key={birthday.id}
+            avatar={birthday.avatar || defaultUserAvatar}
+          />
+        );
+      })}
 
       {/* Upcoming */}
       <div className=" p-4 bg-slate-100 rounded-lg flex items-center gap-4">

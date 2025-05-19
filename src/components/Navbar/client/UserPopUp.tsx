@@ -1,19 +1,23 @@
 import React from "react";
+import DropDownRowClient from "./DropDownRowClient";
 
 export default function UserPopUp({ handleClose }: { handleClose: any }) {
   return (
     <div
-      className=" absolute w-100px h-100px right-4 top-16 z-50"
+      className=" absolute right-0 top-16 z-50"
       onMouseLeave={() => {
         setTimeout(handleClose, 50);
       }}
     >
-      <form
-        action=""
-        className="p-12 bg-white rounded-lg shadow-md flex flex-col gap-2 w-full md:w-1/2 xl:w-1/3 relative"
-      >
-        User
-      </form>
+      <div className="min-w-48 h-15 flex flex-col bg-white absolute right-2 mt-2 p-2 rounded-[10px] gap-2  shadow-2xl">
+        <DropDownRowClient image="/posts2.png" alt="Profile" option="Profile" />
+        <DropDownRowClient
+          image="/settings.png"
+          alt="Settings"
+          option="Settings"
+        />
+        <DropDownRowClient image="/logout.png" alt="Logout" option="Logout" />
+      </div>
     </div>
   );
 }

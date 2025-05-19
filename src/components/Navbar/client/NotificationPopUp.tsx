@@ -1,5 +1,8 @@
 "use client";
 import React from "react";
+import DropDownSeeAllOptionClient from "./DropDownSeeAllOptionClient";
+import DropDownOptionClient from "./DropDownOptionClient";
+import DropDownRowClient from "./DropDownRowClient";
 
 export default function NotificationPopUp({
   handleClose,
@@ -8,17 +11,26 @@ export default function NotificationPopUp({
 }) {
   return (
     <div
-      className=" absolute w-100px h-100px right-4 top-16 z-50"
+      className=" absolute right-0 top-16 z-50"
       onMouseLeave={() => {
         setTimeout(handleClose, 50);
       }}
     >
-      <form
-        action=""
-        className="p-12 bg-white rounded-lg shadow-md flex flex-col gap-2 w-full md:w-1/2 xl:w-1/3"
-      >
-        Notification
-      </form>
+      <div className="min-w-48 h-15 flex flex-col bg-white absolute right-2 mt-2 p-1 gap-2 rounded-[10px] shadow-2xl">
+        <div className=" text-sm flex flex-row gap-2 p-1 rounded-[5px]">
+          <DropDownOptionClient option="All" />
+          <DropDownOptionClient option="Unread" />
+        </div>
+        <div>
+          <DropDownRowClient
+            image="/logout.png"
+            alt="Logout"
+            option="Logout"
+            time="2min"
+          />
+        </div>
+        <DropDownSeeAllOptionClient />
+      </div>
     </div>
   );
 }

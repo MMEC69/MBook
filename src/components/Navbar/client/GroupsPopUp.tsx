@@ -1,19 +1,21 @@
 import React from "react";
+import DropDownRowClient from "./DropDownRowClient";
+import DropDownSeeAllOptionClient from "./DropDownSeeAllOptionClient";
 
 export default function GroupsPopUp({ handleClose }: { handleClose: any }) {
   return (
     <div
-      className=" absolute w-100px h-100px right-4 top-16 z-50"
+      className=" absolute right-0 top-16 z-50"
       onMouseLeave={() => {
         setTimeout(handleClose, 50);
       }}
     >
-      <form
-        action=""
-        className="p-12 bg-white rounded-lg shadow-md flex flex-col gap-2 w-full md:w-1/2 xl:w-1/3 relative"
-      >
-        Groups
-      </form>
+      <div className="min-w-64 h-15 flex flex-col bg-white absolute right-2 mt-2 p-2 rounded-[10px] gap-2  shadow-2xl">
+        <DropDownRowClient image="/group.png" alt="Group" option="Group Name" />
+        <DropDownRowClient image="/group.png" alt="Group" option="Group Name" />
+        <DropDownRowClient image="/group.png" alt="Group" option="Group Name" />
+        <DropDownSeeAllOptionClient />
+      </div>
     </div>
   );
 }

@@ -140,7 +140,9 @@ export default function FriendWindowClient({
               </button>
               <button
                 className="bg-red-400 p-1 rounded-lg hover:cursor-pointer hover:bg-red-300"
-                onClick={() => {}}
+                onClick={() => {
+                  setRemove(true);
+                }}
               >
                 {button2}
               </button>

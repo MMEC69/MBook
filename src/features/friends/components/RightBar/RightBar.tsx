@@ -7,6 +7,10 @@ import {
   fetchRequests,
   fetchSuggestedUsers,
 } from "@/utility/utility";
+import {
+  getBirthdays,
+  getUpcomingBirthdays,
+} from "@/features/home/components/RightBar/actions/action";
 
 export default async function RightBar({
   option,
@@ -20,6 +24,8 @@ export default async function RightBar({
   const allFriends = await fetchFriends(userId);
   const sentRequests = await fetchRequests(userId, true);
   const receivedRequests = await fetchRequests(userId, false);
+  const birthdays = await getBirthdays(userId);
+  const upcomingBirthdays = await getUpcomingBirthdays(userId);
 
   return (
     <div className="flex flex-col gap-6 pl-2 pr-2">
@@ -85,7 +91,13 @@ export default async function RightBar({
             topic="Birthdays"
             type="wish"
             userId={userId}
-            list={suggestedUsers}
+            list={birthdays}
+          />
+          <RightBarFriendXYList
+            topic="Upcoming Birthdays"
+            type="wish"
+            userId={userId}
+            list={upcomingBirthdays}
           />
         </>
       )}
