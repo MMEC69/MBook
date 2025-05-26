@@ -27,7 +27,7 @@ export default async function ProfileCard() {
         />
       </div>
       <div className="h-20 flex flex-col gap-2 items-center">
-        <span className=" font-semibold">
+        <span className=" font-semibold text-gray-400 hover:underline hover:cursor-pointer">
           {user.userName ? user.userName : user.firstName + " " + user.lastName}
         </span>
         <div className="flex items-center gap-4">

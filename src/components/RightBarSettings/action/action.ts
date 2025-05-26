@@ -1,6 +1,13 @@
 "use server";
 import { z } from "zod";
 import prisma from "@/lib/prisma/client";
+import {
+  atLeastOneCapitalLetter,
+  atLeastOneNumber,
+  atLeastOneSimpleLetter,
+  atLeastOneSpecialCharacter,
+  passwordFullRegex,
+} from "@/features/register/meta/meta";
 
 const modifySchema = z.object({
   f1: z.string().min(3, { message: "Invalid Value" }).trim(),
@@ -10,19 +17,89 @@ const modifySchema = z.object({
   userId: z.string().min(3, { message: "Invalid Value" }).trim(),
 });
 
-const modifyNameSchema = z.object({});
+const modifyNameSchema = z.object({
+  f1: z
+    .string()
+    .min(3, { message: "Name should be more than 3 characters" })
+    .trim(),
+  f2: z
+    .string()
+    .min(3, { message: "Name should be more than 3 characters" })
+    .trim(),
+  f3: z
+    .string()
+    .min(3, { message: "Name should be more than 3 characters" })
+    .trim(),
+  type: z.string().min(3, { message: "Invalid Value" }).trim(),
+  userId: z.string().min(3, { message: "Invalid Value" }).trim(),
+});
 
-const modifyPasswordSchema = z.object({});
+//need to be finished
+const modifyPasswordSchema = z
+  .object({
+    f1: z.string().trim(),
+    f2: z
+      .string()
+      .min(8, { message: "Password must be at least 8 Characters" })
+      .max(16, { message: "Password must not exceed 16 characters" })
+      .regex(atLeastOneCapitalLetter, {
+        message: "Please provide atleast single capital letter",
+      })
+      .regex(atLeastOneSimpleLetter, {
+        message: "Please provide atleast single simple letter",
+      })
+      .regex(atLeastOneNumber, {
+        message: "Please provide atleast single number",
+      })
+      .regex(atLeastOneSpecialCharacter, {
+        message: "Please provide atleast single special character",
+      })
+      .regex(passwordFullRegex, { message: "Invalid password" })
+      .trim(),
+    f3: z.string().trim(),
+    type: z.string().min(3, { message: "Invalid Value" }).trim(),
+    userId: z.string().min(3, { message: "Invalid Value" }).trim(),
+    oldPassword: z.string().email({ message: "Invalid Email" }).trim(),
+  })
+  .refine((data) => data.oldPassword === data.f1, {
+    message: "Old password doesn't match",
+    path: ["f1"],
+  })
+  .refine((data) => data.oldPassword !== data.f2, {
+    message: "New and old password can't be same",
+    path: ["f1", "f2"],
+  })
+  .refine((data) => data.f2 === data.f3, {
+    message: "Password confirmation failure, try again",
+    path: ["f2", "f3"],
+  });
 
-const modifyEmailSchema = z.object({});
+//fix the scema
+const modifyEmailSchema = z
+  .object({
+    f1: z.string().email({ message: "Invalid Email" }).trim(),
+    f2: z.string().email({ message: "Invalid Email" }).trim(),
+    f3: z.string().email({ message: "Invalid Email" }).trim(),
+    type: z.string().min(3, { message: "Invalid Value" }).trim(),
+    userId: z.string().min(3, { message: "Invalid Value" }).trim(),
+    oldEmail: z.string().email({ message: "Invalid Email" }).trim(),
+  })
+  .refine((data) => data.oldEmail !== data.f1, {
+    message: "Old Email doesn't match",
+    path: ["f1"],
+  })
+  .refine((data) => data.oldEmail === data.f2, {
+    message: "This is your current email ",
+    path: ["f2"],
+  })
+  .refine((data) => data.f2 === data.f3, {
+    message: "Email confirmation failure, try again",
+    path: ["f3"],
+  });
 
 export const modify = async (prevState: any, formData: FormData) => {
-  // console.log("> Modify Profile Settings Initiated");
-  // console.log(formData)
-
   // Validation of Values
   const result = modifySchema.safeParse(Object.fromEntries(formData));
-
   // Validation Failure
   if (!result.success) {
     console.log(result.error.flatten().fieldErrors);
@@ -30,39 +107,48 @@ export const modify = async (prevState: any, formData: FormData) => {
   }
 
   const { type, userId, f1, f2, f3 } = result.data;
-  // console.log(userId);
 
   switch (type) {
     case "name":
+      const resultForChangeName = modifyNameSchema.safeParse(
+        Object.fromEntries(formData)
+      );
+      if (!resultForChangeName.success) {
+        console.log(resultForChangeName.error.flatten().fieldErrors);
+        return { errors: resultForChangeName.error.flatten().fieldErrors };
+      }
       try {
         const res = await prisma.user.update({
-          where: { id: userId },
+          where: { id: resultForChangeName.data.userId },
           data: {
-            firstName: f1,
-            lastName: f2,
-            userName: f3,
+            firstName: resultForChangeName.data.f1,
+            lastName: resultForChangeName.data.f2,
+            userName: resultForChangeName.data.f3,
           },
         });
-        // console.log(res);
       } catch (error) {
         console.log(error);
-        // console.log("Error: Unable to update name");
         return;
       }
       break;
 
     case "email":
+      const resultForChangeEmail = modifyEmailSchema.safeParse(
+        Object.fromEntries(formData)
+      );
+      if (!resultForChangeEmail.success) {
+        console.log(resultForChangeEmail.error.flatten().fieldErrors);
+        return { errors: resultForChangeEmail.error.flatten().fieldErrors };
+      }
       try {
         const res = await prisma.user.update({
-          where: { id: userId },
+          where: { id: resultForChangeEmail.data.userId },
           data: {
-            email: f2,
+            email: resultForChangeEmail.data.f2,
           },
         });
-        console.log(res);
       } catch (error) {
         console.log(error);
-        // console.log("Error: Unable to update email");
         return;
       }
       break;
@@ -74,10 +160,8 @@ export const modify = async (prevState: any, formData: FormData) => {
             password: f1,
           },
         });
-        console.log(res);
       } catch (error) {
         console.log(error);
-        // console.log("Error: Unable to update password");
         return;
       }
       break;
@@ -85,6 +169,4 @@ export const modify = async (prevState: any, formData: FormData) => {
     default:
       break;
   }
-
-  // console.log("> Modify Profile Settings Ended");
 };

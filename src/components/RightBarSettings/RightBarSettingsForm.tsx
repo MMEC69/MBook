@@ -6,9 +6,13 @@ import { SubmitButtons } from "./client/buttons";
 export default function RightBarSettingForm({
   fType,
   userId,
+  oldEmail,
+  oldPassword,
 }: {
   fType: string;
-  userId?: string;
+  userId: string;
+  oldEmail?: string;
+  oldPassword?: string;
 }) {
   const [state, modifyAction] = useActionState(modify, undefined);
   let topic, f1, f2, f3;
@@ -86,6 +90,26 @@ export default function RightBarSettingForm({
         <div className=" hidden">
           <input type="text" id="userId" name="userId" defaultValue={userId} />
         </div>
+        {fType === "email" && (
+          <div className=" hidden">
+            <input
+              type="text"
+              id="oldEmail"
+              name="oldEmail"
+              defaultValue={oldEmail}
+            />
+          </div>
+        )}
+        {fType === "password" && (
+          <div className=" hidden">
+            <input
+              type="text"
+              id="oldPassword"
+              name="oldPassword"
+              defaultValue={oldPassword}
+            />
+          </div>
+        )}
 
         <div className="flex flex-row gap-3 justify-end">
           <button className="bg-red-400 p-2 pl-3 pr-3 rounded-lg hover:cursor-pointer hover:bg-red-300">

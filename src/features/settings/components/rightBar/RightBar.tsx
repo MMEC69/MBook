@@ -20,8 +20,16 @@ export default async function RightBar({
       {(type === "settings" || type === "settingsProfile") && (
         <>
           <RightBarSettingsForm fType="name" userId={userId} />
-          <RightBarSettingsForm fType="email" userId={userId} />
-          <RightBarSettingsForm fType="password" userId={userId} />
+          <RightBarSettingsForm
+            fType="email"
+            userId={userId}
+            oldEmail={user.email}
+          />
+          <RightBarSettingsForm
+            fType="password"
+            userId={userId}
+            oldPassword={user.password}
+          />
         </>
       )}
       {/* Incomeplete part here, fix the forms */}

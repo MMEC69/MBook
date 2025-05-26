@@ -9,7 +9,7 @@ export const getBirthdays = async (userId: string) => {
   // add a birthday filter here
   const today = fullDateConverter(new Date());
   const birthdays = friendDetails.filter((friend: User) => {
-    return today === friend.birthday;
+    return today === fullDateConverter(friend.birthday);
   });
   return birthdays;
 };
@@ -22,7 +22,7 @@ export const getUpcomingBirthdays = async (userId: string) => {
   // add a birthday filter here
   const today = fullDateConverter(new Date());
   const birthdays = friendDetails.filter((friend: User) => {
-    return today !== friend.birthday;
+    return today !== fullDateConverter(friend.birthday);
   });
   return birthdays;
 };
