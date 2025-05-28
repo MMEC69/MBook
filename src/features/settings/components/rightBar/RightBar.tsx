@@ -15,6 +15,7 @@ export default async function RightBar({
   user: any;
 }) {
   const blocks = await getBlockUsersDetails(user.blocks);
+  //Need to change data form to add a single form with better UI - especially for settings user
   return (
     <div className="flex flex-col gap-6 pl-2 pr-2">
       {(type === "settings" || type === "settingsProfile") && (
