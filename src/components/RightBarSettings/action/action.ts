@@ -67,11 +67,11 @@ const modifyPasswordSchema = z
   })
   .refine((data) => data.oldPassword !== data.f2, {
     message: "New and old password can't be same",
-    path: ["f1", "f2"],
+    path: ["f2"],
   })
   .refine((data) => data.f2 === data.f3, {
     message: "Password confirmation failure, try again",
-    path: ["f2", "f3"],
+    path: ["f3"],
   });
 
 //fix the scema
@@ -84,12 +84,12 @@ const modifyEmailSchema = z
     userId: z.string().min(3, { message: "Invalid Value" }).trim(),
     oldEmail: z.string().email({ message: "Invalid Email" }).trim(),
   })
-  .refine((data) => data.oldEmail !== data.f1, {
+  .refine((data) => data.oldEmail === data.f1, {
     message: "Old Email doesn't match",
     path: ["f1"],
   })
-  .refine((data) => data.oldEmail === data.f2, {
-    message: "This is your current email ",
+  .refine((data) => data.oldEmail !== data.f2, {
+    message: "This is your current email",
     path: ["f2"],
   })
   .refine((data) => data.f2 === data.f3, {
@@ -153,6 +153,13 @@ export const modify = async (prevState: any, formData: FormData) => {
       }
       break;
     case "password":
+      const resultForChangePassword = modifyPasswordSchema.safeParse(
+        Object.fromEntries(formData)
+      );
+      if (!resultForChangePassword.success) {
+        console.log(resultForChangePassword.error.flatten().fieldErrors);
+        return { errors: resultForChangePassword.error.flatten().fieldErrors };
+      }
       try {
         const res = await prisma.user.update({
           where: { id: userId },
