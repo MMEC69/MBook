@@ -2,9 +2,8 @@ import RightBarSettingsForm from "@/components/RightBarSettings/RightBarSettings
 import RightBarSettingsXList from "@/components/RightBarSettings/RightBarSettingsXList";
 import RightBarSettingsYList from "@/components/RightBarSettings/RightBarSettingsYList";
 import React from "react";
-import SimpleUserDetailForm from "./SimpleUserDetailForm";
 import { getBlockUsersDetails } from "./action/action";
-
+import UserDetailsFormClient from "./client/UserDetailsFormClient";
 export default async function RightBar({
   type,
   userId,
@@ -36,7 +35,8 @@ export default async function RightBar({
       {/* Incomeplete part here, fix the forms */}
       {type === "settingsUserDetails" && (
         <>
-          <SimpleUserDetailForm
+          <UserDetailsFormClient />
+          {/* <SimpleUserDetailForm
             userId={userId}
             labelName="Description"
             icon="sample"
@@ -89,7 +89,7 @@ export default async function RightBar({
             labelName="Links"
             icon="sample"
             field="links"
-          />
+          /> */}
         </>
       )}
       {type === "settingsBlock" && (
