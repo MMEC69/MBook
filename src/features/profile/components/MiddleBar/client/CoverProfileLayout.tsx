@@ -8,16 +8,22 @@ export default function CoverProfileLayout({
   profileSrc,
   coverSrc,
   defaultUserAvatar,
+  isUsersProfile,
 }: {
   profileSrc: string;
   coverSrc: string;
   defaultUserAvatar: string;
+  isUsersProfile: boolean;
 }) {
   const [open, setOpen] = useState(false);
   return (
     <>
       <div className="w-full h-64 relative ">
-        <Cover src={coverSrc} setOpen={setOpen} />
+        <Cover
+          src={coverSrc}
+          setOpen={setOpen}
+          isUsersProfile={isUsersProfile}
+        />
         <ProfilePhoto
           src={profileSrc}
           defaultUserAvatar={defaultUserAvatar}

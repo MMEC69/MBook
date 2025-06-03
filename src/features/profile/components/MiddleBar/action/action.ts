@@ -143,3 +143,8 @@ export const unFriend = async (user: string, friend: string) => {
   }
   // console.log("> unFriend ended");
 };
+
+export const checkProfileOwner = async (userId: string, profileId: string) => {
+  const res = userId === profileId ? true : false;
+  return res;
+};

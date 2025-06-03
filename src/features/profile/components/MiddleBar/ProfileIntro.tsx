@@ -1,7 +1,12 @@
 import { getDefaultAvatar } from "@/utility/utility";
 import Image from "next/image";
 import React from "react";
-import { checkFriend, checkRecivedReq, checkSentReq } from "./action/action";
+import {
+  checkFriend,
+  checkProfileOwner,
+  checkRecivedReq,
+  checkSentReq,
+} from "./action/action";
 import FriendReqLayout from "./client/FriendReqLayout";
 import Cover from "./client/Cover";
 import ProfilePhoto from "./client/ProfilePhoto";
@@ -21,6 +26,10 @@ export default async function ProfileIntro({
   let defaultUserAvatar: string = getDefaultAvatar(profile?.gender);
   if (!profile) return null;
 
+  let userId = requestUser;
+  let profileId = profile.id;
+  let isUsersProfile: boolean = await checkProfileOwner(userId, profileId);
+
   //can use selections to optimize the code
   let isRecived: boolean = await checkRecivedReq(profile.id, requestUser);
   let isSent: boolean = await checkSentReq(profile.id, requestUser);
@@ -32,6 +41,7 @@ export default async function ProfileIntro({
         profileSrc={profile.avatar}
         coverSrc={profile.cover}
         defaultUserAvatar={defaultUserAvatar}
+        isUsersProfile={isUsersProfile}
       />
 
       <div className=" flex items-center gap-12 w-full h-16 justify-between px-2">
