@@ -2,18 +2,18 @@
 import { CldUploadWidget } from "next-cloudinary";
 import Image from "next/image";
 import React, { useActionState, useState } from "react";
-import { updateCover } from "../action/action";
+import { updateProfile } from "../action/action";
 
-export default function EditCoverProfilePopUp({
+export default function EditProfilePopUp({
   setOpen,
   userId,
 }: {
   setOpen: any;
   userId: string;
 }) {
-  const [cover, setCover] = useState<any>(false);
+  const [profile, setProfile] = useState<any>(false);
 
-  const [state, formAction] = useActionState(updateCover, {
+  const [state, formAction] = useActionState(updateProfile, {
     success: false,
     error: false,
   });
@@ -30,7 +30,7 @@ export default function EditCoverProfilePopUp({
           <CldUploadWidget
             uploadPreset="MBookSocial"
             onSuccess={(result) => {
-              setCover(result.info);
+              setProfile(result.info);
             }}
           >
             {({ open }) => {
@@ -39,16 +39,16 @@ export default function EditCoverProfilePopUp({
                   className="bg-slate-500 w-full p-1 pl-3 text-left hover:bg-slate-400 text-white rounded-md"
                   onClick={() => open()}
                 >
-                  Select Cover
+                  Select Profile
                 </button>
               );
             }}
           </CldUploadWidget>
-          {!cover && !state.success && !state.error && (
-            <span className=" text-center">Cover is not selected</span>
+          {!profile && !state.success && !state.error && (
+            <span className=" text-center">Profile is not selected</span>
           )}
-          {cover && !state.success && !state.error && (
-            <span className=" text-center">Cover is selected</span>
+          {profile && !state.success && !state.error && (
+            <span className=" text-center">Profile is selected</span>
           )}
         </div>
 
@@ -56,16 +56,20 @@ export default function EditCoverProfilePopUp({
           <form
             className=" p-1"
             action={(formData) =>
-              formAction({ formData, cover: cover?.secure_url || "", userId })
+              formAction({
+                formData,
+                profile: profile?.secure_url || "",
+                userId,
+              })
             }
           >
             <button className="bg-green-500 w-full p-1 pl-3 text-center hover:bg-green-400 text-white rounded-md">
-              Update Cover
+              Update Profile
             </button>
           </form>
           {state.success && (
             <span className="text-green-500 text-center">
-              Cover has been updated
+              Profile has been updated
             </span>
           )}
           {state.error && (

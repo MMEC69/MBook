@@ -42,6 +42,7 @@ export default async function ProfileIntro({
         coverSrc={profile.cover}
         defaultUserAvatar={defaultUserAvatar}
         isUsersProfile={isUsersProfile}
+        userId={userId}
       />
 
       <div className=" flex items-center gap-12 w-full h-16 justify-between px-2">

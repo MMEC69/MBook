@@ -1,5 +1,9 @@
 "use server";
 
+import {
+  setCover,
+  setProfile,
+} from "@/lib/mongo/prismaFunctions/user/set/user";
 import prisma from "@/lib/prisma/client";
 
 export const fetchProfileIntroInfo = async (userId: string) => {
@@ -147,4 +151,32 @@ export const unFriend = async (user: string, friend: string) => {
 export const checkProfileOwner = async (userId: string, profileId: string) => {
   const res = userId === profileId ? true : false;
   return res;
+};
+
+export const updateCover = async (
+  prevState: { success: boolean; error: boolean },
+  payload: { formData: FormData; cover: string; userId: string }
+) => {
+  const { cover, userId } = payload;
+  const res = await setCover(userId, cover);
+
+  if (res) {
+    return { success: true, error: false };
+  } else {
+    return { success: false, error: true };
+  }
+};
+
+export const updateProfile = async (
+  prevState: { success: boolean; error: boolean },
+  payload: { formData: FormData; profile: string; userId: string }
+) => {
+  const { profile, userId } = payload;
+  const res = await setProfile(userId, profile);
+
+  if (res) {
+    return { success: true, error: false };
+  } else {
+    return { success: false, error: true };
+  }
 };
