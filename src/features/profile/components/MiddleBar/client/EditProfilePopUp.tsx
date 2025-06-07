@@ -3,6 +3,7 @@ import { CldUploadWidget } from "next-cloudinary";
 import Image from "next/image";
 import React, { useActionState, useState } from "react";
 import { updateProfile } from "../action/action";
+import { useRouter } from "next/navigation";
 
 export default function EditProfilePopUp({
   setOpen,
@@ -17,14 +18,28 @@ export default function EditProfilePopUp({
     success: false,
     error: false,
   });
+
+  const router = useRouter();
+
+  const handleClose = () => {
+    setOpen(false);
+    state.success && router.refresh();
+  };
+
   return (
     <div className=" absolute w-full h-screen left-0 top-0 bg-black bg-opacity-65 flex items-center justify-center z-50">
       <div className="w-96 h-48 bg-white absolute  rounded-lg">
         <div
           className=" hover:cursor-pointer absolute right-0 top-0"
-          onClick={() => setOpen(false)}
+          onClick={() => handleClose()}
         >
-          <Image src={"/close.png"} alt={"X"} width={28} height={28} />
+          <Image
+            src={"/close.png"}
+            alt={"X"}
+            width={28}
+            height={28}
+            className="hover:opacity-70"
+          />
         </div>
         <div className="p-1 absolute top-6 w-full flex flex-col gap-2">
           <CldUploadWidget
@@ -36,7 +51,7 @@ export default function EditProfilePopUp({
             {({ open }) => {
               return (
                 <button
-                  className="bg-slate-500 w-full p-1 pl-3 text-left hover:bg-slate-400 text-white rounded-md"
+                  className="bg-slate-500 w-full p-1 text-center hover:bg-slate-400 text-white rounded-md"
                   onClick={() => open()}
                 >
                   Select Profile
@@ -49,6 +64,16 @@ export default function EditProfilePopUp({
           )}
           {profile && !state.success && !state.error && (
             <span className=" text-center">Profile is selected</span>
+          )}
+          {state.success && (
+            <span className="text-green-500 text-center">
+              Profile has been updated
+            </span>
+          )}
+          {state.error && (
+            <span className="text-red-500 text-center">
+              Something went wrong
+            </span>
           )}
         </div>
 
@@ -63,20 +88,10 @@ export default function EditProfilePopUp({
               })
             }
           >
-            <button className="bg-green-500 w-full p-1 pl-3 text-center hover:bg-green-400 text-white rounded-md">
+            <button className="bg-green-500 w-full p-1 text-sm text-center hover:bg-green-400 text-white rounded-md">
               Update Profile
             </button>
           </form>
-          {state.success && (
-            <span className="text-green-500 text-center">
-              Profile has been updated
-            </span>
-          )}
-          {state.error && (
-            <span className="text-red-500 text-center">
-              Something went wrong
-            </span>
-          )}
         </div>
       </div>
     </div>

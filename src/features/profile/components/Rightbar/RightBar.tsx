@@ -5,8 +5,14 @@ import FriendRequests from "@/components/FriendRequestsRightBar/FriendRequests";
 import Birthdays from "@/components/BirthdaysRightBar/Birthdays";
 import Advertisements from "@/components/AdvertisementRightBar/Advertisements";
 import Contacts from "@/components/ContactRightBar/Contacts";
+import {
+  getBirthdays,
+  getContacts,
+} from "@/features/home/components/RightBar/actions/action";
+import BirthdaysClient from "@/components/BirthdaysRightBar/Client/BirthdaysClient";
+import ContactsClient from "@/components/ContactRightBar/Client/ContactsClient";
 
-export default function RightBar({
+export default async function RightBar({
   profile,
   user,
   blocked,
@@ -15,6 +21,8 @@ export default function RightBar({
   user: any;
   blocked: any;
 }) {
+  const birthdays = await getBirthdays(user.id);
+  const contacts = await getContacts(user.id);
   return (
     <div className="flex flex-col gap-6">
       {profile.id ? (
@@ -24,9 +32,9 @@ export default function RightBar({
         </>
       ) : null}
       <FriendRequests user={user} />
-      <Birthdays />
+      <BirthdaysClient birthdays={birthdays} userId={user.id} />
       <Advertisements />
-      <Contacts />
+      <ContactsClient userId={user.id} contacts={contacts} />
     </div>
   );
 }
