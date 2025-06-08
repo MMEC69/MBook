@@ -10,7 +10,7 @@ export default function Content({ user }: { user: any }) {
         <LeftBar />
       </div>
       <div className="w-full lg:w-[70%] xl:w-[50%]">
-        <MiddleBar />
+        <MiddleBar profileId={user.id} />
       </div>
       <div className="hidden lg:block w-[30%]">
         <RightBar user={user} />

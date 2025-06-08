@@ -1,6 +1,15 @@
-import React from "react";
+"use client";
+import React, { useActionState } from "react";
+import { updateUserDetails } from "../action/action";
 
-export default function UserDetailsFormClient() {
+export default function UserDetailsFormClient({ userId }: { userId: string }) {
+  const [state, formAction] = useActionState(updateUserDetails, {
+    success: false,
+    error: false,
+  });
+
+  //need to add actions other stuff to work
+
   return (
     <div className="">
       <form action="" className="flex flex-col gap-2 w-[100%] ">

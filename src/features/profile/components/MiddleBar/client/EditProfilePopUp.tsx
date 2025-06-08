@@ -4,6 +4,7 @@ import Image from "next/image";
 import React, { useActionState, useState } from "react";
 import { updateProfile } from "../action/action";
 import { useRouter } from "next/navigation";
+import { ProfileUpdateButton } from "./buttons";
 
 export default function EditProfilePopUp({
   setOpen,
@@ -88,9 +89,7 @@ export default function EditProfilePopUp({
               })
             }
           >
-            <button className="bg-green-500 w-full p-1 text-sm text-center hover:bg-green-400 text-white rounded-md">
-              Update Profile
-            </button>
+            <ProfileUpdateButton />
           </form>
         </div>
       </div>

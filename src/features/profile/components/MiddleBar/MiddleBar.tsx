@@ -26,7 +26,7 @@ export default function MiddleBar({
         blocked={blocked}
       />
       <AddPost />
-      <Feed />
+      <Feed profileId={profile.id} isProfile={true} />
     </div>
   );
 }

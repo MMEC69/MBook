@@ -1,7 +1,15 @@
 import Image from "next/image";
 import React from "react";
 
-export default function Interactions() {
+export default function Interactions({
+  reacts,
+  comments,
+  shares,
+}: {
+  reacts: number;
+  comments: number;
+  shares: number;
+}) {
   return (
     <div className="flex items-center justify-between text-sm my-4">
       <div className="flex gap-8">
@@ -15,7 +23,7 @@ export default function Interactions() {
           />
           <span className="text-pink-700"> | </span>
           <span className="text-pink-700">
-            123 <span className="hidden md:inline">Likes</span>
+            {reacts} <span className="hidden md:inline">Likes</span>
           </span>
         </div>
         <div className="flex items-center gap-4 bg-pink-100 p-2 rounded-xl">
@@ -28,7 +36,7 @@ export default function Interactions() {
           />
           <span className="text-pink-700"> | </span>
           <span className="text-pink-700">
-            123 <span className="hidden md:inline">Comments</span>
+            {comments} <span className="hidden md:inline">Comments</span>
           </span>
         </div>
       </div>
@@ -42,7 +50,7 @@ export default function Interactions() {
         />
         <span className="text-pink-700"> | </span>
         <span className="text-pink-700">
-          123 <span className="hidden md:inline">Shares</span>
+          {shares} <span className="hidden md:inline">Shares</span>
         </span>
       </div>
     </div>

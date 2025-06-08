@@ -4,6 +4,7 @@ import Image from "next/image";
 import React, { useActionState, useState } from "react";
 import { updateCover } from "../action/action";
 import { useRouter } from "next/navigation";
+import { ProfileUpdateButton } from "./buttons";
 
 export default function EditCoverProfilePopUp({
   setOpen,
@@ -83,9 +84,7 @@ export default function EditCoverProfilePopUp({
               formAction({ formData, cover: cover?.secure_url || "", userId })
             }
           >
-            <button className="bg-green-500 w-full p-1 text-sm text-center hover:bg-green-400 text-white rounded-md">
-              Update Cover
-            </button>
+            <ProfileUpdateButton />
           </form>
         </div>
       </div>

@@ -192,3 +192,18 @@ export const getBlockUsersDetails = async (blocks: any) => {
   const blockUserDetails = convertUserIdToUserList(blocks);
   return blockUserDetails;
 };
+
+//=================update user details=============
+//need to add zod stuff here
+export const updateUserDetails = async (
+  prevState: { success: boolean; error: boolean },
+  payload: { formData: FormData; userId: string }
+) => {
+  //need to add necessary functions
+  let res: boolean = true;
+  if (res) {
+    return { success: true, error: false };
+  } else {
+    return { success: false, error: true };
+  }
+};

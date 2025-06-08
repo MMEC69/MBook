@@ -5,16 +5,46 @@ import Interactions from "./Interactions";
 import Comments from "./Comments";
 import Link from "next/link";
 import { fetchSession } from "@/utility/utility";
+import { Post as SinglePost } from "@prisma/client";
+import {
+  getFirstName,
+  getLastName,
+  getUser,
+} from "@/lib/mongo/prismaFunctions/user/get/user";
+import {
+  getComments,
+  getCommentsWithUserDetails,
+  getReacts,
+  getShares,
+} from "./actions/action";
+import InteractionClient from "./client/InteractionClient";
+import CommentsClient from "./client/CommentsClient";
 
-export default async function Post(props: any) {
+export default async function Post({ post }: { post: SinglePost }) {
   const userId = (await fetchSession()) as string;
+  const user = await getUser(userId);
+  const fullName = `${await getFirstName(post.user)} ${await getLastName(
+    post.user
+  )}`;
+
+  const reactList = await getReacts(post.id);
+  const reactedUserIds = reactList.map((react) => {
+    return react.user;
+  });
+
+  const commentList = await getComments(post.id);
+  const comments = await getCommentsWithUserDetails(commentList);
+  const numberOfComments = commentList.length;
+
+  const shareList = await getShares(post.id);
+  const numberOfShares = shareList.length;
   // change the user id to the ownsers user id
   return (
     <div className="flex flex-col gap-4 bg-slate-100 p-5 rounded-lg">
       {/* User */}
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-4">
-          <Link href={`/profile/${userId}`}>
+          <Link href={`/profile/${post.user}`}>
             <Image
               src={"/pexels-jonathanborba-2917373.jpg"}
               alt="User Account"
@@ -24,13 +54,12 @@ export default async function Post(props: any) {
             />
           </Link>
 
-          <Link href={`/profile/${userId}`}>
-            <span className="font-medium hover:underline ">Eronne Cooray</span>
+          <Link href={`/profile/${post.user}`}>
+            <span className="font-medium hover:underline ">{fullName}</span>
           </Link>
         </div>
         <BsThreeDots size={16} color="#ed5fe1" />
       </div>
-
       {/* Description */}
       <div className="flex flex-col gap-4">
         <div className="w-full min-h-96 relative">
@@ -41,17 +70,29 @@ export default async function Post(props: any) {
             alt="Post Image"
           />
         </div>
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Labore
-          ratione qui quod iure quisquam quasi nisi aperiam praesentium dolorem
-          modi explicabo magni nulla culpa, obcaecati cum ipsam quos natus
-          voluptas.
-        </p>
+        <p>{post.desc}</p>
       </div>
-
       {/* Interaction */}
-      <Interactions />
+      {/* <Interactions
+        reacts={reactList.length}
+        comments={numberOfComments}
+        shares={numberOfShares}
+      /> */}
+      <InteractionClient
+        reacts={reactedUserIds}
+        comments={numberOfComments}
+        shares={numberOfShares}
+        userId={userId}
+        postId={post.id}
+      />
+      {/* change to client one , once error is fixed */}
       <Comments />
+      {/* <CommentsClient
+        postId={post.id}
+        comments={comments}
+        user={user}
+        defaultAvatar="/man.png"
+      /> */}
     </div>
   );
 }

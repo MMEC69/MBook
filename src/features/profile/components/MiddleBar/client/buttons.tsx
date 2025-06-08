@@ -6,6 +6,7 @@ import {
 } from "@/components/RightBarFriends/client/action/action";
 import React, { useState } from "react";
 import { unFriend } from "../action/action";
+import { useFormStatus } from "react-dom";
 
 export function FriendRequestAcceptButton({
   setSent,
@@ -124,5 +125,17 @@ export function FriendRequestUnFriendButton({
         </button>
       }
     </>
+  );
+}
+
+export function ProfileUpdateButton() {
+  const { pending } = useFormStatus();
+  return (
+    <button
+      className="bg-green-500 w-full p-1 text-sm text-center hover:bg-green-400 text-white rounded-md disabled:cursor-not-allowed "
+      disabled={pending}
+    >
+      {pending ? "Updating..." : "Update Profile"}
+    </button>
   );
 }

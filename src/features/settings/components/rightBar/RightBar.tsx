@@ -4,6 +4,7 @@ import RightBarSettingsYList from "@/components/RightBarSettings/RightBarSetting
 import React from "react";
 import { getBlockUsersDetails } from "./action/action";
 import UserDetailsFormClient from "./client/UserDetailsFormClient";
+import { User } from "@prisma/client";
 export default async function RightBar({
   type,
   userId,
@@ -11,7 +12,7 @@ export default async function RightBar({
 }: {
   type: string;
   userId: string;
-  user: any;
+  user: User;
 }) {
   const blocks = await getBlockUsersDetails(user.blocks);
   //Need to change data form to add a single form with better UI - especially for settings user
@@ -35,7 +36,7 @@ export default async function RightBar({
       {/* Incomeplete part here, fix the forms */}
       {type === "settingsUserDetails" && (
         <>
-          <UserDetailsFormClient />
+          <UserDetailsFormClient userId={userId} />
           {/* <SimpleUserDetailForm
             userId={userId}
             labelName="Description"
