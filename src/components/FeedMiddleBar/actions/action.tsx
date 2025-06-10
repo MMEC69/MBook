@@ -1,7 +1,6 @@
 "use server";
 
-import UserDetails from "@/features/profile/components/Rightbar/UserDetails";
-import { getUser } from "@/lib/mongo/functions/user";
+import { getUser } from "@/lib/mongo/prismaFunctions/user/get/user";
 import prisma from "@/lib/prisma/client";
 import { Comment, User } from "@prisma/client";
 
@@ -130,15 +129,20 @@ export const addComment = async (
 };
 
 export const getCommentsWithUserDetails = async (commentList: Comment[]) => {
+  let commentWithUserDetails: any[] = [];
   for (let index = 0; index < commentList.length; index++) {
     const comment: any = commentList[index];
     let userDetails: User;
     try {
       userDetails = await getUser(comment.user);
       comment.userDetails = userDetails;
-      return comment;
+      commentWithUserDetails.push(comment);
     } catch (error) {
       console.log(error);
     }
   }
+  return commentWithUserDetails;
 };
+
+//============add post=====================================================
+export const addPost = async () => {};

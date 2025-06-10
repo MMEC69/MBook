@@ -1,8 +1,6 @@
 import Image from "next/image";
 import React from "react";
 import { BsThreeDots } from "react-icons/bs";
-import Interactions from "./Interactions";
-import Comments from "./Comments";
 import Link from "next/link";
 import { fetchSession } from "@/utility/utility";
 import { Post as SinglePost } from "@prisma/client";
@@ -34,6 +32,7 @@ export default async function Post({ post }: { post: SinglePost }) {
 
   const commentList = await getComments(post.id);
   const comments = await getCommentsWithUserDetails(commentList);
+  // console.log(comments);
   const numberOfComments = commentList.length;
 
   const shareList = await getShares(post.id);
@@ -46,7 +45,13 @@ export default async function Post({ post }: { post: SinglePost }) {
         <div className="flex items-center gap-4">
           <Link href={`/profile/${post.user}`}>
             <Image
-              src={"/pexels-jonathanborba-2917373.jpg"}
+              src={
+                user.avatar
+                  ? user.avatar
+                  : user.gender === "Male"
+                  ? "/man.png"
+                  : "/woman.Png"
+              }
               alt="User Account"
               width={40}
               height={40}
@@ -86,13 +91,8 @@ export default async function Post({ post }: { post: SinglePost }) {
         postId={post.id}
       />
       {/* change to client one , once error is fixed */}
-      <Comments />
-      {/* <CommentsClient
-        postId={post.id}
-        comments={comments}
-        user={user}
-        defaultAvatar="/man.png"
-      /> */}
+      {/* <Comments /> */}
+      <CommentsClient postId={post.id} comments={commentList} user={user} />
     </div>
   );
 }

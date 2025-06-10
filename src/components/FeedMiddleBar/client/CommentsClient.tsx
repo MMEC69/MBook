@@ -12,22 +12,21 @@ export default function CommentsClient({
   postId,
   comments,
   user,
-  defaultAvatar,
 }: {
   postId: string;
-  comments: CommentWithUser[];
+  comments: any;
   user: User;
-  defaultAvatar: string;
 }) {
+  // console.log(comments);
   const [commented, setCommented] = useState(comments);
   const [desc, setDesc] = useState("");
 
   const add = async () => {
-    if (!user || desc) return;
+    if (!user || !desc) return;
 
     addOptimisticComments({
       id: "",
-      desc: "",
+      desc: "Please wait.....",
       createdAt: new Date(Date.now()),
       modifiedAt: new Date(Date.now()),
       tag: [],
@@ -38,16 +37,16 @@ export default function CommentsClient({
       post: postId,
       userDetails: {
         id: user.id,
-        firstName: "",
-        lastName: "",
-        userName: "Sending Please Wait..",
+        firstName: user.firstName,
+        lastName: user.lastName,
+        userName: user.userName || "",
         email: "",
         birthday: "",
         gender: "",
         password: "",
         avatar: user.avatar || "/man.png",
         cover: "",
-        desc: "",
+        desc: "Please wait.....",
         lives: "",
         education: [],
         works: [],
@@ -63,7 +62,7 @@ export default function CommentsClient({
     });
     try {
       const createdComment = await addComment(user.id, postId, desc);
-      setCommented((prev) => [createdComment, ...prev]);
+      setCommented((prev: any) => [createdComment, ...prev]);
     } catch (error) {
       console.log(error);
     }
@@ -80,7 +79,13 @@ export default function CommentsClient({
       {user && (
         <div className="flex items-center">
           <Image
-            src={user?.avatar || defaultAvatar}
+            src={
+              user.avatar
+                ? user.avatar
+                : user.gender === "Male"
+                ? "/man.png"
+                : "/woman.png"
+            }
             width={32}
             height={32}
             alt="Profile Image"
@@ -88,7 +93,7 @@ export default function CommentsClient({
           />
           <form
             className="flex-1 flex items-center justify-between bg-slate-100 rounded-xl text-sm px-6 py-2 w-full gap-2"
-            action={add}
+            action={() => add()}
           >
             <input
               type="text"
@@ -110,11 +115,20 @@ export default function CommentsClient({
       {/* Comments */}
       <div className="">
         {/* Comment */}
-        {optimisticComments?.map((comment: any) => (
-          <div className="flex gap-4 justify-between mt-6" key={comment.id}>
+        {optimisticComments.map((comment: any) => (
+          <div
+            className="flex gap-4 justify-between mt-6 bg-white p-2 rounded-lg"
+            key={comment.id}
+          >
             {/* Avatar */}
             <Image
-              src={comment.userDetails.avatar || "/man.png"}
+              src={
+                comment.userDetails.avatar
+                  ? comment.userDetails.avatar
+                  : comment.userDetails.gender === "Male"
+                  ? "/man.png"
+                  : "/woman.png"
+              }
               width={40}
               height={40}
               alt="Profile Image"

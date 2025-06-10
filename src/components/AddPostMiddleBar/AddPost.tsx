@@ -5,10 +5,10 @@ import { testAction } from "./action/action";
 import Link from "next/link";
 import { fetchSession, getDefaultAvatar } from "@/utility/utility";
 import { fetchUserInfo } from "@/features/home/components/LeftBar/action/action";
+import { User } from "@prisma/client";
 
-export default async function AddPost() {
+export default async function AddPost({ user }: { user: User }) {
   const userId = (await fetchSession()) as string;
-  const user = await fetchUserInfo(userId);
   let defaultUserAvatar: string = getDefaultAvatar(user?.gender);
   if (!user) return null;
   return (

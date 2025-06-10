@@ -12,7 +12,6 @@ export const getUser = async (id: string) => {
   } catch (error) {
     console.log(error);
   }
-  return {};
 };
 
 export const getBlocks = async (id: string) => {
