@@ -37,7 +37,13 @@ export default async function Gallery({
       <div className="flex gap-4 justify-between flex-wrap">
         {photos.length > 0 &&
           photos.map((photo: any) => {
-            return <GalleryView key={photo} src={photo} alt="Gallery Photo" />;
+            return (
+              <GalleryView
+                key={crypto.randomUUID()}
+                src={photo}
+                alt="Gallery Photo"
+              />
+            );
           })}
 
         {photos.length === 0 && (

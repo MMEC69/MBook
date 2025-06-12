@@ -46,7 +46,7 @@ export const getUserPostsImgs = async (user: string, limit?: number) => {
   }
   res.map((post: any) => {
     post.img.map((img: any) => {
-      imgs.push(img);
+      if (img.length > 0) imgs.push(img);
     });
   });
   return imgs;

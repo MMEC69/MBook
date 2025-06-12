@@ -95,7 +95,10 @@ export default async function UserDetails({
         {profile.education &&
           profile.education.map((x: any) => {
             return (
-              <div className="flex items-center gap-2">
+              <div
+                className="flex items-center gap-2"
+                key={crypto.randomUUID()}
+              >
                 <IoIosSchool size={16} color="pink" />
                 <span>
                   Went to <b>{x}</b>
@@ -107,7 +110,10 @@ export default async function UserDetails({
         {profile.works &&
           profile.works.map((x: any) => {
             return (
-              <div className="flex items-center gap-2">
+              <div
+                className="flex items-center gap-2"
+                key={crypto.randomUUID()}
+              >
                 <MdHomeRepairService size={16} color="pink" />
                 <span>
                   Went to <b>{x}</b>

@@ -3,8 +3,10 @@ import AddPost from "@/components/AddPostMiddleBar/AddPost";
 import Feed from "@/components/FeedMiddleBar/Feed";
 import ProfileIntro from "./ProfileIntro";
 import { User } from "@prisma/client";
+import { getUser } from "@/lib/mongo/prismaFunctions/user/get/user";
+import AddPostClient from "@/components/AddPostMiddleBar/client/AddPostClient";
 
-export default function MiddleBar({
+export default async function MiddleBar({
   profile,
   posts,
   requestUser,
@@ -16,6 +18,7 @@ export default function MiddleBar({
   blocked: any;
 }) {
   let numberOfPosts = posts.length;
+  const user = await getUser(requestUser);
 
   return (
     <div className="flex flex-col gap-6 pl-2 pr-2">
@@ -25,7 +28,7 @@ export default function MiddleBar({
         requestUser={requestUser}
         blocked={blocked}
       />
-      <AddPost />
+      <AddPostClient user={user} />
       <Feed profileId={profile.id} isProfile={true} />
     </div>
   );
