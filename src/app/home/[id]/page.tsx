@@ -6,7 +6,7 @@ export default async function page() {
   const userId = (await fetchSession()) as string;
   const user = await fetchUser(userId);
   return (
-    <div>
+    <div className=" overflow-auto h-screen">
       <Suspense fallback="loading...">
         <Home user={user} />
       </Suspense>

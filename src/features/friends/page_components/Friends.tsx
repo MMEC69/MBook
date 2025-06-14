@@ -1,21 +1,28 @@
 import Navbar from "@/components/Navbar/Navbar";
 import React from "react";
 import Content from "../components/Content/Content";
+import { fetchRequests } from "@/utility/utility";
 
-export default function Friends({
+export default async function Friends({
   type,
   userId,
 }: {
   type: string;
   userId: string;
 }) {
+  const receivedRequests = await fetchRequests(userId, false);
+
   return (
     <div>
       <Navbar />
       {type === "home" && <Content type={type} userId={userId} />}
       {type === "friendLists" && <Content type={type} userId={userId} />}
       {type === "firendRequestsReceived" && (
-        <Content type={type} userId={userId} />
+        <Content
+          type={type}
+          userId={userId}
+          receivedRequests={receivedRequests}
+        />
       )}
       {type === "firendRequestsSent" && <Content type={type} userId={userId} />}
       {type === "friendBirthdays" && <Content type={type} userId={userId} />}

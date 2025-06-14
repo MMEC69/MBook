@@ -5,6 +5,7 @@ import NotificationDropDown from "@/components/Navbar/NotificationDropDown";
 import ProfileDropDownMenu from "@/components/Navbar/ProfileDropDownMenu";
 import RightBarSettingsCustomPrivacyPopUp from "@/components/RightBarSettings/RightBarSettingsCustomPrivacyPopUp";
 import LeftBar from "@/features/profile/components/LeftBar/LeftBar";
+import CommentsClientPopUp from "@/features/profile/components/MiddleBar/client/CommentsClientPopUp";
 import React from "react";
 
 export default function page() {
@@ -12,7 +13,7 @@ export default function page() {
     <div>
       <Navbar />
       {/* <ProfileDropDownMenu /> */}
-      <NotificationDropDown />
+      {/* <NotificationDropDown /> */}
       {/* <GroupDropDown /> */}
       {/* <ShareDropDownMenu /> */}
       {/* <RightBarSettingsCustomPrivacyPopUp /> */}

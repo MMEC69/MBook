@@ -40,7 +40,7 @@ export default function FriendWindowClient({
       {!remove ? (
         <div className="flex flex-col gap-1 bg-slate-100 rounded-lg p-3">
           <Link href={`/profile/${otherUser}`}>
-            <Image src={image} alt={alt} width={192} height={192} />
+            <Image src={image} alt={alt} width={128} height={128} />
           </Link>
 
           <Link href={`/profile/${otherUser}`}>

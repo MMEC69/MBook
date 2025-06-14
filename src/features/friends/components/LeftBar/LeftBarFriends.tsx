@@ -1,8 +1,13 @@
 import Option from "@/components/LeftBarOptions/Option";
 import { fetchSession } from "@/utility/utility";
+import { FriendRequests } from "@prisma/client";
 import React from "react";
 
-export default async function LeftBarFriends() {
+export default async function LeftBarFriends({
+  receivedRequests,
+}: {
+  receivedRequests?: FriendRequests[];
+}) {
   const userId = (await fetchSession()) as string;
   return (
     <div className="flex flex-col gap-6">
@@ -18,6 +23,8 @@ export default async function LeftBarFriends() {
           image="/person.png"
           alt="Received Requests"
           name="Received Requests"
+          areNotifications={true}
+          receivedRequests={receivedRequests}
         />
         <Option
           link={`/friends/requests/sent/${userId}`}

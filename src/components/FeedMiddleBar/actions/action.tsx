@@ -52,6 +52,9 @@ export const getComments = async (postId: string) => {
       where: {
         post: postId,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
     return res;
   } catch (error) {

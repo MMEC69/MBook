@@ -4,7 +4,7 @@ import Content from "../components/Content/Content";
 
 export default function Home({ user }: { user: any }) {
   return (
-    <div className="">
+    <div className="h-screen overflow-hidden">
       <Navbar />
       <Content user={user} />
     </div>

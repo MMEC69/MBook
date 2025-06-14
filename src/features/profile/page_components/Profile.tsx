@@ -17,7 +17,7 @@ export default async function Profile({
 }) {
   const blocked = await isBlocked(user.blocks, profile.id);
   return (
-    <div className="">
+    <div className="h-screen overflow-hidden">
       <Navbar />
       <Content
         profile={profile}

@@ -92,7 +92,12 @@ export default async function Post({ post }: { post: SinglePost }) {
       />
       {/* change to client one , once error is fixed */}
       {/* <Comments /> */}
-      <CommentsClient postId={post.id} comments={commentList} user={user} />
+      <CommentsClient
+        postId={post.id}
+        comments={[commentList[0]]}
+        user={user}
+        allComments={commentList}
+      />
     </div>
   );
 }
