@@ -2,6 +2,7 @@
 import Image from "next/image";
 import React, { useOptimistic, useState } from "react";
 import { switchReact } from "../actions/action";
+import SharePopUpClient from "./SharePopUpClient";
 
 export default function InteractionClient({
   reacts,
@@ -16,6 +17,7 @@ export default function InteractionClient({
   userId: string;
   postId: string;
 }) {
+  const [open, setOpen] = useState(false);
   const [reacted, setReacted] = useState({
     reactedCount: reacts.length,
     isReacted: userId ? reacts.includes(userId) : false,
@@ -92,12 +94,16 @@ export default function InteractionClient({
           height={16}
           alt="share button"
           className="cursor-pointer"
+          onClick={() => setOpen(true)}
         />
-        <span className="text-pink-700"> | </span>
-        <span className="text-pink-700">
+        {/* <span className="text-pink-700"> | </span> */}
+        {/* <span className="text-pink-700">
           {shares} <span className="hidden md:inline">Shares</span>
-        </span>
+        </span> */}
       </div>
+      {open && (
+        <SharePopUpClient setOpen={setOpen} userId={userId} postId={postId} />
+      )}
     </div>
   );
 }

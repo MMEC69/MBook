@@ -4,6 +4,7 @@ import { Comment, User } from "@prisma/client";
 import Image from "next/image";
 import React, { useOptimistic, useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
+import { getCommentReacts } from "../action/action";
 type CommentWithUser = Comment & { userDetails: User };
 
 export default function CommentsClientPopUp({
@@ -22,6 +23,8 @@ export default function CommentsClientPopUp({
   // console.log(comments);
   const [commented, setCommented] = useState(comments);
   const [desc, setDesc] = useState("");
+
+  const [commentReacts, setCommentReacts] = useState([]);
 
   const add = async () => {
     if (!user || !desc) return;
@@ -137,7 +140,7 @@ export default function CommentsClientPopUp({
             {/* Comment */}
             {optimisticComments.map((comment: any) => (
               <div
-                className="flex gap-4 justify-between mt-6 bg-white p-2 rounded-lg"
+                className="flex gap-4 justify-between mt-6 bg-pink-100 p-2 rounded-lg"
                 key={comment.id}
               >
                 {/* Avatar */}
@@ -156,7 +159,7 @@ export default function CommentsClientPopUp({
                 />
 
                 {/* Desc */}
-                <div className="flex flex-col gap-2 flex-1">
+                <div className="flex flex-col gap-2 flex-1 ">
                   <span className="font-medium">
                     {comment.userDetails.firstName &&
                     comment.userDetails.lastName
@@ -168,15 +171,15 @@ export default function CommentsClientPopUp({
                   <p>{comment.desc}</p>
                   <div className="flex items-center gap-8 text-xs to-gray-500 mt-2">
                     <div className="flex items-center gap-4">
-                      <Image
+                      {/* <Image
                         src={"/heart2.png"}
                         alt="Like"
                         width={12}
                         height={12}
                         className="cursor-pointer w-3 h-3"
-                      />
-                      <span className="text-pink-700"> | </span>
-                      <span className="text-pink-700">123 Likes</span>
+                      /> */}
+                      {/* <span className="text-pink-700"> | </span>
+                      <span className="text-pink-700">123 Likes</span> */}
                     </div>
                   </div>
                 </div>

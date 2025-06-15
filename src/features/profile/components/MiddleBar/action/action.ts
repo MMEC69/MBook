@@ -180,3 +180,21 @@ export const updateProfile = async (
     return { success: false, error: true };
   }
 };
+
+export const getCommentReacts = async (commentId: string) => {
+  try {
+    const res = await prisma.react.findMany({
+      where: {
+        comment: commentId,
+      },
+    });
+    if (res) {
+      return res;
+    } else {
+      return [];
+    }
+  } catch (error) {
+    console.log(error);
+    throw new Error("Comment reacts were unable to fetch");
+  }
+};

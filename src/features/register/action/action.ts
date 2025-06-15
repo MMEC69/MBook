@@ -1,6 +1,6 @@
 "use server";
 
-import { z } from "zod";
+import { object, z } from "zod";
 import {
   atLeastOneCapitalLetter,
   atLeastOneNumber,
@@ -77,4 +77,90 @@ export const register = async (prevState: any, formData: FormData) => {
     return;
   }
   redirect("/login");
+};
+
+//=============createGroup==================
+const groupSchema = z.object({
+  groupname: z.string().min(3, { message: "Invalid name" }).trim(),
+  desc: z.string().min(3, { message: "Invalid description" }).trim(),
+});
+
+export const createGroup = async (
+  prevState: { success: boolean; error: boolean },
+  payload: { formData: FormData; userId: string }
+) => {
+  const { formData, userId } = payload;
+  const result = groupSchema.safeParse(Object.fromEntries(formData));
+  if (!userId) {
+    return { success: false, error: true };
+  }
+  if (!result.success) {
+    console.log(result.error.flatten().fieldErrors);
+    return {
+      errors: result.error.flatten().fieldErrors,
+      success: false,
+      error: true,
+    };
+  }
+  try {
+    const res = await prisma.group.create({
+      data: {
+        groupname: result.data.groupname,
+        desc: result.data.desc,
+        owner: userId,
+      },
+    });
+    if (res) {
+      return { success: true, error: false };
+    } else {
+      return { success: false, error: true };
+    }
+  } catch (error) {
+    console.log(error);
+    return { success: false, error: true };
+  }
+};
+
+//=============sharePost======================
+const shareSchema = z.object({
+  desc: z.string().min(0, { message: "Invalid description" }).trim(),
+});
+
+export const sharePost = async (
+  prevState: { success: boolean; error: boolean },
+  payload: { formData: FormData; userId: string; postId: string }
+) => {
+  const { formData, userId, postId } = payload;
+  const result = shareSchema.safeParse(Object.fromEntries(formData));
+  if (!userId) {
+    return { success: false, error: true };
+  }
+  if (!postId) {
+    return { success: false, error: true };
+  }
+  if (!result.success) {
+    console.log(result.error.flatten().fieldErrors);
+    return {
+      errors: result.error.flatten().fieldErrors,
+      success: false,
+      error: true,
+    };
+  }
+  try {
+    const res = await prisma.shared.create({
+      data: {
+        user: userId,
+        post: postId,
+        desc: result.data.desc,
+      },
+    });
+    if (res) {
+      return { success: true, error: false };
+    } else {
+      return { success: false, error: true };
+    }
+  } catch (error) {
+    console.log(error);
+    return { success: false, error: true };
+  }
 };

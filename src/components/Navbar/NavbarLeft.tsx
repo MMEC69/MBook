@@ -20,7 +20,7 @@ export default async function NavbarLeft() {
         <Image src="/logo.png" alt="place_holder" width={32} height={32} />
       </Link>
 
-      <SearchBar />
+      <SearchBar userId={userId} />
     </div>
   );
 }
