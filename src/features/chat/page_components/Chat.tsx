@@ -4,7 +4,7 @@ import Content from "../components/Content/Content";
 
 export default function Chat() {
   return (
-    <div>
+    <div className="h-screen overflow-hidden">
       <Navbar />
       <Content />
     </div>

@@ -4,7 +4,7 @@ import Content from "../components/Content/Content";
 
 export default function Saved({ type }: { type: string }) {
   return (
-    <div>
+    <div className="h-screen overflow-hidden">
       <Navbar />
       {type === "saved" && <Content type={type} />}
       {type === "savedAll" && <Content type={type} />}

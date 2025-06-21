@@ -13,7 +13,7 @@ export default async function Friends({
   const receivedRequests = await fetchRequests(userId, false);
 
   return (
-    <div>
+    <div className="h-screen overflow-hidden">
       <Navbar />
       {type === "home" && <Content type={type} userId={userId} />}
       {type === "friendLists" && <Content type={type} userId={userId} />}

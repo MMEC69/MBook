@@ -29,7 +29,7 @@ export default function Option({
         <Image src={image} alt={alt} width={20} height={20} className="" />
         <span>{name}</span>
         {areNotifications && (
-          <NotificationNumberClient receivedRequests={receivedRequests} />
+          <NotificationNumberClient receivedRequests={receivedRequests || []} />
         )}
       </Link>
     </>

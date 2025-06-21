@@ -3,28 +3,50 @@ import RightBarGroupsXYList from "@/components/RightBarGroups/RightBarGroupsXYLi
 import RightBarGroupsCreateFormClient from "@/features/register/components/client/RegisterBarGroupsCreateFormClient";
 import { fetchSession } from "@/utility/utility";
 import React from "react";
+import { getFriendsDetails, getYourGroups } from "./action/action";
+import { getGroups } from "@/lib/mongo/prismaFunctions/group/get/group";
 
 export default async function RightBar({ type }: { type: string }) {
   const userId = (await fetchSession()) as string;
+  const friends = await getFriendsDetails(userId);
+  const groups = await getGroups();
+  const yourGroups = await getYourGroups(userId);
+
   return (
     <div className="flex flex-col gap-6 pl-2 pr-2">
       {(type === "groups" || type === "groupsDiscover") && (
-        <RightBarGroupsXYList topic="Discover New Groups" type={type} />
+        <RightBarGroupsXYList
+          topic="Discover New Groups"
+          type={type}
+          groups={groups}
+        />
       )}
       {type === "groupsCreate" && (
-        <RightBarGroupsCreateFormClient type={type} userId={userId} />
+        <RightBarGroupsCreateFormClient
+          type={type}
+          userId={userId}
+          friends={friends}
+        />
       )}
       {type === "groupsDiscoverSearch" && (
-        <RightBarGroupsXYList topic="New Groups Search Result" type={type} />
+        <RightBarGroupsXYList
+          topic="New Groups Search Result"
+          type={type}
+          groups={groups}
+        />
       )}
       {type === "groupsSuggested" && (
-        <RightBarGroupsXYList topic="Suggested" type={type} />
+        <RightBarGroupsXYList topic="Suggested" type={type} groups={groups} />
       )}
       {type === "groupsYour" && (
-        <RightBarGroupsXYList topic="Your Groups" type={type} />
+        <RightBarGroupsXYList topic="Your Groups" type={type} groups={groups} />
       )}
       {type === "groupsYourSearch" && (
-        <RightBarGroupsXYList topic="Your Groups Search Result" type={type} />
+        <RightBarGroupsXYList
+          topic="Your Groups Search Result"
+          type={type}
+          groups={groups}
+        />
       )}
     </div>
   );

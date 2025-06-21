@@ -56,7 +56,7 @@ model Block {
 model Group {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   groupname String
-  type String[]
+  types     String[]
   owner     String
   admin     String[]
   avatar    String?
@@ -64,7 +64,7 @@ model Group {
   desc      String?
   lives     String?
   links     String[]
-  memebers  String[]
+  members  String[]
   blocks    String[]
   privacy   String?
   phone     String?

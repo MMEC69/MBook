@@ -9,6 +9,7 @@ import {
 } from "./action/action";
 import FriendWindowClientCancelButton from "./FriendWindowClientCancelButton";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function FriendWindowClient({
   image,
@@ -34,6 +35,8 @@ export default function FriendWindowClient({
   const [cancel, setCancel] = useState<boolean>(false);
   const [reqId, setReqId] = useState<string>("");
   const [remove, setRemove] = useState<boolean>(false);
+
+  const router = useRouter();
 
   return (
     <>
@@ -133,8 +136,10 @@ export default function FriendWindowClient({
           {type === "wish" && (
             <>
               <button
-                className="bg-pink-200 p-1 rounded-lg hover:cursor-pointer hover:bg-green-300"
-                onClick={async () => {}}
+                className="bg-green-400 p-1 rounded-lg hover:cursor-pointer hover:bg-green-300"
+                onClick={async () => {
+                  router.push(`/profile/${otherUser}`);
+                }}
               >
                 {button1}
               </button>

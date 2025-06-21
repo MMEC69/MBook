@@ -4,7 +4,7 @@ import Content from "../components/content/Content";
 
 export default function Groups({ type }: { type: string }) {
   return (
-    <div>
+    <div className="h-screen overflow-hidden">
       <Navbar />
       {type === "groups" && <Content type={type} />}
       {type === "groupsCreate" && <Content type={type} />}

@@ -83,13 +83,28 @@ export const register = async (prevState: any, formData: FormData) => {
 const groupSchema = z.object({
   groupname: z.string().min(3, { message: "Invalid name" }).trim(),
   desc: z.string().min(3, { message: "Invalid description" }).trim(),
+  phone: z.string().min(3, { message: "Invalid description" }).trim(),
+  email: z.string().min(3, { message: "Invalid description" }).trim(),
+  lives: z.string().min(3, { message: "Invalid description" }).trim(),
 });
 
 export const createGroup = async (
   prevState: { success: boolean; error: boolean },
-  payload: { formData: FormData; userId: string }
+  payload: {
+    formData: FormData;
+    userId: string;
+    selectedGroupTypes: any;
+    selectedGroupPrivacy: any;
+    selectedInvites: any;
+  }
 ) => {
-  const { formData, userId } = payload;
+  const {
+    formData,
+    userId,
+    selectedGroupTypes,
+    selectedGroupPrivacy,
+    selectedInvites,
+  } = payload;
   const result = groupSchema.safeParse(Object.fromEntries(formData));
   if (!userId) {
     return { success: false, error: true };
@@ -102,12 +117,29 @@ export const createGroup = async (
       error: true,
     };
   }
+  const privacy = selectedGroupPrivacy.value;
+
+  let members = selectedInvites.map((selectedInvite: any) => {
+    return selectedInvite.value;
+  });
+  members.push(userId);
+
+  const types = selectedGroupTypes.map((selectedGroupType: any) => {
+    return selectedGroupType.value;
+  });
   try {
     const res = await prisma.group.create({
       data: {
         groupname: result.data.groupname,
         desc: result.data.desc,
         owner: userId,
+        privacy: privacy,
+        members: members,
+        phone: result.data.phone,
+        email: result.data.email,
+        admin: [userId],
+        lives: result.data.lives,
+        types: types,
       },
     });
     if (res) {

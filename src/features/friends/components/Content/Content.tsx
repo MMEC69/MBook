@@ -14,42 +14,42 @@ export default function Content({
 }) {
   return (
     <div className="flex flex-row gap-6 p-6">
-      <div className="hidden xl:block w-[20%]">
-        <LeftBar receivedRequests={receivedRequests} />
+      <div className="hidden xl:block w-[20%] h-[calc(100vh-100px)] overflow-y-scroll scrollbar-hide">
+        <LeftBar receivedRequests={receivedRequests || []} />
       </div>
 
       {type === "home" && (
-        <div className="w-full lg:w-[80%]">
+        <div className="w-full lg:w-[80%] h-[calc(100vh-100px)] overflow-y-scroll scrollbar-hide">
           <RightBar option={type} userId={userId} />
         </div>
       )}
       {type === "friendLists" && (
-        <div className="w-full lg:w-[80%]">
+        <div className="w-full lg:w-[80%] h-[calc(100vh-100px)] overflow-y-scroll scrollbar-hide">
           <RightBar option={type} userId={userId} />
         </div>
       )}
       {type === "firendRequestsReceived" && (
-        <div className="w-full lg:w-[80%]">
+        <div className="w-full lg:w-[80%] h-[calc(100vh-100px)] overflow-y-scroll scrollbar-hide">
           <RightBar option={type} userId={userId} />
         </div>
       )}
       {type === "firendRequestsSent" && (
-        <div className="w-full lg:w-[80%]">
+        <div className="w-full lg:w-[80%] h-[calc(100vh-100px)] overflow-y-scroll scrollbar-hide">
           <RightBar option={type} userId={userId} />
         </div>
       )}
       {type === "all" && (
-        <div className="w-full lg:w-[80%]">
+        <div className="w-full lg:w-[80%] h-[calc(100vh-100px)] overflow-y-scroll scrollbar-hide">
           <RightBar option={type} userId={userId} />
         </div>
       )}
       {type === "friendBirthdays" && (
-        <div className="w-full lg:w-[80%]">
+        <div className="w-full lg:w-[80%] h-[calc(100vh-100px)] overflow-y-scroll scrollbar-hide">
           <RightBar option={type} userId={userId} />
         </div>
       )}
       {type === "suggestions" && (
-        <div className="w-full lg:w-[80%]">
+        <div className="w-full lg:w-[80%] h-[calc(100vh-100px)] overflow-y-scroll scrollbar-hide">
           <RightBar option={type} userId={userId} />
         </div>
       )}

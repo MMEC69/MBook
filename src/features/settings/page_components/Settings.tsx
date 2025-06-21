@@ -13,7 +13,7 @@ export default function Settings({
   user: User;
 }) {
   return (
-    <div>
+    <div className="h-screen overflow-hidden">
       <Navbar />
       <Content type={type} userId={userId} user={user} />
     </div>

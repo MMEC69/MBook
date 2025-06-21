@@ -42,7 +42,10 @@ export default function RightBarFriendRequestsXList({
         <span>{topic}</span>
         {seeAll !== undefined && (
           <>
-            <Link href={seeAll} className="text-pink-600 text-xs">
+            <Link
+              href={seeAll}
+              className="text-pink-600 text-xs hover:underline hover:cursor-pointer"
+            >
               See all
             </Link>
           </>

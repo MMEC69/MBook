@@ -32,7 +32,7 @@ export default function RightBarFriendXYList({
     btn2 = "Cancel";
   }
   if (type === "wish") {
-    btn1 = "Wish";
+    btn1 = "View";
     btn2 = "Remove";
   }
 
