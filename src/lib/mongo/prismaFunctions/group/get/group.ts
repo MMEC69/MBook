@@ -9,3 +9,21 @@ export const getGroups = async () => {
   }
   return [];
 };
+
+export const getGroup = async (id: string) => {
+  try {
+    const group = await prisma.group.findFirst({
+      where: {
+        id: id,
+      },
+    });
+    if (group) {
+      return group;
+    } else {
+      return {};
+    }
+  } catch (error) {
+    console.log(error);
+  }
+  return {};
+};

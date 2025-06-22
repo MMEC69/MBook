@@ -84,6 +84,7 @@ model Post {
   type       String[]
   img        String[]
   video      String[]
+  group      String?
 }
 
 model Comment {

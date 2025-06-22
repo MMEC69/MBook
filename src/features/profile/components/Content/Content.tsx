@@ -22,7 +22,7 @@ export default function Content({
       <div className="hidden xl:block w-[20%]">
         <LeftBar profile={profile} />
       </div>
-      <div className="w-full lg:w-[70%] xl:w-[50%] h-[calc(100vh-100px)] overflow-y-scroll">
+      <div className="w-full lg:w-[70%] xl:w-[50%] h-[calc(100vh-100px)] overflow-y-scroll scrollbar-hide">
         <MiddleBar
           profile={profile}
           posts={posts}
@@ -30,7 +30,7 @@ export default function Content({
           blocked={blocked}
         />
       </div>
-      <div className="hidden lg:block w-[30%]">
+      <div className="hidden lg:block w-[30%] scrollbar-hide">
         <RightBar profile={profile} user={user} blocked={blocked} />
       </div>
     </div>
