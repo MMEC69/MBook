@@ -3,14 +3,19 @@ import RightBarGroupsXYList from "@/components/RightBarGroups/RightBarGroupsXYLi
 import RightBarGroupsCreateFormClient from "@/features/register/components/client/RegisterBarGroupsCreateFormClient";
 import { fetchSession } from "@/utility/utility";
 import React from "react";
-import { getFriendsDetails, getYourGroups } from "./action/action";
+import {
+  getDiscoverGroups,
+  getFriendsDetails,
+  getYourGroups,
+} from "./action/action";
 import { getGroups } from "@/lib/mongo/prismaFunctions/group/get/group";
 
 export default async function RightBar({ type }: { type: string }) {
   const userId = (await fetchSession()) as string;
   const friends = await getFriendsDetails(userId);
   const groups = await getGroups();
-  const yourGroups = await getYourGroups(userId);
+  const discoverGroups = await getDiscoverGroups(groups, userId);
+  const yourGroups = await getYourGroups(groups, userId);
 
   return (
     <div className="flex flex-col gap-6 pl-2 pr-2">
@@ -18,7 +23,7 @@ export default async function RightBar({ type }: { type: string }) {
         <RightBarGroupsXYList
           topic="Discover New Groups"
           type={type}
-          groups={groups}
+          groups={discoverGroups}
         />
       )}
       {type === "groupsCreate" && (
@@ -39,7 +44,11 @@ export default async function RightBar({ type }: { type: string }) {
         <RightBarGroupsXYList topic="Suggested" type={type} groups={groups} />
       )}
       {type === "groupsYour" && (
-        <RightBarGroupsXYList topic="Your Groups" type={type} groups={groups} />
+        <RightBarGroupsXYList
+          topic="Your Groups"
+          type={type}
+          groups={yourGroups}
+        />
       )}
       {type === "groupsYourSearch" && (
         <RightBarGroupsXYList

@@ -1,15 +1,15 @@
-import { Post, User } from "@prisma/client";
+import { Group, Post, User } from "@prisma/client";
 import React from "react";
 import LeftBar from "../leftbar/LeftBar";
 import MiddleBar from "../middlebar/MiddleBar";
-import RightBar from "@/features/profile/components/Rightbar/RightBar";
+import RightBar from "../rightbar/RightBar";
 
 export default function Content({
   groupProfile,
   groupPosts,
   requestUser,
 }: {
-  groupProfile: any;
+  groupProfile: Group;
   groupPosts: Post[];
   requestUser: User;
 }) {
@@ -26,7 +26,7 @@ export default function Content({
         />
       </div>
       <div className="hidden lg:block w-[30%] h-[calc(100vh-100px)] overflow-y-scroll scrollbar-hide">
-        <RightBar profile={groupProfile} user={requestUser} blocked={[]} />
+        <RightBar groupProfile={groupProfile} requestUser={requestUser} />
       </div>
     </div>
   );

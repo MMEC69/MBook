@@ -8,7 +8,7 @@ export default async function GroupProfile({
   groupPosts,
   requestUser,
 }: {
-  groupProfile: any;
+  groupProfile: Group;
   groupPosts: Post[];
   requestUser: User;
 }) {

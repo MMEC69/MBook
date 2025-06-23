@@ -3,6 +3,7 @@ import GroupProfile from "@/features/group_profile/page_componenets/GroupProfile
 import { getGroup } from "@/lib/mongo/prismaFunctions/group/get/group";
 import { getUser } from "@/lib/mongo/prismaFunctions/user/get/user";
 import { fetchSession } from "@/utility/utility";
+import { Group } from "@prisma/client";
 import React from "react";
 
 export default async function page({ params }: { params: { id: string } }) {
@@ -17,7 +18,7 @@ export default async function page({ params }: { params: { id: string } }) {
   return (
     <div className="overflow-auto h-screen">
       <GroupProfile
-        groupProfile={groupProfile}
+        groupProfile={groupProfile as Group}
         groupPosts={groupPosts}
         requestUser={requestUser}
       />
