@@ -34,10 +34,10 @@ model User {
   cover     String?
   desc      String?
   lives     String?
-  education String[]
-  works     String[]
+  education String?
+  works     String?
   love      String?
-  links     String[]
+  links     String?
   friends   String[]
   blocks    String[]
   groups    String[]

@@ -102,7 +102,7 @@ export const modify = async (prevState: any, formData: FormData) => {
   const result = modifySchema.safeParse(Object.fromEntries(formData));
   // Validation Failure
   if (!result.success) {
-    console.log(result.error.flatten().fieldErrors);
+    // console.log(result.error.flatten().fieldErrors);
     return { errors: result.error.flatten().fieldErrors };
   }
 
@@ -137,7 +137,7 @@ export const modify = async (prevState: any, formData: FormData) => {
         Object.fromEntries(formData)
       );
       if (!resultForChangeEmail.success) {
-        console.log(resultForChangeEmail.error.flatten().fieldErrors);
+        // console.log(resultForChangeEmail.error.flatten().fieldErrors);
         return { errors: resultForChangeEmail.error.flatten().fieldErrors };
       }
       try {

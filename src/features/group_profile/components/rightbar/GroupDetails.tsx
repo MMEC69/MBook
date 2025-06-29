@@ -126,16 +126,20 @@ export default async function GroupDetails({
         )} */}
 
         <div className="flex items-center justify-between">
-          {groupProfile.links ? (
-            <div className="flex gap-1 items-center">
-              <IoMdLink size={16} color="pink" />
-              <Link
-                href="https://eronne.dev"
-                className=" text-pink-300 font-medium"
-              >
-                eronne.dev
-              </Link>
-            </div>
+          {groupProfile.links.length > 0 ? (
+            groupProfile.links.map((link: string) => {
+              return (
+                <div className="flex gap-1 items-center">
+                  <IoMdLink size={16} color="pink" />
+                  <Link
+                    href={`https://${link}`}
+                    className=" text-pink-300 font-medium"
+                  >
+                    {link}
+                  </Link>
+                </div>
+              );
+            })
           ) : (
             <div></div>
           )}

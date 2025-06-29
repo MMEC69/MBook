@@ -24,7 +24,11 @@ export default async function RightBar({
       {groupProfile.id ? (
         <>
           <GroupDetails groupProfile={groupProfile} requestUser={requestUser} />
-          <Gallery profileId={groupProfile.id} userId={requestUser.id} />
+          <Gallery
+            profileId={groupProfile.id}
+            userId={requestUser.id}
+            isGroup={true}
+          />
         </>
       ) : null}
       <FriendRequests user={requestUser} />

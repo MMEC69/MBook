@@ -1,8 +1,8 @@
 import { Post, User } from "@prisma/client";
 import React from "react";
 import GroupProfileIntro from "./GroupProfileIntro";
-import AddPostClient from "@/components/AddPostMiddleBar/client/AddPostClient";
-import Feed from "@/components/FeedMiddleBar/Feed";
+import GroupAddPostClient from "./Client/GroupAddPost";
+import GroupFeed from "./GroupFeed";
 
 export default function MiddleBar({
   groupProfile,
@@ -20,8 +20,8 @@ export default function MiddleBar({
         numberOfPosts={groupPosts?.length}
         requestUser={requestUser}
       />
-      <AddPostClient user={requestUser} />
-      <Feed profileId={requestUser.id} isProfile={true} />
+      <GroupAddPostClient user={requestUser} groupProfile={groupProfile} />
+      <GroupFeed groupId={groupProfile.id} />
     </div>
   );
 }

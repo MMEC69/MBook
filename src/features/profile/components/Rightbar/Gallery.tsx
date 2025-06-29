@@ -2,25 +2,36 @@ import React, { use } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { fetchPhotos } from "./action/action";
-import { getUserPostsImgs } from "@/lib/mongo/prismaFunctions/posts/get/post";
+import {
+  getGroupPostsImgs,
+  getUserPostsImgs,
+} from "@/lib/mongo/prismaFunctions/posts/get/post";
 import GalleryView from "./GalleryView";
 import GallerySeeALLBtn from "./client/GallerySeeALLBtn";
 
 export default async function Gallery({
   profileId,
   userId,
+  isGroup,
 }: {
   profileId: string;
   userId: string;
+  isGroup?: boolean;
 }) {
-  const photos = await getUserPostsImgs(profileId, 8);
+  let photos: string[] = [];
+  if (isGroup) {
+    photos = await getGroupPostsImgs(profileId, 8);
+  } else {
+    photos = await getUserPostsImgs(profileId, 8);
+  }
   // const photos: any = await fetchPhotos(profileId);
+  // const photos: any = [];
   // if (!photos) return null;
   return (
     <div className="p-4 bg-white rounded-lg shadow-md text-sm gap-4 flex flex-col">
       {/* Top */}
       <div className="flex justify-between items-center font-medium">
-        <span className="text-gray-500">Gallery</span>
+        <span className="text-gray-500">{isGroup && `Group `}Gallery</span>
         {userId !== profileId ? (
           <GallerySeeALLBtn />
         ) : (
@@ -35,8 +46,8 @@ export default async function Gallery({
 
       {/* Bottom */}
       <div className="flex gap-4 justify-between flex-wrap">
-        {photos.length > 0 &&
-          photos.map((photo: any) => {
+        {photos?.length > 0 &&
+          photos?.map((photo: any) => {
             return (
               <GalleryView
                 key={crypto.randomUUID()}

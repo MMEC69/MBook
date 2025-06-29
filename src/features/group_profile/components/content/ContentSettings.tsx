@@ -1,17 +1,15 @@
 import { Group, Post, User } from "@prisma/client";
 import React from "react";
-import LeftBar from "../leftbar/LeftBar";
-import MiddleBar from "../middlebar/MiddleBar";
 import RightBar from "../rightbar/RightBar";
 import LeftBarGroupView from "../leftbar/LeftBarGroupView";
+import MiddleBarMembersOnly from "../middlebar/MiddleBarMembersOnly";
+import MiddleBarSettings from "../middlebar/MiddleBarSettings";
 
-export default function Content({
+export default function ContentSettings({
   groupProfile,
-  groupPosts,
   requestUser,
 }: {
   groupProfile: Group;
-  groupPosts: Post[];
   requestUser: User;
 }) {
   return (
@@ -20,11 +18,7 @@ export default function Content({
         <LeftBarGroupView groupProfile={groupProfile} />
       </div>
       <div className="w-full lg:w-[70%] xl:w-[50%] h-[calc(100vh-100px)] overflow-y-scroll scrollbar-hide">
-        <MiddleBar
-          groupProfile={groupProfile}
-          groupPosts={groupPosts}
-          requestUser={requestUser}
-        />
+        <MiddleBarSettings />
       </div>
       <div className="hidden lg:block w-[30%] h-[calc(100vh-100px)] overflow-y-scroll scrollbar-hide">
         <RightBar groupProfile={groupProfile} requestUser={requestUser} />

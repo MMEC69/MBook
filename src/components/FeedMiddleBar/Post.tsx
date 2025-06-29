@@ -67,14 +67,17 @@ export default async function Post({ post }: { post: SinglePost }) {
       </div>
       {/* Description */}
       <div className="flex flex-col gap-4">
-        <div className="w-full min-h-96 relative">
-          <Image
-            src={"/pexels-jonathanborba-2917373.jpg"}
-            fill
-            className=" object-cover rounded-md"
-            alt="Post Image"
-          />
-        </div>
+        {post.img.length > 0 && post.img[0] != "" && (
+          <div className="w-full min-h-96 relative">
+            <Image
+              src={post.img[0]}
+              fill
+              className=" object-cover rounded-md"
+              alt="Post Image"
+            />
+          </div>
+        )}
+
         <p>{post.desc}</p>
       </div>
       {/* Interaction */}
