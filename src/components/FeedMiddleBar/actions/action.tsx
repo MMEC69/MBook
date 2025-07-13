@@ -3,6 +3,7 @@
 import { getUser } from "@/lib/mongo/prismaFunctions/user/get/user";
 import prisma from "@/lib/prisma/client";
 import { Comment, User } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 
 export const fetchProfilePosts = async (profileId: string) => {
   if (!profileId) return;
@@ -11,6 +12,9 @@ export const fetchProfilePosts = async (profileId: string) => {
     const res = await prisma.post.findMany({
       where: {
         user: profileId,
+      },
+      orderBy: {
+        createdAt: "desc",
       },
     });
     return res;
@@ -25,7 +29,11 @@ export const fetchHomePosts = async (profileId: string) => {
   try {
     //for now fetch all the posts, later modify untili it return
     //necessary posts
-    const res = await prisma.post.findMany({});
+    const res = await prisma.post.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
     return res;
   } catch (error) {
     console.log(error);
@@ -149,3 +157,47 @@ export const getCommentsWithUserDetails = async (commentList: Comment[]) => {
 
 //============add post=====================================================
 export const addPost = async () => {};
+//===============================================
+export const deletePost = async (
+  page: string,
+  postId: string,
+  userId: string,
+  postOwner: string
+) => {
+  // console.log("%%%%%%%%%%%%%");
+  if (postOwner !== userId) return;
+  try {
+    //delete related comments
+    const resDelComments = await prisma.comment.deleteMany({
+      where: {
+        post: postId,
+      },
+    });
+    //delete related shares
+    const resDelShared = await prisma.shared.deleteMany({
+      where: {
+        post: postId,
+      },
+    });
+    //delete related interactions
+    const resDelInteractions = await prisma.react.deleteMany({
+      where: {
+        post: postId,
+      },
+    });
+    //delete the post
+    const resDelPost = await prisma.post.deleteMany({
+      where: {
+        id: postId,
+      },
+    });
+    page === "home"
+      ? revalidatePath("/home/")
+      : page === "profile"
+      ? revalidatePath("/profile/")
+      : revalidatePath("/home/");
+    return resDelPost;
+  } catch (error) {
+    console.log(error);
+  }
+};

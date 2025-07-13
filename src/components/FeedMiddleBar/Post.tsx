@@ -17,6 +17,8 @@ import {
 } from "./actions/action";
 import InteractionClient from "./client/InteractionClient";
 import CommentsClient from "./client/CommentsClient";
+import PostImageContainer from "./client/PostImageContainer";
+import { CiTrash } from "react-icons/ci";
 
 export default async function Post({ post }: { post: SinglePost }) {
   const userId = (await fetchSession()) as string;
@@ -63,19 +65,22 @@ export default async function Post({ post }: { post: SinglePost }) {
             <span className="font-medium hover:underline ">{fullName}</span>
           </Link>
         </div>
+
         <BsThreeDots size={16} color="#ed5fe1" />
       </div>
       {/* Description */}
       <div className="flex flex-col gap-4">
-        {post.img.length > 0 && post.img[0] != "" && (
-          <div className="w-full min-h-96 relative">
-            <Image
-              src={post.img[0]}
-              fill
-              className=" object-cover rounded-md"
-              alt="Post Image"
-            />
-          </div>
+        {post.img.length > 0 && (
+          //need to add the img container component here
+          <PostImageContainer images={post.img} />
+          // <div className="w-full min-h-96 relative">
+          //   <Image
+          //     src={post.img[0]}
+          //     fill
+          //     className=" object-cover rounded-md"
+          //     alt="Post Image"
+          //   />
+          // </div>
         )}
 
         <p>{post.desc}</p>
@@ -92,6 +97,7 @@ export default async function Post({ post }: { post: SinglePost }) {
         shares={numberOfShares}
         userId={userId}
         postId={post.id}
+        postOwner={post.user}
       />
       {/* change to client one , once error is fixed */}
       {/* <Comments /> */}

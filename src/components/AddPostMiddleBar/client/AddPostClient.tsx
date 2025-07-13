@@ -12,6 +12,7 @@ export default function AddPostClient({ user }: { user: User }) {
   if (!user) return null;
   const [desc, setDesc] = useState("");
   const [image, setImage] = useState<any>();
+  const [uploadedImages, setUploadedImages] = useState<any>([]);
   return (
     <div className="p-4 bg-white rounded-lg flex gap-4 justify-between text-sm shadow-md">
       {/* Avatar */}
@@ -35,9 +36,10 @@ export default function AddPostClient({ user }: { user: User }) {
       <div className="flex-1">
         {/* Text input */}
         <form
-          action={(formData) =>
-            addPost(user.id, formData, image?.secure_url || "")
-          }
+          action={(formData) => {
+            addPost(user.id, formData, image?.secure_url || "", uploadedImages);
+            setUploadedImages([]);
+          }}
           className="flex gap-4"
         >
           <textarea
@@ -46,6 +48,7 @@ export default function AddPostClient({ user }: { user: User }) {
             name="desc"
             onChange={(e) => setDesc(e.target.value)}
           ></textarea>
+
           {/* holybible.png */}
           <div className=" flex flex-col justify-center gap-3">
             <Image
@@ -66,14 +69,27 @@ export default function AddPostClient({ user }: { user: User }) {
 
           <SendButtonClient />
         </form>
+        {uploadedImages?.length > 0 && (
+          <span className="text-sm text-green-400">
+            {uploadedImages?.length} images uploaded
+          </span>
+        )}
 
         {/* Post options */}
-        <div className="flex items-center gap-4 mt-4 text-gray-400 flex-wrap">
+        <div className="flex items-center gap-4 mt-1 text-gray-400 flex-wrap">
           <CldUploadWidget
             uploadPreset="MBookSocial"
             onSuccess={(result, { widget }) => {
               setImage(result.info);
-              widget.close();
+              let imgs: any = uploadedImages;
+              // if (images.length > 0) {
+              //   imgs = images.map((img: any) => {
+              //     return img;
+              //   });
+              // }
+              imgs.push(result.info);
+              setUploadedImages(imgs);
+              // widget.close();
             }}
           >
             {({ open }) => {

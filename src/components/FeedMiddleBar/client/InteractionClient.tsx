@@ -1,8 +1,10 @@
 "use client";
 import Image from "next/image";
 import React, { useOptimistic, useState } from "react";
-import { switchReact } from "../actions/action";
+import { deletePost, switchReact } from "../actions/action";
 import SharePopUpClient from "./SharePopUpClient";
+import { CiTrash } from "react-icons/ci";
+import DelBtn from "./Buttons";
 
 export default function InteractionClient({
   reacts,
@@ -10,14 +12,17 @@ export default function InteractionClient({
   shares,
   userId,
   postId,
+  postOwner,
 }: {
   reacts: string[];
   comments: number;
   shares: number;
   userId: string;
   postId: string;
+  postOwner: string;
 }) {
   const [open, setOpen] = useState(false);
+  // const [openConfirmPopUp, setOpenConfirmPopUp] = useState(false);
   const [reacted, setReacted] = useState({
     reactedCount: reacts.length,
     isReacted: userId ? reacts.includes(userId) : false,
@@ -88,6 +93,23 @@ export default function InteractionClient({
         </div>
       </div>
       <div className="flex items-center gap-4 bg-pink-100 p-2 rounded-xl">
+        {postOwner === userId && (
+          <form
+            action={(formData) => {
+              deletePost("home", postId, userId, postOwner);
+            }}
+          >
+            {/* <button className=" align-middle">
+              <CiTrash
+                size={20}
+                color="#ed5fe1"
+                onClick={() => deletePost("home", postId, userId, postOwner)}
+                className="hover:opacity-50 hover:cursor-pointer"
+              />
+            </button> */}
+            <DelBtn />
+          </form>
+        )}
         <Image
           src={"/share.png"}
           width={16}
@@ -96,6 +118,7 @@ export default function InteractionClient({
           className="cursor-pointer"
           onClick={() => setOpen(true)}
         />
+
         {/* <span className="text-pink-700"> | </span> */}
         {/* <span className="text-pink-700">
           {shares} <span className="hidden md:inline">Shares</span>

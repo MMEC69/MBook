@@ -18,7 +18,7 @@ export default function ContentSettings({
         <LeftBarGroupView groupProfile={groupProfile} />
       </div>
       <div className="w-full lg:w-[70%] xl:w-[50%] h-[calc(100vh-100px)] overflow-y-scroll scrollbar-hide">
-        <MiddleBarSettings />
+        <MiddleBarSettings groupId={groupProfile.id} userId={requestUser.id} />
       </div>
       <div className="hidden lg:block w-[30%] h-[calc(100vh-100px)] overflow-y-scroll scrollbar-hide">
         <RightBar groupProfile={groupProfile} requestUser={requestUser} />

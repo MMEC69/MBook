@@ -19,7 +19,7 @@ export default function LoginForm() {
             id="email"
             name="email"
             placeholder=""
-            className=" border-b-2 border-b-white bg-transparent text-white w-[300px] md:w-[500px] outline-none text-2xl"
+            className=" border-b-2 border-b-white bg-transparent text-white w-[300px] md:w-[500px] outline-none rounded-md p-2 text-sm"
           />
           <Link
             href={"/register"}
@@ -36,7 +36,7 @@ export default function LoginForm() {
             name="password"
             type="password"
             placeholder=""
-            className=" border-b-2 border-b-white bg-transparent text-white  w-[300px] md:w-[500px] outline-none text-2xl"
+            className=" border-b-2 border-b-white bg-transparent text-white  w-[300px] md:w-[500px] outline-none rounded-md p-2 text-sm"
           />
           <span className="text-xs flex justify-end hover:cursor-pointer">
             Forgot me ?{" "}

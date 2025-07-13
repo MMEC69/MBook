@@ -5,6 +5,7 @@ import { IoIosMail, IoMdLink } from "react-icons/io";
 import { FaBirthdayCake, FaPhoneAlt } from "react-icons/fa";
 import { fullDateConverter } from "@/utility/utility";
 import { IoHome } from "react-icons/io5";
+import GrpJoinReqBtn from "./client/GrpJoinReqBtn";
 
 export default async function GroupDetails({
   groupProfile,
@@ -153,8 +154,18 @@ export default async function GroupDetails({
         )} */}
 
         {/* <button className="bg-pink-300 text-white text-sm rounded-md p-2">
-          Add Friend
+          Join Group
         </button> */}
+        {/* <button className="bg-red-300 text-white text-sm rounded-md p-2">
+          Leave Group
+        </button> */}
+        {groupProfile.owner !== requestUser.id && (
+          <GrpJoinReqBtn
+            isMember={groupProfile.members.includes(requestUser.id)}
+            groupId={groupProfile.id}
+            userId={requestUser.id}
+          />
+        )}
       </div>
     </div>
   );

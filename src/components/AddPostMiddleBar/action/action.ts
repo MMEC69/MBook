@@ -27,20 +27,26 @@ export const testAction = async (formData: FormData) => {
 export const addPost = async (
   userId: string,
   formData: FormData,
-  image: string
+  image: string,
+  uploadedImages: any[]
 ) => {
   if (!userId) throw new Error("User is not Authorized");
   const desc = formData.get("desc") as string;
   const Desc = z.string().min(1).max(255);
   const validateDesc = Desc.safeParse(desc);
-  if (!validateDesc.success) return;
+
+  if (!validateDesc.success && uploadedImages.length < 1) return;
+
+  const imageLinks = uploadedImages.map((uploadedImage: any) => {
+    return uploadedImage.secure_url;
+  });
 
   try {
     await prisma.post.create({
       data: {
         desc: validateDesc.data,
         user: userId,
-        img: [image],
+        img: imageLinks,
       },
     });
     revalidatePath("/home/");
