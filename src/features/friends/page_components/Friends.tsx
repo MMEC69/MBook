@@ -15,8 +15,10 @@ export default async function Friends({
   return (
     <div className="h-screen overflow-hidden">
       <Navbar />
-      {type === "home" && <Content type={type} userId={userId} />}
-      {type === "friendLists" && <Content type={type} userId={userId} />}
+      {(type === "home" || type === "friendLists") && (
+        <Content type={type} userId={userId} />
+      )}
+      {/* {type === "friendLists" && <Content type={type} userId={userId} />} */}
       {type === "firendRequestsReceived" && (
         <Content
           type={type}

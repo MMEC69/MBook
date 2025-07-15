@@ -14,6 +14,7 @@ export default function SearchBar({ userId }: { userId: string }) {
         type="text"
         placeholder="Search..."
         className="outline-none p-0.5 rounded cursor-pointer"
+        name="search"
       />
       <button>
         <CiSearch size={32} color="pink" />

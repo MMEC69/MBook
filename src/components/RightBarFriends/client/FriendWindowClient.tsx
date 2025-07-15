@@ -41,29 +41,36 @@ export default function FriendWindowClient({
   return (
     <>
       {!remove ? (
-        <div className="flex flex-col gap-1 bg-slate-100 rounded-lg p-3">
+        <div className="flex flex-col gap-1 bg-slate-100 rounded-lg p-3 text-center justify-center">
           <Link href={`/profile/${otherUser}`}>
-            <Image src={image} alt={alt} width={128} height={128} />
+            <Image
+              src={image}
+              alt={alt}
+              width={128}
+              height={128}
+              className=" w-32 h-32 bg-fixed rounded-full object-cover"
+            />
           </Link>
 
           <Link href={`/profile/${otherUser}`}>
-            <span className=" text-sm font-normal hover:underline">{name}</span>
+            <span className=" text-xs font-normal hover:underline">{name}</span>
           </Link>
 
           {type === "accepting" && (
             <>
               {!isAllFriends && (
                 <button
-                  className="bg-green-400 p-1 rounded-lg hover:cursor-pointer hover:bg-green-300"
+                  className="bg-green-400 p-1 rounded-lg hover:cursor-pointer hover:bg-green-300 text-xs"
                   onClick={async () => {
                     await acceptRequest(otherUser, userId);
+                    setRemove(true);
                   }}
                 >
                   {button1}
                 </button>
               )}
               <button
-                className="bg-red-400 p-1 rounded-lg hover:cursor-pointer hover:bg-red-300"
+                className="bg-red-400 p-1 rounded-lg hover:cursor-pointer hover:bg-red-300 text-xs"
                 onClick={async () => {
                   await unfriend(userId, otherUser);
                   setRemove(true);
@@ -77,7 +84,7 @@ export default function FriendWindowClient({
             (!cancel ? (
               <>
                 <button
-                  className="bg-green-400 p-1 rounded-lg hover:cursor-pointer hover:bg-green-300"
+                  className="bg-green-400 p-1 rounded-lg hover:cursor-pointer hover:bg-green-300 text-xs"
                   onClick={async () => {
                     const res: any = await sendRequest(userId, otherUser);
                     setReqId(res);
@@ -87,7 +94,7 @@ export default function FriendWindowClient({
                   {button1}
                 </button>
                 <button
-                  className="bg-red-400 p-1 rounded-lg hover:cursor-pointer hover:bg-red-300"
+                  className="bg-red-400 p-1 rounded-lg hover:cursor-pointer hover:bg-red-300 text-xs"
                   onClick={() => {
                     setRemove(true);
                   }}
@@ -102,7 +109,7 @@ export default function FriendWindowClient({
                   setCancel={setCancel}
                 />
                 <button
-                  className="bg-red-400 p-1 rounded-lg hover:cursor-pointer hover:bg-red-300"
+                  className="bg-red-400 p-1 rounded-lg hover:cursor-pointer hover:bg-red-300 text-xs"
                   onClick={() => {
                     setRemove(true);
                   }}
@@ -114,7 +121,7 @@ export default function FriendWindowClient({
           {type === "refreshing" && (
             <>
               <button
-                className="bg-green-400 p-1 rounded-lg hover:cursor-pointer hover:bg-green-300"
+                className="bg-green-400 p-1 rounded-lg hover:cursor-pointer hover:bg-green-300 text-xs"
                 onClick={async () => {
                   await deleteRequest(userId, otherUser);
                   await sendRequest(userId, otherUser);
@@ -123,7 +130,7 @@ export default function FriendWindowClient({
                 {button1}
               </button>
               <button
-                className="bg-red-400 p-1 rounded-lg hover:cursor-pointer hover:bg-red-300"
+                className="bg-red-400 p-1 rounded-lg hover:cursor-pointer hover:bg-red-300 text-xs"
                 onClick={() => {
                   deleteRequest(userId, otherUser);
                   setRemove(true);
@@ -136,7 +143,7 @@ export default function FriendWindowClient({
           {type === "wish" && (
             <>
               <button
-                className="bg-green-400 p-1 rounded-lg hover:cursor-pointer hover:bg-green-300"
+                className="bg-green-400 p-1 rounded-lg hover:cursor-pointer hover:bg-green-300 text-xs"
                 onClick={async () => {
                   router.push(`/profile/${otherUser}`);
                 }}
@@ -144,7 +151,7 @@ export default function FriendWindowClient({
                 {button1}
               </button>
               <button
-                className="bg-red-400 p-1 rounded-lg hover:cursor-pointer hover:bg-red-300"
+                className="bg-red-400 p-1 rounded-lg hover:cursor-pointer hover:bg-red-300 text-xs"
                 onClick={() => {
                   setRemove(true);
                 }}
@@ -156,12 +163,12 @@ export default function FriendWindowClient({
           {!type && (
             <>
               <button
-                className="bg-green-400 p-1 rounded-lg hover:cursor-pointer hover:bg-green-300"
+                className="bg-green-400 p-1 rounded-lg hover:cursor-pointer hover:bg-green-300 text-xs"
                 onClick={() => sendRequest(userId, otherUser)}
               >
                 {button1}
               </button>
-              <button className="bg-red-400 p-1 rounded-lg hover:cursor-pointer hover:bg-red-300">
+              <button className="bg-red-400 p-1 rounded-lg hover:cursor-pointer hover:bg-red-300 text-xs">
                 {button2}
               </button>
             </>

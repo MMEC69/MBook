@@ -18,12 +18,12 @@ export default function Content({
         <LeftBar receivedRequests={receivedRequests || []} />
       </div>
 
-      {type === "home" && (
+      {/* {type === "home" && (
         <div className="w-full lg:w-[80%] h-[calc(100vh-100px)] overflow-y-scroll scrollbar-hide">
           <RightBar option={type} userId={userId} />
         </div>
-      )}
-      {type === "friendLists" && (
+      )} */}
+      {(type === "friendLists" || type === "home") && (
         <div className="w-full lg:w-[80%] h-[calc(100vh-100px)] overflow-y-scroll scrollbar-hide">
           <RightBar option={type} userId={userId} />
         </div>
