@@ -3,8 +3,8 @@ import RightBarSettingsXList from "@/components/RightBarSettings/RightBarSetting
 import RightBarSettingsYList from "@/components/RightBarSettings/RightBarSettingsYList";
 import React from "react";
 import { getBlockUsersDetails } from "./action/action";
-import UserDetailsFormClient from "./client/UserDetailsFormClient";
 import { User } from "@prisma/client";
+import UserDetailsFormClient from "./client/UserDetailsFormClient";
 export default async function RightBar({
   type,
   userId,
