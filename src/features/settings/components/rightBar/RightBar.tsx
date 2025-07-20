@@ -4,7 +4,8 @@ import RightBarSettingsYList from "@/components/RightBarSettings/RightBarSetting
 import React from "react";
 import { getBlockUsersDetails } from "./action/action";
 import { User } from "@prisma/client";
-import UserDetailsFormClient from "./client/UserDetailsFormClient";
+import UFC from "./client/UFC";
+// import UserDetailsFormClient from "./client/UserDetailsFormClient";
 export default async function RightBar({
   type,
   userId,
@@ -36,7 +37,7 @@ export default async function RightBar({
       {/* Incomeplete part here, fix the forms */}
       {type === "settingsUserDetails" && (
         <>
-          <UserDetailsFormClient userId={userId} />
+          <UFC userId={userId} />
           {/* <SimpleUserDetailForm
             userId={userId}
             labelName="Description"
