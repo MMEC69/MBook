@@ -5,6 +5,7 @@ import { deletePost, switchReact } from "../actions/action";
 import SharePopUpClient from "./SharePopUpClient";
 import { CiTrash } from "react-icons/ci";
 import DelBtn from "./Buttons";
+import prisma from "@/lib/prisma/client";
 
 export default function InteractionClient({
   reacts,
@@ -43,7 +44,7 @@ export default function InteractionClient({
   const reactAction = async () => {
     switchOptimisticReact("");
     try {
-      switchReact(userId, postId);
+      switchReact(userId, postId, postOwner);
       setReacted((state) => ({
         reactedCount: state.isReacted
           ? state.reactedCount - 1

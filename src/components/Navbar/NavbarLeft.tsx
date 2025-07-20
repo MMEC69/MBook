@@ -8,6 +8,7 @@ import SearchBar from "./client/SearchBar";
 
 export default async function NavbarLeft() {
   const userId = (await fetchSession()) as string;
+
   return (
     <div className="flex flex-row justify-between pl-3 items-center gap-3">
       {/* <Image

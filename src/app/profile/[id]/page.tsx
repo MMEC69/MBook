@@ -6,7 +6,7 @@ import {
   fetchUser,
 } from "@/utility/utility";
 import { notFound } from "next/navigation";
-import React from "react";
+import React, { Suspense } from "react";
 
 export default async function page({ params }: { params: { id: string } }) {
   const resolvedParams = await Promise.resolve(params);
@@ -22,12 +22,14 @@ export default async function page({ params }: { params: { id: string } }) {
 
   return (
     <div className="overflow-auto h-screen">
-      <Profile
-        profile={profile}
-        posts={posts}
-        requestUser={requestUser}
-        user={user}
-      />
+      <Suspense fallback="loading...">
+        <Profile
+          profile={profile}
+          posts={posts}
+          requestUser={requestUser}
+          user={user}
+        />
+      </Suspense>
     </div>
   );
 }

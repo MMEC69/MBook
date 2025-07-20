@@ -29,7 +29,11 @@ export default async function MiddleBar({
         blocked={blocked}
       />
       <AddPostClient user={user} />
-      <Feed profileId={profile.id} isProfile={true} />
+      <Feed
+        profileId={profile.id}
+        isProfile={true}
+        friends={user.friends || []}
+      />
     </div>
   );
 }

@@ -23,22 +23,142 @@ export const fetchProfilePosts = async (profileId: string) => {
   }
 };
 
-export const fetchHomePosts = async (profileId: string) => {
+//===========================================
+
+export const fetchHomePosts = async (profileId: string, friends: any[]) => {
   if (!profileId) return;
 
+  //posts = friendshares + scrore based reccom + ML recommend
+  let homePosts: any[] = [];
+  let allPosts: any[] = [];
+  let filteredHomePosts: any = [];
+  let filteredMLPosts: any[] = [];
   try {
-    //for now fetch all the posts, later modify untili it return
-    //necessary posts
-    const res = await prisma.post.findMany({
+    allPosts = await prisma.post.findMany();
+  } catch (error) {
+    console.log(error);
+  }
+
+  //friend shares
+  try {
+    const posts = await prisma.post.findMany({
+      take: 5,
       orderBy: {
         createdAt: "desc",
       },
     });
-    return res;
+    allPosts = posts;
+    posts.map((post: any) => {
+      if (friends.includes(post.user)) {
+        homePosts.push(post);
+      }
+    });
   } catch (error) {
     console.log(error);
   }
+  // now posts -> friend shares
+
+  //score based
+  let scorePosts: any[] = [];
+  try {
+    const postsScores = await prisma.postScores.findMany({
+      orderBy: {
+        score: "desc",
+      },
+    });
+    let limitScore: number = 0;
+    if (postsScores) {
+      const maxScore: number = postsScores[0]?.score;
+      limitScore = (maxScore / 3) * 2;
+    }
+
+    //filter to match limit and not already homeposts
+
+    for (let i = 0; i < postsScores.length; i++) {
+      for (let j = 0; j < homePosts.length; j++) {
+        if (postsScores[i].post === homePosts[j].id) {
+          filteredHomePosts = homePosts.filter((homePost: any) => {
+            return homePost.id !== postsScores[i].post;
+          });
+        }
+      }
+    }
+    postsScores.filter((postScore: any) => {
+      return postScore.score >= limitScore;
+    });
+
+    // limit to 5posts
+    let postsLimit = 0;
+    if (postsScores.length < 5) {
+      postsLimit = postsScores.length;
+    } else {
+      postsLimit = 5;
+    }
+    try {
+      for (let i = 0; i < postsLimit; i++) {
+        for (let j = 0; j < allPosts.length; j++) {
+          const post = allPosts[j];
+          if (post.id === postsScores[i].post) {
+            scorePosts.push(post);
+            break;
+          }
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    homePosts.push(...scorePosts);
+  } catch (error) {
+    console.log(error);
+  }
+
+  //ML rec
+  try {
+    const res = await prisma.mlPostReccomendations.findFirst({
+      where: {
+        user: profileId,
+      },
+    });
+    const mlPosts = res?.posts || [];
+
+    for (let i = 0; i < filteredHomePosts.length; i++) {
+      const homePost = filteredHomePosts[i];
+      filteredMLPosts = mlPosts.filter((mlPost: any) => {
+        return mlPost !== homePost.id;
+      });
+    }
+
+    for (let i = 0; i < allPosts.length; i++) {
+      for (let j = 0; j < mlPosts.length; j++) {
+        if (allPosts[i].id === mlPosts[j]) {
+          homePosts.push(allPosts[i]);
+          break;
+        }
+      }
+    }
+  } catch (error) {
+    console.log(error);
+  }
+  // try {
+  //for now fetch all the posts, later modify untili it return
+  //necessary posts
+  //   const res = await prisma.post.findMany({
+  //     orderBy: {
+  //       createdAt: "desc",
+  //     },
+  //   });
+  //   return res;
+  // } catch (error) {
+  //   console.log(error);
+  // }
+  if (homePosts.length < 1) {
+    return allPosts;
+  }
+  // console.log(homePosts);
+  return homePosts;
 };
+
+//===========================================
 
 export const getReacts = async (postId: string) => {
   try {
@@ -84,8 +204,12 @@ export const getShares = async (postId: string) => {
   }
   return [];
 };
-
-export const switchReact = async (userId: string, postId: string) => {
+//==========================================
+export const switchReact = async (
+  userId: string,
+  postId: string,
+  postOwner: string
+) => {
   if (!userId) throw new Error("User is not Authenticated");
   try {
     const existingReact = await prisma.react.findFirst({
@@ -113,6 +237,34 @@ export const switchReact = async (userId: string, postId: string) => {
     console.log(error);
     throw new Error("Something went wrong");
   }
+  try {
+    const res = await prisma.userScores.findFirst({
+      where: {
+        whome: userId,
+      },
+    });
+    if (!res) {
+      const res = await prisma.userScores.create({
+        data: {
+          user: postOwner,
+          score: 10,
+          whome: userId,
+        },
+      });
+    }
+    if (res) {
+      const updateScore = await prisma.userScores.update({
+        where: {
+          id: res.id,
+        },
+        data: {
+          score: res.score + 10,
+        },
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 //============add comment part======================
@@ -132,6 +284,40 @@ export const addComment = async (
     });
     const user = await getUser(userId);
     createdComment.userDetails = user;
+    try {
+      const post = await prisma.post.findFirst({
+        where: {
+          id: postId,
+        },
+      });
+      if (!post) return createdComment;
+      const res = await prisma.userScores.findFirst({
+        where: {
+          whome: userId,
+        },
+      });
+      if (!res) {
+        const res = await prisma.userScores.create({
+          data: {
+            user: post.user,
+            score: 20,
+            whome: userId,
+          },
+        });
+      }
+      if (res) {
+        const updateScore = await prisma.userScores.update({
+          where: {
+            id: res.id,
+          },
+          data: {
+            score: res.score + 20,
+          },
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
     return createdComment;
   } catch (error) {
     console.log(error);

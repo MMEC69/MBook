@@ -1,0 +1,1 @@
+// <Suspense fallback="loading..."></Suspense>

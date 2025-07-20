@@ -2,13 +2,16 @@
 import React from "react";
 import DropDownSeeAllOptionClient from "./DropDownSeeAllOptionClient";
 import DropDownOptionClient from "./DropDownOptionClient";
-import DropDownRowClient from "./DropDownRowClient";
 import SingleNotification from "./SingleNotification";
 
 export default function NotificationPopUp({
   handleClose,
+  notifications,
+  userId,
 }: {
   handleClose: any;
+  notifications: any;
+  userId: string;
 }) {
   return (
     <div
@@ -24,7 +27,25 @@ export default function NotificationPopUp({
         </div>
 
         <div className=" h-[280px] flex flex-col gap-1 overflow-y-auto ">
-          <SingleNotification
+          {notifications.map((notification: any) => {
+            return (
+              <SingleNotification
+                key={notification.id}
+                image={notification.mainReciverDetails.avatar}
+                alt="user"
+                option={notification.mainReciverDetails.name}
+                time="2min"
+                desc="Received friend request"
+                userId={userId}
+              />
+            );
+          })}
+          {notifications.length < 1 && (
+            <span className="text-sm text-pink-400">
+              There are no notifications
+            </span>
+          )}
+          {/* <SingleNotification
             image="/logout.png"
             alt="Logout"
             option="Logout"
@@ -86,7 +107,7 @@ export default function NotificationPopUp({
             option="Logout"
             time="2min"
             desc="Received friend request"
-          />
+          /> */}
         </div>
         <DropDownSeeAllOptionClient />
       </div>

@@ -7,13 +7,18 @@ import NotificationPopUp from "./NotificationPopUp";
 import ChatPopUp from "./ChatPopUp";
 import GroupsPopUp from "./GroupsPopUp";
 import UserPopUp from "./UserPopUp";
+import { changeTheme } from "../actions/action";
 
 export default function NavbarRightClient({
   user,
   defaultUserAvatar,
+  notifications,
+  groups,
 }: {
   user: User;
   defaultUserAvatar: string;
+  notifications: any[];
+  groups: any[];
 }) {
   const [openNotification, setOpenNotification] = useState(false);
   const [openGroups, setOpenGroups] = useState(false);
@@ -71,13 +76,14 @@ export default function NavbarRightClient({
           }}
         />
         <Image
-          src="/chat.png"
+          src="/night-mode.png"
           alt="place_holder"
           width={48}
           height={48}
           className=" w-9 h-9 rounded-full cursor-pointer object-cover bg-pink-300"
           onClick={() => {
-            handleOpen("chat");
+            changeTheme(user.id);
+            // handleOpen("chat");
           }}
         />
         <Image
@@ -91,9 +97,21 @@ export default function NavbarRightClient({
           }}
         />
       </div>
-      {openNotification && <NotificationPopUp handleClose={handleClose} />}
+      {openNotification && (
+        <NotificationPopUp
+          handleClose={handleClose}
+          notifications={notifications}
+          userId={user.id}
+        />
+      )}
       {openChat && <ChatPopUp handleClose={handleClose} />}
-      {openGroups && <GroupsPopUp handleClose={handleClose} />}
+      {openGroups && (
+        <GroupsPopUp
+          handleClose={handleClose}
+          userId={user.id}
+          groups={groups}
+        />
+      )}
       {openUser && <UserPopUp handleClose={handleClose} />}
 
       <MobileMenu />

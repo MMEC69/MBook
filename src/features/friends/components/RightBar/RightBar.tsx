@@ -20,7 +20,7 @@ export default async function RightBar({
   userId: string;
 }) {
   const suggestedUsers = await fetchSuggestedUsers(userId);
-  const peopleYouMayKnow = await fetchPeopleYouMayKnow(userId);
+  // const peopleYouMayKnow = await fetchPeopleYouMayKnow(userId);
   const allFriends = await fetchFriends(userId);
   const sentRequests = await fetchRequests(userId, true);
   const receivedRequests = await fetchRequests(userId, false);
@@ -38,13 +38,13 @@ export default async function RightBar({
             userId={userId}
             list={receivedRequests}
           />
-          <RightBarFriendRequestsXList
+          {/* <RightBarFriendRequestsXList
             topic="You may know these people"
             type="requesting"
             seeAll={`/friends/suggestions/${userId}`}
             userId={userId}
             list={peopleYouMayKnow}
-          />
+          /> */}
           <RightBarFriendRequestsXList
             topic="Suggestions"
             type="requesting"

@@ -30,6 +30,7 @@ model User {
   birthday  String
   gender    String
   password  String
+  encryptedPassword String?
   avatar    String?
   cover     String?
   desc      String?
@@ -44,6 +45,7 @@ model User {
   privacy   String?
   phone     String?
   createdAt DateTime @default(now())
+
 }
 
 model Block {
@@ -259,4 +261,76 @@ model interestAlgorithmDataDoc {
   commentRec       CommentRec[]
   timeSpentRec     TimeSpentRec[]
   downloadRec      DownloadRec[]
+}
+
+model notifications{
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  type String
+  sender String
+  mainReceiver String
+  receivers String[]
+}
+
+model postScores{
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    post String
+    score Int
+    createdAt DateTime @default(now())
+    modifiedAt DateTime @updatedAt
+}
+
+model userScores{
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    whome String
+    user String
+    score Int
+    createdAt DateTime @default(now())
+    modifiedAt DateTime @updatedAt
+}
+
+// model mlPostScores{
+//     id String @id @default(auto()) @map("_id") @db.ObjectId
+//     user String
+//     post String
+//     score Int
+//     createdAt DateTime @default(now())
+//     modifiedAt DateTime @updatedAt
+// }
+
+model mlPostReccomendations {
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    user String
+    posts String[]
+    createdAt DateTime @default(now())
+    modifiedAt DateTime @updatedAt
+}
+
+model mlUserReccomendations {
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    user String
+    users String[]
+    createdAt DateTime @default(now())
+    modifiedAt DateTime @updatedAt
+}
+
+model chatRoom {
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    users String[]
+    createdAt DateTime @default(now())
+    modifiedAt DateTime @updatedAt
+}
+
+model message {
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    chatRoom String
+    sender String
+    message String
+    createdAt DateTime @default(now())
+    modifiedAt DateTime @updatedAt
+}
+
+model theme {
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    userId String
+    isDark Boolean
 }

@@ -12,7 +12,7 @@ export default async function RightBar({ user }: { user: any }) {
     <div className="flex flex-col gap-6">
       <FriendRequests user={user} />
       <BirthdaysClient birthdays={birthdays} userId={user.id} />
-      <Advertisements />
+      {/* <Advertisements /> */}
       <ContactsClient userId={user.id} contacts={contacts} />
     </div>
   );

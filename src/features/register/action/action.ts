@@ -10,6 +10,7 @@ import {
 } from "../meta/meta";
 import { redirect } from "next/navigation";
 import prisma from "@/lib/prisma/client";
+import { encrypt } from "@/utility/utility";
 
 const regSchema = z.object({
   firstName: z.string().min(3, { message: "Invalid name" }).trim(),
@@ -71,7 +72,16 @@ export const register = async (prevState: any, formData: FormData) => {
     const res = await prisma.user.create({
       data: result.data,
     });
-    console.log(res);
+    // console.log(res);
+    const updatedPassword = await encrypt(result.data.password);
+    await prisma.user.update({
+      where: {
+        id: res.id,
+      },
+      data: {
+        encryptedPassword: updatedPassword,
+      },
+    });
   } catch (error) {
     console.log("Error: Unable to create a user");
     return;

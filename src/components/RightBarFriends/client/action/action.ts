@@ -14,11 +14,23 @@ export const sendRequest = async (userId: string, otherUser: string) => {
     res = await prisma.friendRequests.create({
       data: data,
     });
+    try {
+      const notification = await prisma.notifications.create({
+        data: {
+          type: "friendRequest",
+          sender: data.requestor,
+          mainReceiver: data.receiver,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
     return res?.id;
   } catch (error) {
     console.log(error);
     // console.log("Error: Unable to send a request");
   }
+
   // console.log("> sendRequest ended");
 };
 

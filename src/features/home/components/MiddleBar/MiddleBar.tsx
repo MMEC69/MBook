@@ -11,7 +11,11 @@ export default async function MiddleBar({ profileId }: { profileId: string }) {
     <div className="flex flex-col gap-6 pl-2 pr-2">
       <Stories />
       <AddPostClient user={user} />
-      <Feed profileId={profileId} isProfile={false} />
+      <Feed
+        profileId={profileId}
+        isProfile={false}
+        friends={user.friends || []}
+      />
     </div>
   );
 }

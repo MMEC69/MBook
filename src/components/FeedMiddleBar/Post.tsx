@@ -69,7 +69,7 @@ export default async function Post({ post }: { post: SinglePost }) {
         <BsThreeDots size={16} color="#ed5fe1" />
       </div>
       {/* Description */}
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 ">
         {post.img.length > 0 && (
           //need to add the img container component here
           <PostImageContainer images={post.img} />
