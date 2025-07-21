@@ -20,7 +20,7 @@ export default function RightBarGroupsYList({
 
       <div className="p-4 bg-white rounded-lg shadow-md overflow-x-scroll text-xs overflow-y-hidden scrollbar-hide">
         <div className="flex flex-row gap-3 w-max ">
-          <GroupWindow
+          {/* <GroupWindow
             image=""
             alt="Profile Image"
             name="Eronne Cooray"
@@ -43,7 +43,7 @@ export default function RightBarGroupsYList({
             alt="Profile Image"
             name="Eronne Cooray"
             type={type}
-          />
+          /> */}
         </div>
       </div>
     </div>

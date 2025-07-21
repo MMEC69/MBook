@@ -19,23 +19,23 @@ export default function RightBarSavedYList({
         <div className="flex flex-col gap-10 ">
           {type === "saved" && (
             <div className="flex flex-wrap gap-7 justify-center">
+              {/* <Post />
               <Post />
-              <Post />
-              <Post />
+              <Post /> */}
             </div>
           )}
           {type === "savedAll" && (
             <div className="flex flex-wrap gap-7 justify-center">
+              {/* <Post />
               <Post />
-              <Post />
-              <Post />
+              <Post /> */}
             </div>
           )}
           {type === "savedAllSearch" && (
             <div className="flex flex-wrap gap-7 justify-center">
+              {/* <Post />
               <Post />
-              <Post />
-              <Post />
+              <Post /> */}
             </div>
           )}
           {type === "savedCollection" && (

@@ -61,10 +61,10 @@ export default function RightBarAlbumsYList({
           )}
           {type === "albumsYourPosts" && (
             <>
+              {/* <Post />
               <Post />
               <Post />
-              <Post />
-              <Post />
+              <Post /> */}
             </>
           )}
         </div>

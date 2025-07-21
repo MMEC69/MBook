@@ -63,6 +63,7 @@ export default function CommentsClientPopUp({
         privacy: "",
         phone: "",
         createdAt: new Date(Date.now()),
+        encryptedPassword: "",
       },
     });
     try {
